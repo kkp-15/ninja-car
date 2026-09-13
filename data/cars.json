@@ -1,0 +1,1118 @@
+{
+ "_meta": {
+  "readme": "車種データの正本。値はすべてメーカー公式の資料で確認した。数字を変えたら sources の checked と画面の確認日を揃える",
+  "checked": "2026-09-14",
+  "grade_rule": "新車で一般に買える最安グレード（特別仕様車・福祉車両・KINTO専用仕様車を除く）。同価格が並んだ場合（アルファードハイブリッドG 7人乗り/8人乗り）は7人乗り",
+  "resale_source": {
+   "name": "ガリバー 新車から3年後のリセールバリューランキング TOP30",
+   "url": "https://221616.com/resale/year-1-3/",
+   "集計日": "2026-09-02",
+   "対象期間": "直近6ヶ月",
+   "算出方法": "弊社の査定・買取実績データ（直近6ヶ月）から算出。複数型式がある場合は最小値と最大値を表示",
+   "注記": "表記のリセールバリュー値での買取を保証するものではございません",
+   "取得日": "2026-09-14"
+  },
+  "excluded": [
+   {
+    "name": "ＧＴ－Ｒ",
+    "reason": "2025-08-26 生産終了（新車で買えない）"
+   },
+   {
+    "name": "スイフトスポーツ",
+    "reason": "Final Editionの受注が最長2026-03末で終了（新車で買えない）"
+   },
+   {
+    "name": "マカン（ガソリン）",
+    "reason": "2026-07末 生産終了（新車で買えない）"
+   },
+   {
+    "name": "ハイラックス",
+    "reason": "1ナンバー（貨物）で税・自賠責・車検の区分が乗用車と違い、この計算式が使えない（2026-09-14 判断）"
+   },
+   {
+    "name": "ディフェンダー",
+    "reason": "公式サイトの重量・燃費が欧州仕様車値で、日本の国交省審査値を一次資料で確かめられない。出典が出たら追加（2026-09-14 判断）"
+   }
+  ]
+ },
+ "cars": [
+  {
+   "id": "land-cruiser",
+   "name": "ランドクルーザー",
+   "name_gulliver": "ランドクルーザー",
+   "maker": "トヨタ",
+   "model": "ランドクルーザー“300”",
+   "grade": "GX 3.5L ガソリン（5人乗り）",
+   "powertrain": "ガソリン",
+   "fuel": "ハイオク",
+   "price_yen": 5252500,
+   "displacement_cc": 3444,
+   "wltc_km_l": 8.0,
+   "weight_kg": 2360,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式の価格・グレードページで減税対象グレードの設定なし"
+   },
+   "resale3y_min": 97.9,
+   "resale3y_max": 158.1,
+   "gulliver_rank": 1,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/landcruiser300/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades35.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/landcruiser300/004_p_001/pdf/landcruiser300_spec_202503.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "land-cruiser-70",
+   "name": "ランドクルーザー70",
+   "name_gulliver": "ランドクルーザー７０",
+   "maker": "トヨタ",
+   "model": "ランドクルーザー“70”",
+   "grade": "AX",
+   "powertrain": "ディーゼル",
+   "fuel": "軽油",
+   "price_yen": 4800000,
+   "displacement_cc": 2754,
+   "wltc_km_l": 10.1,
+   "weight_kg": 2300,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式の価格・グレードページで減税対象グレードの設定なし"
+   },
+   "resale3y_min": 111.7,
+   "resale3y_max": 142.9,
+   "gulliver_rank": 2,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/landcruiser70/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades66.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/landcruiser70/003_p_001/pdf/landcruiser70_spec_202311.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "brz",
+   "name": "BRZ",
+   "name_gulliver": "ＢＲＺ",
+   "maker": "スバル",
+   "model": "SUBARU BRZ",
+   "grade": "R（6MT）",
+   "powertrain": "ガソリン",
+   "fuel": "ハイオク",
+   "price_yen": 3377000,
+   "displacement_cc": 2387,
+   "wltc_km_l": 12.0,
+   "weight_kg": 1270,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "メーカー公式に減税区分の表示なし"
+   },
+   "resale3y_min": 58.5,
+   "resale3y_max": 129.2,
+   "gulliver_rank": 3,
+   "notes": [],
+   "sources": [
+    {
+     "label": "スバル公式 グレード一覧",
+     "url": "https://www.subaru.jp/brz/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "スバル公式 諸元表PDF（2026.07）",
+     "url": "https://www.subaru.jp/brz/specification/docs/specifications.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "lx",
+   "name": "LX",
+   "name_gulliver": "ＬＸ",
+   "maker": "レクサス",
+   "model": "LX600",
+   "grade": "LX600（7人乗り・AWD）",
+   "powertrain": "ガソリン",
+   "fuel": "ハイオク",
+   "price_yen": 14500000,
+   "displacement_cc": 3444,
+   "wltc_km_l": 8.0,
+   "weight_kg": 2590,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "レクサス公式の減税試算で全グレード0円"
+   },
+   "resale3y_min": 78.9,
+   "resale3y_max": 124.1,
+   "gulliver_rank": 4,
+   "notes": [],
+   "sources": [
+    {
+     "label": "レクサス公式 価格表PDF",
+     "url": "https://lexus.jp/models/lx/pdf/pricelist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 主要諸元表PDF",
+     "url": "https://lexus.jp/models/lx/pdf/specificationslist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 減税・補助金試算例",
+     "url": "https://lexus.jp/request/zeisei/detail/?model=LX&package=2",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "jimny-sierra",
+   "name": "ジムニーシエラ",
+   "name_gulliver": "ジムニーシエラ",
+   "maker": "スズキ",
+   "model": "ジムニー シエラ",
+   "grade": "JL（5MT）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 2271500,
+   "displacement_cc": 1460,
+   "wltc_km_l": 15.4,
+   "weight_kg": 1100,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "メーカー公式に減税区分の表示なし"
+   },
+   "resale3y_min": 15.1,
+   "resale3y_max": 122.0,
+   "gulliver_rank": 5,
+   "notes": [],
+   "sources": [
+    {
+     "label": "スズキ公式 価格・オンライン見積り",
+     "url": "https://www.suzuki.co.jp/car/jimny_sierra/detail/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "スズキ公式 主要諸元PDF（2026年5月現在）",
+     "url": "https://www.suzuki.co.jp/car/jimny_sierra/asset/pdf/detail/detail.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "スズキ公式 車種別環境情報PDF",
+     "url": "https://www.suzuki.co.jp/about/csr/environmental_info/pdf/jimny_sierra.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "vellfire",
+   "name": "ヴェルファイア",
+   "name_gulliver": "ヴェルファイア",
+   "maker": "トヨタ",
+   "model": "ヴェルファイア",
+   "grade": "Z Premier（ターボガソリン車・2WD）",
+   "powertrain": "ガソリン",
+   "fuel": "ハイオク",
+   "price_yen": 6749600,
+   "displacement_cc": 2393,
+   "wltc_km_l": 10.7,
+   "weight_kg": 2180,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式のエコカー減税対象グレード一覧に含まれない"
+   },
+   "resale3y_min": 70.1,
+   "resale3y_max": 120.1,
+   "gulliver_rank": 6,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/vellfire/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades10.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/vellfire/003_p_001/pdf/vellfire_spec_202606.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/vellfire/003_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "land-cruiser-250",
+   "name": "ランドクルーザー250",
+   "name_gulliver": "ランドクルーザー２５０",
+   "maker": "トヨタ",
+   "model": "ランドクルーザー“250”",
+   "grade": "VX（ガソリン車・4WD・7人乗り）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 5779400,
+   "displacement_cc": 2693,
+   "wltc_km_l": 7.5,
+   "weight_kg": 2240,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式の価格・グレードページで減税対象グレードの設定なし"
+   },
+   "resale3y_min": 76.9,
+   "resale3y_max": 111.3,
+   "gulliver_rank": 7,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/landcruiser250/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades36.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/landcruiser250/001_p_001/pdf/landcruiser250_spec_202604.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "alphard",
+   "name": "アルファード",
+   "name_gulliver": "アルファード",
+   "maker": "トヨタ",
+   "model": "アルファード",
+   "grade": "Z（ガソリン車・2WD・7人乗り）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 5599000,
+   "displacement_cc": 2493,
+   "wltc_km_l": 10.9,
+   "weight_kg": 2060,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式のエコカー減税対象グレード一覧に含まれない"
+   },
+   "resale3y_min": 54.4,
+   "resale3y_max": 110.1,
+   "gulliver_rank": 9,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/alphard/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades9.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/alphard/004_p_001/pdf/alphard_spec_202606.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/alphard/004_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "raize",
+   "name": "ライズ",
+   "name_gulliver": "ライズ",
+   "maker": "トヨタ",
+   "model": "ライズ",
+   "grade": "X（ガソリン車・1.2L・2WD）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 1800700,
+   "displacement_cc": 1196,
+   "wltc_km_l": 20.7,
+   "weight_kg": 970,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式のエコカー減税対象グレード一覧に含まれない"
+   },
+   "resale3y_min": 39.3,
+   "resale3y_max": 110.1,
+   "gulliver_rank": 10,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/raize/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades51.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/raize/001_p_001/pdf/raize_spec_202411.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/raize/001_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "rx",
+   "name": "RX",
+   "name_gulliver": "ＲＸ",
+   "maker": "レクサス",
+   "model": "RX350",
+   "grade": "RX350 “version L”（2WD）",
+   "powertrain": "ガソリン",
+   "fuel": "ハイオク",
+   "price_yen": 6680000,
+   "displacement_cc": 2393,
+   "wltc_km_l": 11.8,
+   "weight_kg": 1870,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "レクサス公式の減税試算で0円"
+   },
+   "resale3y_min": 65.1,
+   "resale3y_max": 104.2,
+   "gulliver_rank": 11,
+   "notes": [],
+   "sources": [
+    {
+     "label": "レクサス公式 価格表PDF",
+     "url": "https://lexus.jp/models/rx/pdf/pricelist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 主要諸元表PDF",
+     "url": "https://lexus.jp/models/rx/pdf/specificationslist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 減税・補助金試算例",
+     "url": "https://lexus.jp/request/zeisei/detail/?model=RX&package=2",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "alphard-hybrid",
+   "name": "アルファードハイブリッド",
+   "name_gulliver": "アルファードハイブリッド",
+   "maker": "トヨタ",
+   "model": "アルファード",
+   "grade": "G（ハイブリッド車・2WD・7人乗り）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 5599000,
+   "displacement_cc": 2487,
+   "wltc_km_l": 18.8,
+   "weight_kg": 2150,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 1.0,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税100%",
+    "official_yen": 0
+   },
+   "resale3y_min": 51.7,
+   "resale3y_max": 103.5,
+   "gulliver_rank": 12,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/alphard/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades9.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/alphard/004_p_001/pdf/alphard_spec_202606.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/alphard/004_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "yaris",
+   "name": "ヤリス",
+   "name_gulliver": "ヤリス",
+   "maker": "トヨタ",
+   "model": "ヤリス",
+   "grade": "X（ガソリン車・1.0L・CVT・2WD）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 1697300,
+   "displacement_cc": 996,
+   "wltc_km_l": 20.2,
+   "weight_kg": 950,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式のエコカー減税対象グレード一覧に含まれない"
+   },
+   "resale3y_min": 46.5,
+   "resale3y_max": 101.5,
+   "gulliver_rank": 13,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/yaris/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades53.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/yaris/001_p_001/pdf/yaris_spec_202604.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/yaris/001_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "hiace-wagon",
+   "name": "ハイエースワゴン",
+   "name_gulliver": "ハイエースワゴン",
+   "maker": "トヨタ",
+   "model": "ハイエース ワゴン",
+   "grade": "DX（2WD）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 3350600,
+   "displacement_cc": 2693,
+   "wltc_km_l": 9.2,
+   "weight_kg": 1930,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式ページは「環境対応車 普及促進税制は各販売店へ」で区分の表示なし"
+   },
+   "resale3y_min": 83.1,
+   "resale3y_max": 101.2,
+   "gulliver_rank": 14,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/hiacewagon/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/hiacewagon/005_p_014/4.0/pdf/spec/hiacewagon_spec_202606.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "vellfire-hybrid",
+   "name": "ヴェルファイアハイブリッド",
+   "name_gulliver": "ヴェルファイアハイブリッド",
+   "maker": "トヨタ",
+   "model": "ヴェルファイア",
+   "grade": "Z Premier（ハイブリッド車・2WD）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 7099400,
+   "displacement_cc": 2487,
+   "wltc_km_l": 17.8,
+   "weight_kg": 2190,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 1.0,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税100%",
+    "official_yen": 0
+   },
+   "resale3y_min": 41.8,
+   "resale3y_max": 99.7,
+   "gulliver_rank": 15,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/vellfire/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades10.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/vellfire/003_p_001/pdf/vellfire_spec_202606.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/vellfire/003_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "corolla-cross",
+   "name": "カローラクロス",
+   "name_gulliver": "カローラクロス",
+   "maker": "トヨタ",
+   "model": "カローラ クロス",
+   "grade": "S（ハイブリッド車・2WD）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 2981000,
+   "displacement_cc": 1797,
+   "wltc_km_l": 26.4,
+   "weight_kg": 1370,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 1.0,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税100%",
+    "official_yen": 0
+   },
+   "resale3y_min": 79.1,
+   "resale3y_max": 99.0,
+   "gulliver_rank": 16,
+   "notes": [
+    "現行の新車にガソリン車が無いため、ハイブリッド車の最安グレードで計算。ガリバーの残価率は型式混在の実績"
+   ],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/corollacross/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades61.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/corollacross/001_p_003/pdf/corollacross_spec_202607.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/corollacross/001_p_003/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "harrier",
+   "name": "ハリアー",
+   "name_gulliver": "ハリアー",
+   "maker": "トヨタ",
+   "model": "ハリアー",
+   "grade": "G（ハイブリッド車・2WD）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 4396700,
+   "displacement_cc": 2487,
+   "wltc_km_l": 22.7,
+   "weight_kg": 1650,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 0.75,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税75%・支払い税額7,500円",
+    "official_yen": 7500
+   },
+   "resale3y_min": 60.5,
+   "resale3y_max": 97.0,
+   "gulliver_rank": 17,
+   "notes": [
+    "現行の新車にガソリン車が無いため、ハイブリッド車の最安グレードで計算。ガリバーの残価率は型式混在の実績"
+   ],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/harrier/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades34.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/harrier/004_p_001/pdf/harrier_spec_202608.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/harrier/004_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "noah",
+   "name": "ノア",
+   "name_gulliver": "ノア",
+   "maker": "トヨタ",
+   "model": "ノア",
+   "grade": "S-X（ハイブリッド車・2WD・7人乗り）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 3261500,
+   "displacement_cc": 1797,
+   "wltc_km_l": 23.8,
+   "weight_kg": 1630,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 0.75,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税75%・支払い税額7,500円",
+    "official_yen": 7500
+   },
+   "resale3y_min": 91.9,
+   "resale3y_max": 93.2,
+   "gulliver_rank": 20,
+   "notes": [
+    "現行の新車にガソリン車が無いため、ハイブリッド車の最安グレードで計算。ガリバーの残価率は型式混在の実績"
+   ],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/noah/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades16.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/noah/004_p_001/pdf/noah_spec_202609.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/noah/004_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "vezel",
+   "name": "ヴェゼル",
+   "name_gulliver": "ヴェゼル",
+   "maker": "ホンダ",
+   "model": "VEZEL",
+   "grade": "G（4WD）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 2758800,
+   "displacement_cc": 1496,
+   "wltc_km_l": 15.0,
+   "weight_kg": 1320,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "ホンダ公式のタイプ別データでGは減税の指定なし"
+   },
+   "resale3y_min": 62.3,
+   "resale3y_max": 92.7,
+   "gulliver_rank": 21,
+   "notes": [],
+   "sources": [
+    {
+     "label": "ホンダ公式 タイプ別価格データ",
+     "url": "https://www.honda.co.jp/VEZEL/common/data/type.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "ホンダ公式 タイプ一覧",
+     "url": "https://www.honda.co.jp/VEZEL/webcatalog/type/list/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "ホンダ公式 主要諸元PDF",
+     "url": "https://www.honda.co.jp/VEZEL/common/pdf/vezel_spec_list.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "rav4",
+   "name": "RAV4",
+   "name_gulliver": "ＲＡＶ４",
+   "maker": "トヨタ",
+   "model": "RAV4",
+   "grade": "Adventure（ハイブリッド車・E-Four）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 4500000,
+   "displacement_cc": 2487,
+   "wltc_km_l": 22.9,
+   "weight_kg": 1710,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 0.75,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税75%・支払い税額7,500円",
+    "official_yen": 7500
+   },
+   "resale3y_min": 81.0,
+   "resale3y_max": 92.6,
+   "gulliver_rank": 22,
+   "notes": [
+    "現行の新車にガソリン車が無いため、ハイブリッド車の最安グレードで計算。ガリバーの残価率は型式混在の実績"
+   ],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/rav4/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades46.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/rav4/003_p_001/pdf/rav4_spec_202606.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/rav4/003_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "aqua",
+   "name": "アクア",
+   "name_gulliver": "アクア",
+   "maker": "トヨタ",
+   "model": "アクア",
+   "grade": "X（2WD）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 2497000,
+   "displacement_cc": 1490,
+   "wltc_km_l": 34.3,
+   "weight_kg": 1120,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 1.0,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税100%",
+    "official_yen": 0
+   },
+   "resale3y_min": 58.3,
+   "resale3y_max": 91.1,
+   "gulliver_rank": 24,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/aqua/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades1.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/aqua/002_p_010/pdf/aqua_spec_202607.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/aqua/002_p_010/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "gx",
+   "name": "GX",
+   "name_gulliver": "ＧＸ",
+   "maker": "レクサス",
+   "model": "GX550",
+   "grade": "GX550 “OVERTRAIL＋”",
+   "powertrain": "ガソリン",
+   "fuel": "ハイオク",
+   "price_yen": 11950000,
+   "displacement_cc": 3444,
+   "wltc_km_l": 8.1,
+   "weight_kg": 2480,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "レクサス公式の減税試算で全グレード0円"
+   },
+   "resale3y_min": 65.5,
+   "resale3y_max": 90.9,
+   "gulliver_rank": 25,
+   "notes": [],
+   "sources": [
+    {
+     "label": "レクサス公式 価格表PDF",
+     "url": "https://lexus.jp/models/gx/pdf/pricelist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 主要諸元表PDF",
+     "url": "https://lexus.jp/models/gx/pdf/specificationslist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 減税・補助金試算例",
+     "url": "https://lexus.jp/request/zeisei/detail/?model=GX&package=2",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "prius",
+   "name": "プリウス",
+   "name_gulliver": "プリウス",
+   "maker": "トヨタ",
+   "model": "プリウス",
+   "grade": "X（ハイブリッド車・1.8L・2WD）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 2796200,
+   "displacement_cc": 1797,
+   "wltc_km_l": 32.6,
+   "weight_kg": 1360,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 1.0,
+    "basis": "トヨタ公式のエコカー減税（グレード別）で減税100%",
+    "official_yen": 0
+   },
+   "resale3y_min": 50.1,
+   "resale3y_max": 90.3,
+   "gulliver_rank": 26,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/prius/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades24.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/prius/005_p_001/pdf/prius_spec_202607.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/prius/005_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 環境仕様PDF（6AA-ZVW60の車両重量）",
+     "url": "https://toyota.jp/pages/contents/prius/005_p_001/pdf/prius_ecology_202607.pdf",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "sienta",
+   "name": "シエンタ",
+   "name_gulliver": "シエンタ",
+   "maker": "トヨタ",
+   "model": "シエンタ",
+   "grade": "X（ガソリン車・2WD・5人乗り）",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "price_yen": 2146100,
+   "displacement_cc": 1490,
+   "wltc_km_l": 18.2,
+   "weight_kg": 1280,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "トヨタ公式のエコカー減税対象グレード一覧に含まれない"
+   },
+   "resale3y_min": 64.0,
+   "resale3y_max": 89.8,
+   "gulliver_rank": 27,
+   "notes": [],
+   "sources": [
+    {
+     "label": "トヨタ公式 価格・グレード",
+     "url": "https://toyota.jp/sienta/grade/",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 グレード価格データ",
+     "url": "https://toyota.jp/pages/contents/include/carpage_format/carlineup/data/json/grades15.json",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 主要諸元表PDF",
+     "url": "https://toyota.jp/pages/contents/sienta/003_p_001/pdf/sienta_spec_202608.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "トヨタ公式 エコカー減税（グレード別）",
+     "url": "https://toyota.jp/pages/contents/sienta/003_p_001/json/ecocar.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "is",
+   "name": "IS",
+   "name_gulliver": "ＩＳ",
+   "maker": "レクサス",
+   "model": "IS300h",
+   "grade": "IS300h（2WD）",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "price_yen": 5800000,
+   "displacement_cc": 2493,
+   "wltc_km_l": 17.6,
+   "weight_kg": 1710,
+   "weight_tax": {
+    "rate": "本則",
+    "reduction": 0.25,
+    "basis": "レクサス公式の減税試算：2030年度燃費基準80%達成・購入時の重量税 約22,500円（減税なし約30,000円）",
+    "official_yen": 22500
+   },
+   "resale3y_min": 89.1,
+   "resale3y_max": 89.1,
+   "gulliver_rank": 28,
+   "notes": [],
+   "sources": [
+    {
+     "label": "レクサス公式 価格表PDF",
+     "url": "https://lexus.jp/models/is/pdf/pricelist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 主要諸元表PDF",
+     "url": "https://lexus.jp/models/is/pdf/specificationslist.pdf",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "レクサス公式 減税・補助金試算例",
+     "url": "https://lexus.jp/request/zeisei/detail/?model=IS&package=2",
+     "checked": "2026-09-14"
+    }
+   ]
+  },
+  {
+   "id": "g-class",
+   "name": "Gクラス",
+   "name_gulliver": "Ｇクラス",
+   "maker": "メルセデスＡＭＧ",
+   "model": "Mercedes-AMG G 63（ISG）[MP202602]",
+   "grade": "Mercedes-AMG G 63（ISG）",
+   "powertrain": "ガソリン",
+   "fuel": "ハイオク",
+   "price_yen": 28680000,
+   "displacement_cc": 3982,
+   "wltc_km_l": 6.8,
+   "weight_kg": 2570,
+   "weight_tax": {
+    "rate": "当分の間",
+    "reduction": 0,
+    "basis": "メルセデス公式の見積データで減税の指定なし・重量税73,800円",
+    "official_yen": 73800
+   },
+   "resale3y_min": 91.4,
+   "resale3y_max": 91.4,
+   "gulliver_rank": 23,
+   "notes": [],
+   "sources": [
+    {
+     "label": "メルセデス・ベンツ日本 プライスリスト",
+     "url": "https://www.mercedes-benz.co.jp/passengercars/cars-guide/price-list.html",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "メルセデス・ベンツ日本 Mercedes-AMG G-Class",
+     "url": "https://www.mercedes-benz.co.jp/passengercars/models/suv/g-class/amg.html",
+     "checked": "2026-09-14"
+    },
+    {
+     "label": "メルセデス・ベンツ日本 見積シミュレーションの車種データ（諸元・税額）",
+     "url": "https://www.mercedes-benz.jp/passenger/estimate/g_class/data/master.json",
+     "checked": "2026-09-14"
+    }
+   ]
+  }
+ ]
+}

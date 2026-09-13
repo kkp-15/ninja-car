@@ -1,0 +1,223 @@
+{
+  "_source": {
+    "name": "ガリバー 新車から3年後のリセールバリューランキング TOP30",
+    "url": "https://221616.com/resale/year-1-3/",
+    "集計日": "2026-09-02",
+    "対象期間": "直近6ヶ月",
+    "算出方法": "弊社の査定・買取実績データ（直近6ヶ月）から算出。複数型式がある場合は最小値と最大値を表示",
+    "注記": "表記のリセールバリュー値での買取を保証するものではございません",
+    "取得日": "2026-09-14"
+  },
+  "cars": [
+    {
+      "rank": 1,
+      "name": "ランドクルーザー",
+      "maker": "トヨタ",
+      "resale3y_min": 97.9,
+      "resale3y_max": 158.1
+    },
+    {
+      "rank": 2,
+      "name": "ランドクルーザー７０",
+      "maker": "トヨタ",
+      "resale3y_min": 111.7,
+      "resale3y_max": 142.9
+    },
+    {
+      "rank": 3,
+      "name": "ＢＲＺ",
+      "maker": "スバル",
+      "resale3y_min": 58.5,
+      "resale3y_max": 129.2
+    },
+    {
+      "rank": 4,
+      "name": "ＬＸ",
+      "maker": "レクサス",
+      "resale3y_min": 78.9,
+      "resale3y_max": 124.1
+    },
+    {
+      "rank": 5,
+      "name": "ジムニーシエラ",
+      "maker": "スズキ",
+      "resale3y_min": 15.1,
+      "resale3y_max": 122.0
+    },
+    {
+      "rank": 6,
+      "name": "ヴェルファイア",
+      "maker": "トヨタ",
+      "resale3y_min": 70.1,
+      "resale3y_max": 120.1
+    },
+    {
+      "rank": 7,
+      "name": "ランドクルーザー２５０",
+      "maker": "トヨタ",
+      "resale3y_min": 76.9,
+      "resale3y_max": 111.3
+    },
+    {
+      "rank": 8,
+      "name": "ＧＴ－Ｒ",
+      "maker": "日産",
+      "resale3y_min": 94.0,
+      "resale3y_max": 110.3
+    },
+    {
+      "rank": 9,
+      "name": "アルファード",
+      "maker": "トヨタ",
+      "resale3y_min": 54.4,
+      "resale3y_max": 110.1
+    },
+    {
+      "rank": 10,
+      "name": "ライズ",
+      "maker": "トヨタ",
+      "resale3y_min": 39.3,
+      "resale3y_max": 110.1
+    },
+    {
+      "rank": 11,
+      "name": "ＲＸ",
+      "maker": "レクサス",
+      "resale3y_min": 65.1,
+      "resale3y_max": 104.2
+    },
+    {
+      "rank": 12,
+      "name": "アルファードハイブリッド",
+      "maker": "トヨタ",
+      "resale3y_min": 51.7,
+      "resale3y_max": 103.5
+    },
+    {
+      "rank": 13,
+      "name": "ヤリス",
+      "maker": "トヨタ",
+      "resale3y_min": 46.5,
+      "resale3y_max": 101.5
+    },
+    {
+      "rank": 14,
+      "name": "ハイエースワゴン",
+      "maker": "トヨタ",
+      "resale3y_min": 83.1,
+      "resale3y_max": 101.2
+    },
+    {
+      "rank": 15,
+      "name": "ヴェルファイアハイブリッド",
+      "maker": "トヨタ",
+      "resale3y_min": 41.8,
+      "resale3y_max": 99.7
+    },
+    {
+      "rank": 16,
+      "name": "カローラクロス",
+      "maker": "トヨタ",
+      "resale3y_min": 79.1,
+      "resale3y_max": 99.0
+    },
+    {
+      "rank": 17,
+      "name": "ハリアー",
+      "maker": "トヨタ",
+      "resale3y_min": 60.5,
+      "resale3y_max": 97.0
+    },
+    {
+      "rank": 18,
+      "name": "スイフトスポーツ",
+      "maker": "スズキ",
+      "resale3y_min": 55.9,
+      "resale3y_max": 96.8
+    },
+    {
+      "rank": 19,
+      "name": "マカン",
+      "maker": "ポルシェ",
+      "resale3y_min": 79.2,
+      "resale3y_max": 96.0
+    },
+    {
+      "rank": 20,
+      "name": "ノア",
+      "maker": "トヨタ",
+      "resale3y_min": 91.9,
+      "resale3y_max": 93.2
+    },
+    {
+      "rank": 21,
+      "name": "ヴェゼル",
+      "maker": "ホンダ",
+      "resale3y_min": 62.3,
+      "resale3y_max": 92.7
+    },
+    {
+      "rank": 22,
+      "name": "ＲＡＶ４",
+      "maker": "トヨタ",
+      "resale3y_min": 81.0,
+      "resale3y_max": 92.6
+    },
+    {
+      "rank": 23,
+      "name": "Ｇクラス",
+      "maker": "メルセデスＡＭＧ",
+      "resale3y_min": 91.4,
+      "resale3y_max": 91.4
+    },
+    {
+      "rank": 24,
+      "name": "アクア",
+      "maker": "トヨタ",
+      "resale3y_min": 58.3,
+      "resale3y_max": 91.1
+    },
+    {
+      "rank": 25,
+      "name": "ＧＸ",
+      "maker": "レクサス",
+      "resale3y_min": 65.5,
+      "resale3y_max": 90.9
+    },
+    {
+      "rank": 26,
+      "name": "プリウス",
+      "maker": "トヨタ",
+      "resale3y_min": 50.1,
+      "resale3y_max": 90.3
+    },
+    {
+      "rank": 27,
+      "name": "シエンタ",
+      "maker": "トヨタ",
+      "resale3y_min": 64.0,
+      "resale3y_max": 89.8
+    },
+    {
+      "rank": 28,
+      "name": "ＩＳ",
+      "maker": "レクサス",
+      "resale3y_min": 89.1,
+      "resale3y_max": 89.1
+    },
+    {
+      "rank": 29,
+      "name": "ハイラックス",
+      "maker": "トヨタ",
+      "resale3y_min": 70.5,
+      "resale3y_max": 89.1
+    },
+    {
+      "rank": 30,
+      "name": "ディフェンダー",
+      "maker": "ランドローバー",
+      "resale3y_min": 52.4,
+      "resale3y_max": 89.1
+    }
+  ]
+}

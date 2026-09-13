@@ -1,0 +1,158 @@
+{
+  "_readme": "公的な料率の正本。値は出典ページで確認したもの。変わったら日付つきで更新する",
+  "car_tax_annual": {
+    "_source": {
+      "url": "https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/131410.html",
+      "対象": "自家用乗用・2019年10月1日以降に初回新規登録",
+      "確認日": "2026-09-14"
+    },
+    "brackets_cc": [
+      [
+        1000,
+        25000
+      ],
+      [
+        1500,
+        30500
+      ],
+      [
+        2000,
+        36000
+      ],
+      [
+        2500,
+        43500
+      ],
+      [
+        3000,
+        50000
+      ],
+      [
+        3500,
+        57000
+      ],
+      [
+        4000,
+        65500
+      ],
+      [
+        4500,
+        75500
+      ],
+      [
+        6000,
+        87000
+      ],
+      [
+        null,
+        110000
+      ]
+    ]
+  },
+  "weight_tax": {
+    "_source": {
+      "url": "https://www.mof.go.jp/tax_policy/summary/consumption/131.pdf",
+      "資料": "財務省 自動車重量税の概要（令和8年5月1日〜令和9年4月30日の制度）",
+      "確認日": "2026-09-14"
+    },
+    "passenger_private_per_0_5t_per_year": {
+      "当分の間税率": 4100,
+      "本則税率": 2500,
+      "13年超": 5700,
+      "18年超": 6300
+    },
+    "note": "エコカー減税対象車等は本則税率。新規車検は3年分を購入時に納付し、燃費基準達成度に応じて免税〜25%軽減。新車3年保有なら車検は来ない",
+    "eco_car_reduction_new_registration": {
+      "_note": "令和8年5月1日〜令和9年4月30日。新規車検は本則税率(2,500円/0.5t/年)から減免し100円未満切捨。対象外は当分の間税率(4,100円)。ガソリン・LPG・クリーンディーゼルは2020年度燃費基準の達成も必要。財務省131.pdf 2ページ目の図で確認（2026-09-14、1回目の記載は区分が1段ずれていたので修正）",
+      "2回目まで免税": "電気自動車等、2030燃費基準125%達成",
+      "初回免税": "2030燃費基準105%達成",
+      "75%減": "2030燃費基準100%達成",
+      "50%減": "2030燃費基準95%達成",
+      "25%減": "2030燃費基準80%達成",
+      "当分の間": "2030燃費基準80%未達成（減税なし・4,100円）"
+    },
+    "valid_until": "2027-04-30"
+  },
+  "jibaiseki_private_passenger": {
+    "_source": {
+      "url": "https://jafmate.jp/car/traffic_topics_20260702_1199387.html",
+      "確認日": "2026-09-14",
+      "出典機関": "損害保険料率算出機構（JAF Mate 2026-07-02 掲載）"
+    },
+    "24m": [
+      {
+        "from": null,
+        "yen": 17650
+      },
+      {
+        "from": "2026-11-01",
+        "yen": 18560
+      }
+    ],
+    "37m": [
+      {
+        "from": null,
+        "yen": 24190
+      },
+      {
+        "from": "2026-11-01",
+        "yen": 25180
+      }
+    ],
+    "note": "新車は37か月を購入時に払う。検索要約に出た「改定後27,770円」は誤りだった"
+  },
+  "gasoline_regular": {
+    "_source": {
+      "url": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html",
+      "時点": "2026-09-07",
+      "確認日": "2026-09-14",
+      "資料": "石油製品価格調査 2026-09-09公表（結果概要版 260909.docx／結果詳細版 260909.xlsx の全国参考値）"
+    },
+    "yen_per_l": 170.0
+  },
+  "excluded_not_sold_new": [
+    {
+      "name": "ＧＴ－Ｒ",
+      "reason": "2025-08-26 生産終了",
+      "url": "https://www.nikkei.com/article/DGXZQOUC265HK0W5A820C2000000/"
+    },
+    {
+      "name": "スイフトスポーツ",
+      "reason": "標準車2025-02生産終了、Final Editionの受注は最長2026-03末まで",
+      "url": "https://www.as-web.jp/car/1165059"
+    },
+    {
+      "name": "マカン（ガソリン）",
+      "reason": "2026-07末生産終了。2026秋以降は在庫販売のみ",
+      "url": "https://www.autocar.jp/photo/1261441"
+    }
+  ],
+  "gasoline_premium": {
+    "_source": {
+      "url": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html",
+      "資料": "石油製品価格調査 2026-09-09公表（結果概要版 260909.docx／結果詳細版 260909.xlsx の全国参考値）",
+      "時点": "2026-09-07",
+      "確認日": "2026-09-14"
+    },
+    "yen_per_l": 180.9
+  },
+  "diesel": {
+    "_source": {
+      "url": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html",
+      "資料": "石油製品価格調査 2026-09-09公表（結果概要版 260909.docx／結果詳細版 260909.xlsx の全国参考値）",
+      "時点": "2026-09-07",
+      "確認日": "2026-09-14"
+    },
+    "yen_per_l": 159.5
+  },
+  "loan_rate_default": {
+    "_source": {
+      "url": "https://www.resonabank.co.jp/kojin/mycar/hikaku.html",
+      "データ": "https://www.resonabank.co.jp/common/kinri/json/mycar.json",
+      "適用日": "2026-04-01",
+      "確認日": "2026-09-14"
+    },
+    "annual_pct": 2.55,
+    "note": "りそなマイカーローン（変動）の通常金利は年1.85/2.55/3.45/4.45%の4種類から審査で決定。2.55%は公式の返済期間5年の試算例で使われている金利。画面では入力で変えられる"
+  }
+}
