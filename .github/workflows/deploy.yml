@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Test
-        run: node tests/calc.test.mjs && node tests/data.test.mjs
+        run: node tests/calc.test.mjs && node tests/data.test.mjs && node tests/articles.test.mjs
       - name: Remove non-public files
         # Pages の deploy は .assetsignore を見ないので、配信しないファイルはここで消す
-        run: rm -rf DESIGN.md ARTICLES.md tests .assetsignore wrangler.jsonc
+        run: rm -rf DESIGN.md ARTICLES.md tests scripts data/*.md .assetsignore wrangler.jsonc
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:

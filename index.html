@@ -298,6 +298,12 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
     <p id="excludedText">ガリバーのランキングにある車のうち、新車で買えない車と、この計算式が使えない車、日本仕様の諸元を公式資料で確かめられなかった車は載せていません。</p></details>
 </div>
 
+<h2>読み物</h2>
+<div class="box">
+  <a href="/articles/jibaiseki-neage-2026" style="font-weight:700">自賠責は2026年11月から値上げ｜いつから・いくら上がる？</a>
+  <p class="note" style="margin:.2rem 0 0">乗用車と軽自動車の24か月・25か月・37か月の保険料を、改定前と改定後で並べました。</p>
+</div>
+
 <h2>数字の出典</h2>
 <div class="scroll">
 <table class="srctable" id="rateTable"></table>
@@ -586,7 +592,7 @@ function compare3y(car, opt, rates, todayStr) {
     $('rateTable').innerHTML =
       '<tr><th>自動車税（年額）</th><td>' + ct + '<br>' + link(R.car_tax_annual._source, '総務省') + '（2019年10月以降に新規登録の自家用乗用車・確認 ' + esc(R.car_tax_annual._source['確認日']) + '）</td></tr>' +
       '<tr><th>自動車重量税</th><td>0.5tごと年4,100円（当分の間）／2,500円（本則）。新車は3年分を購入時に払い、エコカー減税は本則から減らして100円未満切り捨て<br>' + link(R.weight_tax._source, '財務省「自動車重量税の概要」') + '（令和8年5月1日〜令和9年4月30日の制度）</td></tr>' +
-      '<tr><th>自賠責（37か月）</th><td>' + jib['37m'].map(r => (r.from ? r.from + 'から ' : '') + r.yen.toLocaleString() + '円').join(' → ') + '<br>' + link(jib._source, 'JAF Mate（損害保険料率算出機構の改定）') + '</td></tr>' +
+      '<tr><th>自賠責（37か月）</th><td>' + jib['37m'].map(r => (r.from ? r.from + 'から ' : '') + r.yen.toLocaleString() + '円').join(' → ') + '<br>' + link(jib._source, '損害保険料率算出機構 自賠責保険基準料率表') + '（離島以外の地域・沖縄県を除く。確認 ' + esc(jib._source['確認日']) + '）' + '</td></tr>' +
       '<tr><th>燃料の単価</th><td>レギュラー ' + R.gasoline_regular.yen_per_l + '円／ハイオク ' + R.gasoline_premium.yen_per_l + '円／軽油 ' + R.diesel.yen_per_l + '円（1Lあたり・' + esc(R.diesel._source['時点']) + '時点の全国平均）<br>' + link(R.diesel._source, '資源エネルギー庁 石油製品価格調査') + '</td></tr>' +
       '<tr><th>ローン金利の初期値</th><td>年' + R.loan_rate_default.annual_pct + '%（りそなマイカーローンの通常金利 年1.85〜4.45%のうち、公式の試算例で使われている金利・' + esc(R.loan_rate_default._source['適用日']) + '適用）<br>' + link(R.loan_rate_default._source, 'りそな銀行') + '</td></tr>' +
       '<tr><th>3年後に売れる割合</th><td>' + link(S.meta.resale_source, S.meta.resale_source.name) + '（' + esc(S.meta.resale_source['集計日']) + '集計・' + esc(S.meta.resale_source['対象期間']) + 'の査定・買取実績。複数型式がある場合は最小値と最大値）</td></tr>' +
