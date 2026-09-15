@@ -10,7 +10,6 @@
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#ff8a3d">
 <!-- WEBNINJA_UNIFIED_FAVICON -->
-<link rel="stylesheet" href="https://kkpwebninja.com/shared/fortress-share.css">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -256,13 +255,6 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
   <div class="breakdown"><details><summary>3年間の内訳を見る</summary><div id="breakdown"></div></details></div>
 </section>
 
-<div data-fortress-share
-     data-site="ninja-car"
-     data-trigger="result"
-     data-label="この2台の比較を送る"
-     data-text-fn="getShareText"
-     data-hashtags="#車選び #車の維持費"></div>
-
 <div class="kkp-ad">
   <div class="kkp-ad-label">広告</div>
   <ins class="adsbygoogle" style="display:block"
@@ -411,7 +403,6 @@ function compare3y(car, opt, rates, todayStr) {
 
 (function(){
   'use strict';
-  const SITE = 'https://car.kkpwebninja.com/';
   const MAKER_ORDER = ['トヨタ','レクサス','ホンダ','スバル','スズキ','メルセデスＡＭＧ'];
   const REQUIRED = ['id','name','maker','grade','powertrain','fuel','price_yen','displacement_cc','wltc_km_l','weight_kg','weight_tax','resale3y_min','resale3y_max','sources'];
   const S = { cars: [], byId: {}, rates: null, meta: null, last: {} };
@@ -561,9 +552,6 @@ function compare3y(car, opt, rates, todayStr) {
       '</tbody></table>' +
       '<p class="note">燃料代＝月の距離÷WLTC燃費×単価。自賠責は購入日が' + (today >= '2026-11-01' ? '2026年11月1日以降の料金' : '2026年10月31日までの料金') + 'で計算しています。</p>';
 
-    const url = SITE + '?a=' + encodeURIComponent(A.car.id) + '&b=' + encodeURIComponent(B.car.id);
-    const share = document.querySelector('[data-fortress-share]');
-    if (share) share.dataset.url = url;
     try { history.replaceState(null, '', '?a=' + encodeURIComponent(A.car.id) + '&b=' + encodeURIComponent(B.car.id)); } catch (e) {}
     scheduleTrack(A.car.id, B.car.id);
   }
@@ -578,11 +566,6 @@ function compare3y(car, opt, rates, todayStr) {
       if (typeof gtag === 'function') gtag('event', 'compare_run', { a: a, b: b });
     }, 1500);
   }
-
-  window.getShareText = function(){
-    const L = S.last; if (!L.A) return '';
-    return '【本命vs夢枠】' + L.A.car.name + ' 月' + manYen(L.ra.perMonth) + ' と ' + L.B.car.name + ' 月' + manYen(L.rb.perMonth) + '（3年後に売る前提の実質負担）。あなたの2台は？';
-  };
 
   function renderRates(){
     const R = S.rates, today = todayJST();
@@ -660,6 +643,5 @@ function compare3y(car, opt, rates, todayStr) {
   }
 })();
 </script>
-<script src="https://kkpwebninja.com/shared/fortress-share.js" defer></script>
 </body>
 </html>

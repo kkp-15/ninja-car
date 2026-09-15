@@ -181,7 +181,7 @@ WebFetch では文字化けするので、PDFを保存して **macOS PDFKit（sw
 
 ## 計測（GA4）
 
-`compare_run`（a, b）／ `resale_slide` ／ `share_click` ／ `car_change`
+`compare_run`（a, b）／ `resale_slide` ／ `car_change`（シェアボタンは使われていないため 2026-09-15 に撤去）
 
 ## 作り方
 
