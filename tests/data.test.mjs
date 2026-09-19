@@ -65,4 +65,28 @@ t('Geminiの未検証の数字が残っていない', () => {
   for (const s of ['オイル交換3', '3〜5万円', '車両保険を断', 'フェラーリ']) assert.ok(!html.includes(s), s);
 });
 t('details は初期状態で閉じている', () => assert.ok(!/<details[^>]*\bopen\b/.test(html)));
+t('更新日がJSON-LD・画面・sitemapでそろっている', () => {
+  const ld = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+  const app = ld['@graph'].find(g => g['@type'] === 'WebApplication');
+  assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(app.dateModified), 'dateModified');
+  assert.ok(app.datePublished <= app.dateModified);
+  const shown = html.match(/<time id="pageUpdated" datetime="([\d-]+)">([\d-]+)<\/time>/);
+  assert.ok(shown, '画面の更新日');
+  assert.equal(shown[1], app.dateModified); assert.equal(shown[2], app.dateModified);
+  const sm = fs.readFileSync(root + 'sitemap.xml', 'utf8');
+  assert.ok(sm.includes('<loc>https://car.kkpwebninja.com/</loc><lastmod>' + app.dateModified + '</lastmod>'), 'sitemap の lastmod');
+});
+t('title と h1 が検索語「車の維持費シミュレーション」で始まる', () => {
+  assert.ok(/<title>車の維持費シミュレーション/.test(html));
+  assert.ok(/<h1>車の維持費シミュレーション</.test(html));
+});
+t('結果の要約が入力欄より上にあり、共通5欄は畳んだ details の中', () => {
+  const iSum = html.indexOf('id="sum"'), iCar = html.indexOf('id="car-a"'), iRes = html.indexOf('id="result"');
+  assert.ok(iSum > 0 && iSum < iCar && iCar < iRes);
+  const box = html.slice(html.indexOf('<details class="common"'), html.indexOf('</details>', html.indexOf('<details class="common"')));
+  for (const id of ['down', 'rate', 'months', 'km', 'parking']) assert.ok(box.includes('id="' + id + '"'), id);
+});
+t('シェアボタンを戻していない（2026-09-15 に撤去）', () => {
+  for (const x of ['fortress-share', 'twitter.com/intent', 'x.com/intent', 'social-plugins.line.me']) assert.ok(!html.includes(x), x);
+});
 console.log(`\n${n} tests passed`);

@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>本命vs夢枠 車コスト比較｜ローン・維持費・3年後の売却額で月々の実質負担を2台比べる｜無料・登録不要</title>
-<meta name="description" content="検討中の車と憧れの車を並べて、月々のローン・維持費・3年後に売れる額まで入れた「月々の実質負担」を比べる無料ツール。価格と諸元はメーカー公式、税は総務省・財務省、残価率はガリバーの買取実績の幅から計算します。">
+<title>車の維持費シミュレーション｜ローン込みの月々と売却額で2台比較【2026年】</title>
+<meta name="description" content="車の維持費シミュレーション。車種を選ぶと、ローン込みの月々の支払いと維持費、3年後に売れる額まで入れた「月々の実質負担」を2台並べて比べられます。価格と諸元はメーカー公式、税は総務省・財務省、残価率はガリバーの買取実績の幅から計算。無料・登録不要。">
 <link rel="canonical" href="https://car.kkpwebninja.com/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#ff8a3d">
@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="本命vs夢枠 車コスト比較｜月々の実質負担を2台で比べる">
-<meta property="og:description" content="ローン・維持費・3年後の売却額まで入れて、2台の「月々の実質負担」を並べます。">
+<meta property="og:title" content="車の維持費シミュレーション｜ローン込みの月々と売却額で2台比較">
+<meta property="og:description" content="車種を選ぶと、ローン・維持費・3年後の売却額まで入れた「月々の実質負担」を2台並べて比べられます。">
 <meta property="og:url" content="https://car.kkpwebninja.com/">
 <meta property="og:site_name" content="本命vs夢枠 車コスト比較">
 <meta property="og:locale" content="ja_JP">
@@ -45,14 +45,16 @@
     {
       "@type":"WebApplication",
       "@id":"https://car.kkpwebninja.com/#app",
-      "name":"本命vs夢枠 車コスト比較",
+      "name":"車の維持費シミュレーション（本命vs夢枠 車コスト比較）",
+      "alternateName":"本命vs夢枠 車コスト比較",
       "url":"https://car.kkpwebninja.com/",
       "applicationCategory":"FinanceApplication",
       "operatingSystem":"Web",
       "inLanguage":"ja",
-      "softwareVersion":"1.0.0",
+      "softwareVersion":"1.1.0",
       "datePublished":"2026-09-14",
-      "description":"検討中の車と憧れの車を並べ、月々のローン・維持費・3年後の売却額を引いた月々の実質負担を比べる無料ツール。",
+      "dateModified":"2026-09-19",
+      "description":"車の維持費シミュレーション。検討中の車と憧れの車を並べ、ローン込みの月々の支払い・維持費・3年後の売却額を引いた月々の実質負担を比べる無料ツール。",
       "offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},
       "author":{"@type":"Organization","name":"web忍者の砦"},
       "publisher":{"@type":"Organization","name":"web忍者の砦","url":"https://kkpwebninja.com/"},
@@ -79,89 +81,109 @@
 <style>
 :root{
   --orange:#ff8a3d; --orange-deep:#e2701f; --pink:#ff6b9d; --pink-deep:#e14f83; --yellow:#ffd43b;
-  --cream:#fff9ec; --paper:#fffdf8; --ink:#3b2c22; --ink-soft:#7a6656; --line:#f0e0c4; --line-soft:#f6ecda;
+  --cream:#fff8ee; --ink:#333; --ink-soft:#6b5a4c; --line:#ddd; --line-soft:#eee;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--cream);color:var(--ink);
-  font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Meiryo",sans-serif;line-height:1.7}
-.wrap{max-width:760px;margin:0 auto;padding:18px 16px 0}
-h1{font-size:1.45rem;line-height:1.35;margin:.4rem 0 .3rem;font-weight:800;letter-spacing:.02em}
-h1 small{display:block;font-size:.8rem;color:var(--ink-soft);font-weight:700;letter-spacing:.06em}
-.lead{margin:.2rem 0 1rem;font-size:.95rem}
-h2{font-size:1.12rem;margin:2rem 0 .7rem;font-weight:800;padding-left:.6rem;border-left:5px solid var(--orange)}
-a{color:#1565c0}
+/* 地は白。クリームとオレンジは見出しの帯・表の見出しなど小さい面だけ */
+body{margin:0;background:#fff;color:var(--ink);font-size:16px;
+  font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Meiryo",sans-serif;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:14px 16px 0}
+h1{font-size:1.5rem;line-height:1.35;margin:.3rem 0 .5rem;font-weight:800;letter-spacing:.01em}
+h1 small{display:block;font-size:.875rem;color:var(--ink-soft);font-weight:700;margin-top:.15rem;line-height:1.5}
+.lead{margin:.6rem 0 .2rem;font-size:1rem;line-height:1.7}
+.updated{margin:0 0 .6rem;font-size:.8125rem;color:var(--ink-soft);line-height:1.6}
+h2{font-size:1.3125rem;line-height:1.45;margin:2.4rem 0 .8rem;font-weight:800;padding:.35rem .6rem;border-left:4px solid var(--orange);background:var(--cream)}
+a{color:#1a6fc4}
 
-/* ===== 2台のカード ===== */
-.cards{display:grid;grid-template-columns:1fr;gap:12px}
+/* ===== 結果の要約（入力欄の上。電卓の範囲にいる間は上に残る） ===== */
+.sum{position:sticky;top:0;z-index:5;background:#fff;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);
+  padding:.35rem 0 .4rem;min-height:5.4rem}
+@media(min-width:720px){.sum{min-height:3.6rem}}
+.sum-h{font-size:.8125rem;color:var(--ink-soft);font-weight:700;line-height:1.4;display:flex;justify-content:space-between;gap:.6rem}
+.sum-h a{font-weight:400;white-space:nowrap}
+.sum-row{display:flex;flex-wrap:wrap;gap:0 1.1rem;font-size:1rem;line-height:1.6;margin-top:.1rem}
+.sum-row span{white-space:nowrap}
+.sum-row b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.sum-row small{font-size:.8125rem;color:var(--ink-soft)}
+.sum-row i{font-style:normal;font-weight:700;font-size:.875rem;border-bottom:3px solid var(--orange);margin-right:.2rem}
+.sum-row .sb i{border-color:var(--pink)}
+.sum-row .sd i{border-color:var(--line)}
+#result{scroll-margin-top:6rem}
+
+/* ===== 2台の入力 ===== */
+.cards{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
 @media(min-width:720px){.cards{grid-template-columns:1fr 1fr}}
-.card{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:14px 14px 10px;position:relative}
-.card.a{border-color:#ffc79e}
-.card.b{border-color:#ffb3cc}
-.tag{display:inline-block;font-size:.78rem;font-weight:800;color:#fff;border-radius:999px;padding:.1rem .8rem;margin-bottom:.4rem}
-.card.a .tag{background:var(--orange)}
-.card.b .tag{background:var(--pink)}
-label.field{display:block;font-size:.8rem;font-weight:700;color:var(--ink-soft);margin:.55rem 0 .2rem}
+.card{background:#fff;border:1px solid var(--line);border-top:4px solid var(--orange);border-radius:10px;padding:10px 14px 10px}
+.card.b{border-top-color:var(--pink)}
+.tag{display:block;font-size:.9375rem;font-weight:800;color:var(--orange-deep);margin-bottom:.1rem}
+.card.b .tag{color:var(--pink-deep)}
+label.field{display:block;font-size:.875rem;font-weight:700;color:var(--ink-soft);margin:.6rem 0 .2rem;line-height:1.5}
 select,input[type=number]{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:#fff;
-  border:2px solid var(--line);border-radius:12px;padding:.5rem .7rem;min-height:44px}
+  border:2px solid #d8cdbd;border-radius:8px;padding:.5rem .7rem;min-height:44px;line-height:1.5}
 select:focus,input:focus{outline:none;border-color:var(--orange)}
-.grade{font-size:.8rem;color:var(--ink-soft);margin:.35rem 0 0;line-height:1.55}
-.hvnote{font-size:.76rem;color:#8a5a00;background:#fff4cf;border-radius:8px;padding:.3rem .5rem;margin:.4rem 0 0}
-.big{font-size:1.25rem;font-weight:800;margin:.05rem 0}
+.grade{font-size:.8125rem;color:var(--ink-soft);margin:.35rem 0 0;line-height:1.55}
+.hvnote{font-size:.8125rem;color:#7a5200;background:#fff4cf;border-radius:6px;padding:.3rem .5rem;margin:.4rem 0 0;line-height:1.55}
+.big{font-size:1.25rem;font-weight:800;margin:.05rem 0;line-height:1.4}
 input[type=range]{width:100%;accent-color:var(--orange);height:32px;margin:0}
 .card.b input[type=range]{accent-color:var(--pink)}
-.ends{display:flex;justify-content:space-between;font-size:.74rem;color:var(--ink-soft);margin-top:-2px}
-.range-note{font-size:.74rem;color:var(--ink-soft);margin:.1rem 0 0}
+.ends{display:flex;justify-content:space-between;font-size:.8125rem;color:var(--ink-soft);margin-top:-2px}
+.range-note{font-size:.8125rem;color:var(--ink-soft);margin:.1rem 0 0;line-height:1.55}
 details{margin:.6rem 0 0}
-summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);padding:.3rem 0;border-radius:8px}
-.src{font-size:.78rem;line-height:1.6;margin:.2rem 0 .4rem;padding-left:1.1rem}
+summary{cursor:pointer;font-size:.875rem;font-weight:700;color:var(--ink-soft);padding:.3rem 0}
+.src{font-size:.875rem;line-height:1.6;margin:.2rem 0 .4rem;padding-left:1.1rem}
 .src li{margin:.15rem 0}
-.spec{font-size:.78rem;margin:.2rem 0;border-collapse:collapse;width:100%}
-.spec th,.spec td{text-align:left;padding:.15rem .3rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.spec{font-size:.875rem;margin:.2rem 0;border-collapse:collapse;width:100%;line-height:1.55}
+.spec th,.spec td{text-align:left;padding:.25rem .3rem;border-bottom:1px solid var(--line-soft);vertical-align:top}
 .spec th{color:var(--ink-soft);font-weight:700;white-space:nowrap;width:6.5em}
 
-/* ===== 共通条件 ===== */
-.common{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:12px 14px;margin-top:12px}
+/* ===== 共通条件（初期は畳む） ===== */
+.common{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:12px;padding:.2rem 0}
+.common>summary{font-size:.9375rem;color:var(--ink);padding:.5rem 0;line-height:1.55}
+.common>summary small{display:block;font-size:.8125rem;font-weight:400;color:var(--ink-soft)}
 .common-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
 @media(min-width:720px){.common-grid{grid-template-columns:repeat(5,1fr)}}
 .unit{position:relative}
-.unit span{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);font-size:.8rem;color:var(--ink-soft);pointer-events:none}
+.unit span{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);font-size:.875rem;color:var(--ink-soft);pointer-events:none}
 .unit input{padding-right:2.6rem}
-.hint{font-size:.74rem;color:var(--ink-soft);margin:.5rem 0 0}
+.hint{font-size:.8125rem;color:var(--ink-soft);margin:.5rem 0 .6rem;line-height:1.6}
 
-/* ===== 結果 ===== */
-.result{background:#fff;border:2px solid var(--line);border-radius:18px;margin-top:14px;overflow:hidden}
-.result table{width:100%;border-collapse:collapse;font-size:.9rem}
+/* ===== 結果の表 ===== */
+.result{background:#fff;border:1px solid var(--line);border-radius:10px;margin-top:14px;overflow:hidden}
+.result table{width:100%;border-collapse:collapse;font-size:.9375rem;line-height:1.5}
 .result th,.result td{padding:.55rem .6rem;border-bottom:1px solid var(--line-soft)}
-.result thead th{font-size:.82rem;color:#fff;font-weight:800}
-.result thead th.ha{background:var(--orange)}
-.result thead th.hb{background:var(--pink)}
+.result thead th{font-size:.875rem;color:#fff;font-weight:800}
+.result thead th.ha{background:var(--orange-deep)}
+.result thead th.hb{background:var(--pink-deep)}
 .result thead th.hl{background:#fff;color:var(--ink-soft)}
-.result tbody th{text-align:left;font-weight:700;font-size:.82rem;color:var(--ink-soft);width:34%}
+.result tbody th{text-align:left;font-weight:700;font-size:.875rem;color:var(--ink-soft);width:34%}
 .result td{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.result td small{display:block;font-size:.68rem;color:var(--ink-soft);white-space:normal;line-height:1.35}
-.result tr.total th{color:var(--ink);font-size:.9rem}
-.result tr.total td{font-size:1.25rem;font-weight:800;background:#fff7e8}
-.diff{text-align:center;font-weight:800;padding:.7rem .6rem .8rem;font-size:1rem}
-.diff small{display:block;font-weight:400;font-size:.74rem;color:var(--ink-soft)}
-.excluded-note{font-size:.76rem;color:var(--ink-soft);padding:0 .8rem .7rem;margin:0}
+.result td small{display:block;font-size:.75rem;color:var(--ink-soft);white-space:normal;line-height:1.4}
+.result tr.total th{color:var(--ink);font-size:.9375rem}
+.result tr.total td{font-size:1.25rem;font-weight:800;background:var(--cream)}
+.diff{font-weight:800;padding:.7rem .8rem .8rem;font-size:1rem}
+.diff small{display:block;font-weight:400;font-size:.8125rem;color:var(--ink-soft)}
+.excluded-note{font-size:.8125rem;color:var(--ink-soft);padding:0 .8rem .7rem;margin:0;line-height:1.6}
 .breakdown{padding:0 .8rem .6rem}
-.breakdown table{font-size:.8rem}
-.breakdown td,.breakdown th{padding:.3rem .4rem}
-.err{background:#ffe9e9;color:#9b1c1c;border-radius:12px;padding:.8rem 1rem;font-size:.9rem}
+.breakdown table{font-size:.875rem}
+.breakdown td,.breakdown th{padding:.35rem .4rem}
+.err{background:#ffe9e9;color:#9b1c1c;border-radius:8px;padding:.8rem 1rem;font-size:.9375rem}
 
 /* ===== 本文 ===== */
-.box{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:.8rem 1rem;font-size:.9rem}
-.box ul{margin:.2rem 0;padding-left:1.2rem}
-.box li{margin:.25rem 0}
-.faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:.4rem .9rem;margin:.5rem 0}
-.faq summary{font-size:.95rem;color:var(--ink)}
-.faq p{margin:.3rem 0 .5rem;font-size:.9rem}
-.srctable{width:100%;border-collapse:collapse;font-size:.8rem;background:var(--paper)}
-.srctable th,.srctable td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}
-.srctable th{background:#fff3df;white-space:nowrap}
+.box{font-size:1rem}
+.box ul{margin:.2rem 0;padding-left:1.3rem}
+.box li{margin:.35rem 0}
+.formula{margin:.6rem 0;padding:.5rem .8rem;border:1px solid var(--line);border-left:4px solid var(--line);font-size:.9375rem;line-height:1.7}
+.formula div{padding-left:1em;text-indent:-1em;margin:.3rem 0}
+.faq details{border-bottom:1px solid var(--line);padding:.3rem 0;margin:0}
+.faq details:first-child{border-top:1px solid var(--line)}
+.faq summary{font-size:1rem;color:var(--ink);padding:.45rem 0}
+.faq p{margin:.2rem 0 .7rem;font-size:1rem}
+.srctable{width:100%;border-collapse:collapse;font-size:.875rem;line-height:1.6;background:#fff}
+.srctable th,.srctable td{border:1px solid var(--line);padding:.45rem .55rem;text-align:left;vertical-align:top}
+.srctable th{background:var(--cream);white-space:nowrap}
 .scroll{overflow-x:auto}
-.note{font-size:.78rem;color:var(--ink-soft)}
+.note{font-size:.8125rem;color:var(--ink-soft);line-height:1.7}
 
 /* ===== 広告（標準サイズ・ラベルつき・高さ予約） ===== */
 .kkp-ad{text-align:center;margin:1.4rem auto 0;max-width:680px;min-height:288px;padding-top:6px}
@@ -173,11 +195,19 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
 <body>
 <div class="wrap">
 
-<h1><small>ローン・維持費・3年後の売却額まで入れて</small>本命vs夢枠 車コスト比較</h1>
-<p class="lead">検討中の車（本命）と憧れの車（夢枠）を並べて、<b>3年乗って売ったときの「月々の実質負担」</b>を比べます。価格・諸元はメーカー公式、税は官公庁、売れる割合はガリバーの買取実績の幅から計算しています。</p>
+<h1>車の維持費シミュレーション<small>本命vs夢枠｜ローン込みの月々と3年後の売却額で2台を比べる</small></h1>
 
 <div id="loadError" class="err" hidden></div>
 <div id="staleWarn" class="err" hidden></div>
+
+<div class="tool">
+<div class="sum" id="sum">
+  <div class="sum-h"><span>月々の実質負担（ローン込み・売却後）</span><a href="#result">内訳の表へ</a></div>
+  <div class="sum-row"><span class="sa"><i>本命</i>月々<b id="sumA">—</b></span><span class="sb"><i>夢枠</i>月々<b id="sumB">—</b></span><span class="sd"><i>差</i>月<b id="sumD">—</b><small id="sumW"></small></span></div>
+</div>
+
+<p class="lead">検討中の車（本命）と憧れの車（夢枠）を選ぶと、<b>3年乗って売ったときの「月々の実質負担」</b>をその場で計算します。</p>
+<p class="updated">価格・諸元はメーカー公式、税は官公庁、売れる割合はガリバーの買取実績の幅から取っています。<br>公開 2026-09-14／更新 <time id="pageUpdated" datetime="2026-09-19">2026-09-19</time>／数字の確認日 <span id="checkedTop"></span></p>
 
 <div class="cards">
   <section class="card a" aria-label="本命">
@@ -229,7 +259,8 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
   </section>
 </div>
 
-<section class="common" aria-label="2台共通の条件">
+<details class="common" id="commonBox">
+  <summary>細かく直す（頭金・ローン金利・回数・走行距離・駐車場代）<small id="commonNow"></small></summary>
   <div class="common-grid">
     <div><label class="field" for="down">頭金</label><div class="unit"><input type="number" id="down" min="0" step="10" value="0" inputmode="numeric"><span>万円</span></div></div>
     <div><label class="field" for="rate">ローン金利（年）</label><div class="unit"><input type="number" id="rate" min="0" max="20" step="0.01" value="2.55" inputmode="decimal"><span>%</span></div></div>
@@ -243,7 +274,7 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
     <div><label class="field" for="parking">駐車場代（月）</label><div class="unit"><input type="number" id="parking" min="0" step="500" value="0" inputmode="numeric"><span>円</span></div></div>
   </div>
   <p class="hint" id="rateHint"></p>
-</section>
+</details>
 
 <section class="result" aria-live="polite" id="result">
   <table>
@@ -254,6 +285,7 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
   <p class="excluded-note" id="insNote"></p>
   <div class="breakdown"><details><summary>3年間の内訳を見る</summary><div id="breakdown"></div></details></div>
 </section>
+</div><!-- /.tool -->
 
 <div class="kkp-ad">
   <div class="kkp-ad-label">広告</div>
@@ -262,6 +294,23 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
        data-ad-slot="2937937957"
        data-ad-format="rectangle"
        data-full-width-responsive="false"></ins>
+</div>
+
+<h2>リセールバリュー（3年後に売れる割合）の計算方法</h2>
+<div class="box">
+  <p style="margin:.2rem 0">このツールでは、3年後に売れる額を「価格 × 3年後に売れる割合」で出し、3年間に払うお金の合計から引いて、36か月で割っています。</p>
+  <div class="formula">
+    <div>3年後に売れる額 ＝ 価格 × 3年後に売れる割合（％）</div>
+    <div>3年間の実質負担 ＝ 頭金 ＋ ローン返済（36回まで）＋ 3年時点のローン残り ＋ 購入時の重量税・自賠責 ＋ 3年分の維持費 − 3年後に売れる額</div>
+    <div>月々の実質負担 ＝ 3年間の実質負担 ÷ 36</div>
+  </div>
+  <p style="margin:.2rem 0" id="resaleExample"></p>
+  <ul>
+    <li>3年後に売れる割合は、ガリバーが公表している車種ごとの最小値〜最大値の幅の中で動かせます。初期値は幅の中央（0.1%単位）です。</li>
+    <li>3年分の維持費は、自動車税（年額×3）・燃料代・駐車場代・任意保険（入力したときだけ）の合計です。</li>
+    <li>ローンが36回より長いときは、3年時点の残りを売ったお金で一括返済する前提です。ローンは元利均等返済で計算しています。</li>
+    <li>売れる割合が高い車でも、価格が高ければ3年間に減る額（価格 − 売れる額）は大きくなることがあります。割合ではなく月々の実質負担を並べているのはそのためです。</li>
+  </ul>
 </div>
 
 <h2>この計算に入れていないもの</h2>
@@ -319,7 +368,7 @@ summary{cursor:pointer;font-size:.82rem;font-weight:700;color:var(--ink-soft);pa
   <a href="https://3warizan.kkpwebninja.com/" style="display:block;padding:0.4rem 0;color:#1565c0;text-decoration:none;font-size:0.92rem;line-height:1.6;border-top:1px solid #f3ecd9;">お金持ちの3つの割り算 — 資産・年収・税金の比率で今の位置を見る</a>
 </div>
 
-<p class="note" style="text-align:center;margin:1.6rem 0 0">メーカー・買取会社とは関係のない個人運営のツールです。車名は各社の商標です。（v1.0.0）</p>
+<p class="note" style="text-align:center;margin:1.6rem 0 0">メーカー・買取会社とは関係のない個人運営のツールです。車名は各社の商標です。（v1.1.0）</p>
 
 <!-- WEBNINJA_UNIFIED_FOOTER -->
 <footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:0.78rem;color:#94a3b8;line-height:2;border-top:1px solid #f0e6d2;margin-top:1.6rem;background:#fffcf7;">
@@ -526,11 +575,20 @@ function compare3y(car, opt, rates, todayStr) {
       row('3年後に売れる額', manYen(ra.resale), manYen(rb.resale), A.opt.resalePct.toFixed(1) + '%', B.opt.resalePct.toFixed(1) + '%') +
       row('月々の実質負担', yen(ra.perMonth), yen(rb.perMonth), '3年間の合計 ' + manYen(ra.total3y), '3年間の合計 ' + manYen(rb.total3y), 'total');
 
-    const d = rb.perMonth - ra.perMonth;
+    // 差は「画面に出ている2つの金額（円に丸めた値）」の引き算にそろえる。端数つきで引くと1円ずれて見える
+    const d = Math.round(rb.perMonth) - Math.round(ra.perMonth);
     $('diff').innerHTML = Math.abs(d) < 1
       ? '2台の月々の実質負担はほぼ同じです'
       : (d > 0 ? '夢枠のほうが 月 ' + yen(d) + ' 多い' : '本命のほうが 月 ' + yen(-d) + ' 多い') +
         '<small>3年間では ' + manYen(Math.abs(rb.total3y - ra.total3y)) + ' の差</small>';
+
+    // 入力欄の上の要約（下の表と同じ計算結果から出す）
+    $('sumA').textContent = yen(ra.perMonth);
+    $('sumB').textContent = yen(rb.perMonth);
+    $('sumD').textContent = Math.abs(d) < 1 ? 'ほぼ同じ' : yen(Math.abs(d));
+    $('sumW').textContent = Math.abs(d) < 1 ? '' : (d > 0 ? '（夢枠が多い）' : '（本命が多い）');
+    $('commonNow').textContent = 'いまの条件：頭金 ' + (A.opt.down / 10000).toLocaleString('ja-JP') + '万円・年' + A.opt.ratePct + '%・' + months + '回・月' + A.opt.kmPerMonth.toLocaleString('ja-JP') + 'km・駐車場 ' + yen(A.opt.parkingMonth);
+    $('resaleExample').textContent = 'いま選んでいる本命（' + A.car.name + '）の例：' + yen(A.opt.price) + ' × ' + A.opt.resalePct.toFixed(1) + '% ＝ ' + manYen(ra.resale) + '。36か月で割ると、月あたり ' + yen(ra.resale / 36) + ' が実質負担から引かれます。';
 
     const noIns = [!ra.insuranceIncluded ? '本命' : '', !rb.insuranceIncluded ? '夢枠' : ''].filter(Boolean);
     $('insNote').textContent = noIns.length ? noIns.join('と') + 'は任意保険を含めていません（入力すると合計に入ります）。車検・メンテナンス費も含みません。' : '車検・メンテナンス費は含みません。';
@@ -582,6 +640,7 @@ function compare3y(car, opt, rates, todayStr) {
       '<tr><th>価格・諸元</th><td>各メーカーの公式サイト・主要諸元表（車ごとの出典はカード内）</td></tr>';
     $('rateHint').textContent = '金利の初期値 年' + R.loan_rate_default.annual_pct + '%は、りそなマイカーローンの試算例の金利です。お手元の見積もりの金利に変えてください。';
     $('checkedDate').textContent = S.meta.checked;
+    $('checkedTop').textContent = S.meta.checked;
     // 期限のある制度を過ぎたら、数字が古い可能性を知らせる
     if (today > R.weight_tax.valid_until) {
       $('staleWarn').hidden = false;
@@ -624,6 +683,9 @@ function compare3y(car, opt, rates, todayStr) {
         $('ins-' + side).addEventListener('input', render);
       });
       ['down', 'rate', 'months', 'km', 'parking'].forEach(id => $(id).addEventListener('input', render));
+      $('commonBox').addEventListener('toggle', e => {
+        if (e.target.open && typeof gtag === 'function') gtag('event', 'common_open');
+      });
     }).catch(err => {
       const box = $('loadError');
       box.hidden = false;
