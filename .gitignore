@@ -1,0 +1,5 @@
+.DS_Store
+.wrangler/
+node_modules/
+# 読み物の設計メモ（作業用・配信しない）
+ARTICLES.md
