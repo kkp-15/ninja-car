@@ -223,6 +223,20 @@ select:focus,input:focus{border-color:var(--k-shu)}
 .srctable th{background:var(--k-kinari)}
 .formula{border-color:var(--k-sumi);border-left-color:var(--k-orange);background:var(--k-surface)}
 </style>
+<!-- kkp-rel-d4:start -->
+<style id="kkp-rel-d4">
+/* あわせて使えるアプリ（統一仕様の欄）を D4 に: 和紙の面・筆の見出し・墨の字＋オレンジの下線＋道しるべ。中身とリンクは触らない（インライン style に勝つため !important） */
+@media screen{
+.kkp-rel{box-sizing:border-box;background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/320px auto!important;border:var(--k-bw-s) solid var(--k-sumi)!important;border-radius:var(--k-r)!important;box-shadow:var(--k-sh-s);padding:14px 16px 6px!important;color:var(--k-sumi);text-align:left}
+.kkp-rel>div:first-child,.kkp-rel>b:first-child{display:block;margin:0 0 4px!important;padding:0!important;border:0!important;font-family:var(--k-brush)!important;font-weight:400!important;font-size:19px!important;line-height:1.3!important;letter-spacing:.12em;color:var(--k-sumi)!important;font-feature-settings:"palt" 1}
+.kkp-rel>a{display:flex!important;align-items:center;gap:12px;box-sizing:border-box;min-height:48px;margin:0!important;padding:10px 0!important;border:0!important;border-top:1px dashed var(--k-line-soft)!important;background:none!important;color:var(--k-sumi)!important;font-size:15px!important;font-weight:700!important;line-height:1.55!important;letter-spacing:.02em;text-decoration:underline!important;text-decoration-color:var(--k-orange)!important;text-decoration-thickness:2px!important;text-underline-offset:4px;-webkit-tap-highlight-color:transparent}
+.kkp-rel>a::after{content:"";flex:none;width:26px;height:17px;margin-left:auto;background:var(--k-sign) center/100% 100% no-repeat;transition:transform .2s}
+.kkp-rel>a:hover{color:var(--k-shu)!important}
+.kkp-rel>a:hover::after,.kkp-rel>a:active::after,.kkp-rel>a:focus-visible::after{transform:translateX(4px)}
+}
+@media screen and (max-width:712px){.kkp-rel{max-width:calc(100vw - 24px)!important;margin-left:auto!important;margin-right:auto!important}}
+</style>
+<!-- kkp-rel-d4:end -->
 </head>
 <body class="k-page">
 <div class="wrap">
@@ -403,7 +417,7 @@ select:focus,input:focus{border-color:var(--k-shu)}
 </div>
 
 <!-- WEBNINJA_RELATED_APPS -->
-<div style="margin:2rem 0 0;padding:1rem 1.2rem;background:#fffcf7;border:1px solid #f0e6d2;border-radius:12px;font-family:inherit;">
+<div class="kkp-rel" style="margin:2rem 0 0;padding:1rem 1.2rem;background:#fffcf7;border:1px solid #f0e6d2;border-radius:12px;font-family:inherit;">
   <div style="font-weight:800;color:#8b6b3d;font-size:0.9rem;margin-bottom:0.3rem;">あわせて使えるアプリ</div>
   <a href="https://kotei.kkpwebninja.com/" style="display:block;padding:0.4rem 0;color:#1565c0;text-decoration:none;font-size:0.92rem;line-height:1.6;border-top:1px solid #f3ecd9;">固定費の砦 — 車のローンや保険も含めて毎月の支払いを一覧にする</a>
   <a href="https://shigoto.kkpwebninja.com/" style="display:block;padding:0.4rem 0;color:#1565c0;text-decoration:none;font-size:0.92rem;line-height:1.6;border-top:1px solid #f3ecd9;">しごとの乗りかえ案内 — 手取りと実質時給を計算する</a>
@@ -413,7 +427,7 @@ select:focus,input:focus{border-color:var(--k-shu)}
 <p class="note" style="text-align:center;margin:1.6rem 0 0">メーカー・買取会社とは関係のない個人運営のツールです。車名は各社の商標です。（v1.1.0）</p>
 
 <!-- WEBNINJA_RELATED_APPS -->
-<div style="max-width:680px;margin:2rem auto 0;padding:1rem 1.2rem;background:#fffcf7;border:1px solid #f0e6d2;border-radius:12px;font-family:inherit;">
+<div class="kkp-rel" style="max-width:680px;margin:2rem auto 0;padding:1rem 1.2rem;background:#fffcf7;border:1px solid #f0e6d2;border-radius:12px;font-family:inherit;">
   <div style="font-weight:800;color:#8b6b3d;font-size:0.9rem;margin-bottom:0.3rem;">あわせて使えるアプリ</div>
   <a href="https://rentbuy.kkpwebninja.com/" style="display:block;padding:0.4rem 0;color:#1565c0;text-decoration:none;font-size:0.92rem;line-height:1.6;border-top:1px solid #f3ecd9;">借りる？買う？判定 — スーツケースやカメラは年に何回使うなら買いか、レンタル料金で計算</a>
   <a href="https://ensei.kkpwebninja.com/" style="display:block;padding:0.4rem 0;color:#1565c0;text-decoration:none;font-size:0.92rem;line-height:1.6;border-top:1px solid #f3ecd9;">遠征費計算ツール — 新幹線・宿・チケットを足して観戦遠征の総額を出す</a>
