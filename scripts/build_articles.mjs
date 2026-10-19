@@ -45,6 +45,18 @@ const at = (rows, from) => rows.find(r => r.from === from).yen;
 const pct1 = (a, b) => Math.round((b - a) / a * 1000) / 10;
 const ymdJa = s => { const [y, m, d] = s.split('-').map(Number); return `${y}年${m}月${d}日`; };
 
+// 共通部品 D4: 筆（Yuji Syuku）と太字（RocknRoll One）は、そのページで筆・太字になる字だけを text= で頼む（数MBを避ける）。
+// 対象は h1・h2・summary・.cta の字（D4 の上書きで筆・太字にしているところ）。字は並べ替えて重複を消すので、同じ記事なら同じ出力。
+export function d4FontLink(html) {
+  const parts = [];
+  for (const re of [/<h1[^>]*>([\s\S]*?)<\/h1>/g, /<h2[^>]*>([\s\S]*?)<\/h2>/g, /<summary[^>]*>([\s\S]*?)<\/summary>/g, /<a class="cta"[^>]*>([\s\S]*?)<\/a>/g]) {
+    for (const m of html.matchAll(re)) parts.push(m[1].replace(/<[^>]+>/g, ''));
+  }
+  const txt = parts.join('').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'") + '0123456789';
+  const chars = [...new Set([...txt].filter(c => c.trim()))].sort((a, b) => a.codePointAt(0) - b.codePointAt(0)).join('');
+  return '<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=RocknRoll+One&display=swap&text=' + encodeURIComponent(chars) + '" rel="stylesheet">';
+}
+
 export function buildJibaiseki({ rates, carsDoc, C, defaults }) {
   const SLUG = 'jibaiseki-neage-2026';
   const URL = 'https://car.kkpwebninja.com/articles/' + SLUG;
@@ -146,6 +158,10 @@ export function buildJibaiseki({ rates, carsDoc, C, defaults }) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<!-- D4_FONTS -->
+<!-- 共通部品 D4（kkp-kit を kit/ にコピーしたもの。中は手で直さず kkp-kit 側で直して sync.sh） -->
+<link rel="stylesheet" href="/kit/kit.css">
+<script src="/kit/kit.js" defer></script>
 <script type="application/ld+json">
 ${JSON.stringify(ld, null, 1)}
 </script>
@@ -182,9 +198,27 @@ td small,th small{display:block;font-size:.72rem;color:var(--ink-soft);font-weig
 .kkp-ad-label{font-size:11px;color:#999;letter-spacing:.08em;margin:0 0 6px;line-height:1}
 .kkp-ad ins.adsbygoogle{display:block;width:300px;height:250px;margin:0 auto}
 @media(min-width:768px){.kkp-ad{min-height:318px}.kkp-ad ins.adsbygoogle{width:336px;height:280px}}
+/* ===== 2026-10-19 共通部品 D4（ストリート和忍者）に見た目をそろえる（トップ f5b5de2 と同じ控えめな入れ方） =====
+   数字と表が主役。数字・出典・本文・広告の位置・GA4・JSON-LD・title は変えない。本文の書体もそのまま。 */
+body.k-page{background:var(--k-surface) url(/kit/img/d4-washi.webp) 0 0/320px auto;color:var(--ink);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Meiryo",sans-serif;line-height:1.8}
+h1{font-family:var(--k-brush);font-weight:400;letter-spacing:.08em;color:var(--k-sumi);font-feature-settings:"palt" 1}
+h2{font-family:var(--k-brush);font-weight:400;letter-spacing:.1em;color:var(--k-sumi);background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw-s) solid var(--k-sumi);border-left:8px solid var(--k-orange);border-radius:var(--k-r);padding:.35rem .7rem;font-feature-settings:"palt" 1}
+.answer{background:var(--k-surface);border:var(--k-bw) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-l)}
+.today{background:var(--k-kinari);border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r)}
+table{border:var(--k-bw-s) solid var(--k-sumi)}
+thead th{background:var(--k-kinari);border-bottom:var(--k-bw-s) solid var(--k-sumi)}
+.box,.faq details{background:var(--k-surface);border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r)}
+.faq summary{font-family:var(--k-bold);font-weight:400;letter-spacing:.04em}
+/* ツールへの導線は道しるべつきの札（同じ href・data-cta・計測のまま） */
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--k-orange);border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-s);font-family:var(--k-bold);font-weight:400;letter-spacing:.06em;text-shadow:var(--k-outline);font-feature-settings:"palt" 1}
+.cta::after{content:"";flex:none;width:26px;height:16px;background:var(--k-sign) center/100% 100% no-repeat;transition:transform .2s}
+.cta:hover::after{transform:translateX(4px)}
+.cta:active{transform:translate(3px,3px);box-shadow:none}
+.wrap p a:not(.cta),.box a{color:var(--k-sumi);font-weight:700;text-decoration:underline;text-decoration-color:var(--k-orange);text-decoration-thickness:2px;text-underline-offset:3px}
+.wrap p a:not(.cta):hover,.box a:hover{color:var(--k-shu)}
 </style>
 </head>
-<body>
+<body class="k-page">
 <div class="wrap">
 <nav class="breadcrumb"><a href="/">本命vs夢枠 車コスト比較</a> &gt; 読み物 &gt; 自賠責の値上げ</nav>
 <h1>自賠責は2026年11月から値上げ<br>いつから・いくら上がる？乗用車と軽の保険料</h1>
@@ -301,7 +335,7 @@ ${faq.map(([q, a]) => `  <details><summary>${esc(q)}</summary><p>${esc(a)}</p></
 </body>
 </html>
 `;
-  return { slug: SLUG, path: 'articles/' + SLUG + '.html', html, facts };
+  return { slug: SLUG, path: 'articles/' + SLUG + '.html', html: html.replace('<!-- D4_FONTS -->', d4FontLink(html)), facts };
 }
 
 export function buildAll() {
