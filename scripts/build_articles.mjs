@@ -216,6 +216,9 @@ thead th{background:var(--k-kinari);border-bottom:var(--k-bw-s) solid var(--k-su
 .cta:active{transform:translate(3px,3px);box-shadow:none}
 .wrap p a:not(.cta),.box a{color:var(--k-sumi);font-weight:700;text-decoration:underline;text-decoration-color:var(--k-orange);text-decoration-thickness:2px;text-underline-offset:3px}
 .wrap p a:not(.cta):hover,.box a:hover{color:var(--k-shu)}
+/* ===== 2026-10-20 清潔感（kkp-kit 17eac63 の方針）: 見出しは k-h2 の形（帯・枠・左線なし、墨2pxの下線）・入れ物に影を付けない ===== */
+h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);border-radius:0;padding:0 0 6px}
+.answer{box-shadow:none}
 </style>
 </head>
 <body class="k-page">

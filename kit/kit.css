@@ -6,7 +6,7 @@
    ===================================================================== */
 
 :root{
-  /* 色（7つ）。朱＝強調／オレンジ＝木札と票／萌黄＝進み具合だけ／金＝特別なときだけ（1画面1か所） */
+  /* 色はオレンジ・クリーム＋墨にしぼる（2026-10-20）。朱＝強調／オレンジ＝木札と票と進み具合。萌黄と金は変数だけ残す（kit の部品では使わない） */
   --k-sumi:#1f1a17; --k-kinari:#fbf3e4; --k-surface:#fffdf8;
   --k-orange:#ff8a3d; --k-shu:#d9432a; --k-moegi:#8cbf3f; --k-kin:#c9a13b;
   --k-text-2:#4a3f37; --k-line-soft:rgba(31,26,23,.15);
@@ -48,17 +48,26 @@
 .k-btn-sm:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--k-sumi)}
 .k-btn[disabled],.k-btn[aria-disabled="true"]{opacity:.5;pointer-events:none}
 
-/* ---------- 見出し（墨の筆跡に白抜き） ---------- */
-.k-hd{display:inline-block;margin:0;padding:14px 36px 16px 56px;background:url(img/d2-ink.webp) center/100% 100% no-repeat;color:#fff;text-shadow:0 0 3px var(--k-sumi),0 0 1px var(--k-sumi);font-family:var(--k-brush);font-weight:400;font-size:22px;letter-spacing:.14em;line-height:1.2;font-feature-settings:"palt" 1;transform:rotate(-1deg)}
-@media (min-width:600px){.k-hd{font-size:26px;padding:16px 52px 18px 76px}}
+/* ---------- 見出し（墨の筆跡に白抜き） ----------
+   墨は3枚（左の筆の入り d2-ink-l・真ん中 d2-ink-m・右の端 d2-ink-r）。両端の形は固定で、真ん中だけが伸びる。
+   長い見出しは墨ごと横に伸び、入りきらなければ折り返して墨が縦に伸びる（白い字が墨の外に出ない）。
+   はね・飛び散った粒はない（2026-10-20）。16字を超える見出しは .k-h2（帯なし）のほうが読みやすい。 */
+.k-hd{display:inline-block;box-sizing:border-box;max-width:100%;margin:0;padding:12px 22px 14px 70px;background:url(img/d2-ink-l.webp) 0 0/68px 100% no-repeat,url(img/d2-ink-r.webp) 100% 0/14px 100% no-repeat,url(img/d2-ink-m.webp) 62px 0/calc(100% - 69px) 100% no-repeat;color:#fff;text-shadow:0 0 2px var(--k-sumi);font-family:var(--k-brush);font-weight:400;font-size:22px;letter-spacing:.14em;line-height:1.3;font-feature-settings:"palt" 1;word-break:auto-phrase;text-wrap:balance;transform:rotate(-1deg)}
+@media (min-width:600px){.k-hd{font-size:26px;padding:14px 26px 16px 84px;background-size:80px 100%,16px 100%,calc(100% - 80px) 100%;background-position:0 0,100% 0,72px 0}}
 .k-hd-brush{margin:0;font-family:var(--k-brush);font-weight:400;font-size:24px;letter-spacing:.14em;line-height:1.2}
+/* 節見出し（帯なし）。筆＋墨2pxの下線。長い見出し・読みもの・FAQ の見出しに。古い「左オレンジ線＋薄い帯」の置き換え */
+.k-h2{margin:32px 0 12px;padding:0 0 6px;border-bottom:var(--k-bw-s) solid var(--k-sumi);color:var(--k-sumi);font-family:var(--k-brush);font-weight:400;font-size:22px;letter-spacing:.1em;line-height:1.4;font-feature-settings:"palt" 1;word-break:auto-phrase;text-wrap:balance}
+.k-h2-bold{font-family:var(--k-bold);letter-spacing:.04em}   /* 筆の字を読まないページ用（太字で同じ形） */
+.k-h3{margin:24px 0 8px;padding:0 0 0 10px;border-left:3px solid var(--k-sumi);color:var(--k-sumi);font-family:var(--k-bold);font-weight:400;font-size:18px;letter-spacing:.04em;line-height:1.45;font-feature-settings:"palt" 1}
+@media (min-width:600px){.k-h2{font-size:26px}}
 
 /* ---------- 枠（カード）と面 ---------- */
-.k-card{position:relative;display:block;padding:12px 16px 14px;background:var(--k-surface) url(img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-l);color:var(--k-sumi);text-decoration:none}
+/* 影は「押せるもの」だけ（a.k-card・ボタン・タブ）。ただの入れ物（div.k-card・.k-panel）は影なし＝重ねても重く見えない */
+.k-card{position:relative;display:block;padding:12px 16px 14px;background:var(--k-surface) url(img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);color:var(--k-sumi);text-decoration:none}
 .k-card h3,.k-card .k-card-t{margin:0;font-family:var(--k-bold);font-weight:400;font-size:17px;line-height:1.4;font-feature-settings:"palt" 1}
 .k-card p,.k-card .k-card-d{margin:2px 0 0;font-size:14px;line-height:1.55;color:var(--k-text-2)}
 /* 押せるカード（a.k-card.k-go）: 右に「開く」の道しるべ。押すと沈む */
-a.k-card{transition:transform .08s,box-shadow .08s}
+a.k-card{border-width:var(--k-bw);box-shadow:var(--k-sh-l);transition:transform .08s,box-shadow .08s}
 a.k-card:hover{background-color:#fff}
 a.k-card:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--k-sumi)}
 a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decoration-color:var(--k-orange);text-decoration-thickness:3px;text-underline-offset:4px}
@@ -68,8 +77,8 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-go:active::after{transform:translateX(6px)}
 .k-go[data-go]::after{content:attr(data-go)}
 /* 面（いまの使いどき・設定の箱など）: 和紙の地＋端だけ青海波 */
-.k-panel{position:relative;isolation:isolate;padding:16px 16px 20px;background:var(--k-kinari) url(img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-l)}
-.k-panel::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:url(img/d2-seigaiha.webp) 0 0/220px auto;opacity:.6;-webkit-mask:radial-gradient(ellipse at 50% 45%,transparent 55%,#000 100%);mask:radial-gradient(ellipse at 50% 45%,transparent 55%,#000 100%);pointer-events:none}
+.k-panel{position:relative;isolation:isolate;padding:16px 16px 20px;background:var(--k-kinari) url(img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r)}
+.k-panel::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:url(img/d2-seigaiha.webp) 0 0/220px auto;opacity:.3;-webkit-mask:radial-gradient(ellipse at 50% 45%,transparent 68%,#000 100%);mask:radial-gradient(ellipse at 50% 45%,transparent 68%,#000 100%);pointer-events:none}
 /* 市松（下の操作帯・帯の地） */
 .k-ichimatsu{background-color:var(--k-kinari);background-image:conic-gradient(rgba(31,26,23,.045) 25%,transparent 0 50%,rgba(31,26,23,.045) 0 75%,transparent 0);background-size:16px 16px}
 
@@ -96,9 +105,9 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-fuda-new{display:inline-grid;place-items:center;width:92px;height:68px;background:url(img/d3-burst.webp) center/100% 100% no-repeat;font-family:var(--k-bold);font-size:15px;color:var(--k-sumi);transform:rotate(-6deg);font-feature-settings:"palt" 1}
 .k-fuda-osusume{display:inline-grid;place-items:center;width:108px;height:46px;background:url(img/d3-hanko-rect.webp) center/100% 100% no-repeat;font-family:var(--k-bold);font-size:15px;color:var(--k-shu);transform:rotate(-4deg);font-feature-settings:"palt" 1}
 /* 小さな朱の札（新作など）。カードの中では見出しの上に置く */
-.k-tag{display:inline-block;margin:0 0 4px;padding:1px 8px;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;font-size:12px;letter-spacing:.1em;line-height:1.4;box-shadow:var(--k-sh-s)}
+.k-tag{display:inline-block;margin:0 0 4px;padding:1px 8px;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;font-size:12px;letter-spacing:.1em;line-height:1.4}
 /* 縦書きの札（カードの角に下がる） */
-.k-tate-tag{position:absolute;top:-3px;right:12px;padding:8px 5px 10px;writing-mode:vertical-rl;text-orientation:upright;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-top:0;border-radius:0 0 6px 6px;font-family:var(--k-brush);font-size:13px;letter-spacing:.24em;line-height:1;box-shadow:var(--k-sh-s)}
+.k-tate-tag{position:absolute;top:-3px;right:12px;padding:8px 5px 10px;writing-mode:vertical-rl;text-orientation:upright;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-top:0;border-radius:0 0 6px 6px;font-family:var(--k-brush);font-size:13px;letter-spacing:.24em;line-height:1}
 /* 朱の枠の小札（毎日更新など） */
 .k-upd{display:inline-block;margin-left:8px;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;color:var(--k-shu);font-family:var(--k-body);font-size:12px;line-height:1.6;vertical-align:2px;transform:rotate(-3deg)}
 
@@ -112,9 +121,9 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 /* 巻物の札（小見出しを巻物に載せる） */
 .k-scroll-label{display:inline-grid;place-items:center;min-width:200px;height:52px;padding:0 44px;background:url(img/d3-scroll.webp) center/100% 100% no-repeat;font-family:var(--k-brush);font-size:20px;letter-spacing:.12em;font-feature-settings:"palt" 1}
 
-/* ---------- 進み具合のバー（萌黄はここだけ） ---------- */
-.k-bar{position:relative;height:20px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r-pill);background:var(--k-surface);box-shadow:var(--k-sh-s)}
-.k-bar>i{display:block;height:100%;width:0;border-radius:var(--k-r-pill);background:var(--k-moegi);transition:width .4s}
+/* ---------- 進み具合のバー（オレンジ。2026-10-20 に萌黄から変更＝色はオレンジ・クリーム＋墨にしぼる） ---------- */
+.k-bar{position:relative;height:20px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r-pill);background:var(--k-surface)}
+.k-bar>i{display:block;height:100%;width:0;border-radius:var(--k-r-pill);background:var(--k-orange);transition:width .4s}
 .k-bar>img{position:absolute;top:50%;width:34px;transform:translate(-50%,-50%);transition:left .4s}
 
 /* ---------- 判子・落款・金 ---------- */
@@ -129,15 +138,17 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-bg{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
 .k-deco{position:absolute;pointer-events:none;user-select:none}
 .k-mon{width:360px;opacity:.06}             /* 丸紋の透かし: 大きく1つだけ 0.04〜0.07 */
-.k-kasumi{width:420px;opacity:.2}           /* すやり霞: まとまりの切れ目と結果の上だけ 0.2〜0.28 */
+.k-kasumi{width:420px;opacity:.14}          /* すやり霞: まとまりの切れ目だけ 0.1〜0.16。文字の下に置かない */
 .k-ninja{width:14px;opacity:.36}            /* 隠し忍者: 1ページに1か所だけ */
-.k-line{left:0;right:0;bottom:0;height:46px;background:url(img/d4-line.webp) left bottom/auto 100% repeat-x;opacity:.12}  /* 砦の線: 下端に */
+.k-line{left:0;right:0;bottom:0;height:46px;background:url(img/d4-line.webp) left bottom/auto 100% repeat-x;opacity:.08}  /* 砦の線: 下端に（文字の下に来るなら下の余白を46px以上あける） */
 /* 季節の散らし: kit.js が <html data-k-season="momiji|yuki|shochikubai|sakura"> を月で付ける。絵がある季節だけ出る */
 .k-season{display:none}
 [data-k-season="momiji"] .k-season-momiji{display:block}
 [data-k-season="yuki"] .k-season-yuki{display:block}
 [data-k-season="shochikubai"] .k-season-shochikubai{display:block}
 [data-k-season="sakura"] .k-season-sakura{display:block}
+/* 季節の散らしは1つの飾りの入れ物（.k-bg）に1つまで。2つ目以降は出さない */
+.k-bg .k-season~.k-season{display:none!important}
 
 /* ---------- 下に固定する操作帯（スマホの主操作） ---------- */
 .k-fix{position:sticky;bottom:0;z-index:30;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:var(--k-bw) solid var(--k-sumi);background-color:var(--k-kinari);background-image:conic-gradient(rgba(31,26,23,.04) 25%,transparent 0 50%,rgba(31,26,23,.04) 0 75%,transparent 0);background-size:16px 16px}
@@ -149,17 +160,199 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .kkp-ad ins.adsbygoogle{display:block;width:300px;height:250px;margin:0 auto}
 @media(min-width:768px){.kkp-ad{min-height:318px}.kkp-ad ins.adsbygoogle{width:336px;height:280px}}
 
-/* ---------- 動き（巻物が開く・判子が押される・墨がはねる） ---------- */
+/* ---------- 動き（巻物が開く・判子が押される）。押したときは静かに沈むだけ（墨の粒は 2026-10-20 にやめた） ---------- */
 @keyframes k-unroll{from{clip-path:inset(0 46% 0 46%)}to{clip-path:inset(0 0 0 0)}}
 @keyframes k-stamp{0%{opacity:0;transform:scale(2.4) rotate(-8deg)}60%{opacity:1;transform:scale(.92) rotate(-8deg)}100%{opacity:1;transform:scale(1) rotate(-8deg)}}
-@keyframes k-ink{from{transform:translate(0,0) scale(1);opacity:.9}to{transform:translate(var(--dx),var(--dy)) scale(.4);opacity:0}}
 .k-play .k-anim-unroll{animation:k-unroll .7s cubic-bezier(.2,.8,.2,1) both}
 .k-play .k-anim-stamp{animation:k-stamp .35s cubic-bezier(.3,1.4,.5,1) .65s both}
-.k-ink{position:absolute;z-index:1000;width:7px;height:7px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--k-sumi);pointer-events:none;animation:k-ink .5s cubic-bezier(.2,.7,.3,1) forwards}
+/* .k-ink-on: ボタン以外で「押すと少し沈む」を付けたいもの（名前は前のまま。粒は出ない） */
+.k-ink-on{transition:transform .08s}
+.k-ink-on:active{transform:translate(2px,2px)}
 
 @media (prefers-reduced-motion:reduce){
   .k-btn,a.k-card,.k-go::after,.k-link::after,.k-link-strong::after,.k-sign,.k-bar>i,.k-bar>img,.k-btn-main::after{transition:none}
   .k-play .k-anim-unroll,.k-play .k-anim-stamp{animation:none}
-  .k-ink{display:none}
+  .k-ink-on{transition:none}
   .k-par{transform:none!important}
+}
+
+/* ---------- 演出の部品（KKit.fx.slash / KKit.fx.shuriken で呼ぶ・kit.js） ----------
+   清潔に: 色は墨・生成り・朱だけ。光の粒は撒かない。文字の上に重ねない（結果は斬れた後に呼び出し側が出す）。
+   絵（刀・手裏剣）は img/fx-katana.webp・img/fx-shuriken.webp。動きは kit.js が Web Animations で付ける。 */
+.k-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:6}
+/* 札（斬られる前の紙の札）。--k-fx-c は印の色（レア度などで変える） */
+.k-fx-fuda{position:absolute;left:50%;top:50%;width:var(--k-fx-w,200px);aspect-ratio:2/3;transform:translate(-50%,-50%)}
+.k-fx-half{position:absolute;inset:0}
+.k-fx-half.a{clip-path:polygon(0 0,100% 0,100% 65.5%,0 34.5%)}
+.k-fx-half.b{clip-path:polygon(0 34.5%,100% 65.5%,100% 100%,0 100%)}
+.k-fx-face{position:absolute;inset:0;box-sizing:border-box;border:calc(var(--k-fx-w,200px)*.03) solid var(--k-sumi);border-radius:calc(var(--k-fx-w,200px)*.04);background:var(--k-kinari) url(img/d4-washi.webp) 0 0/160% auto;box-shadow:calc(var(--k-fx-w,200px)*.035) calc(var(--k-fx-w,200px)*.035) 0 var(--k-sumi)}
+.k-fx-face::before{content:"";position:absolute;left:12%;right:12%;top:8%;bottom:8%;border:calc(var(--k-fx-w,200px)*.012) solid var(--k-fx-c,var(--k-shu));border-radius:2px;opacity:.85;transition:border-color .25s}
+.k-fx-seal{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;transform:translate(-50%,-50%) rotate(-6deg);border-radius:12%;background:var(--k-fx-g,var(--k-fx-c,var(--k-shu)));box-shadow:0 0 0 calc(var(--k-fx-w,200px)*.018) var(--k-sumi);transition:background .25s}
+.k-fx-seal::after{content:"";position:absolute;inset:22%;border:calc(var(--k-fx-w,200px)*.016) solid rgba(255,255,255,.85);border-radius:8%}
+/* 刀が通る道（札の中心を通る斜めの線）。刀と光の筋はこの中を左から右へ */
+.k-fx-track{position:absolute;left:50%;top:50%;width:var(--k-fx-len,900px);height:0;transform:translate(-50%,-50%) rotate(var(--k-fx-ang,25deg))}
+.k-fx-blade{position:absolute;left:0;top:0;width:var(--k-fx-bw,360px);aspect-ratio:900/112;transform:translate(-100%,-50%);background:url(img/fx-katana.webp) center/100% 100% no-repeat;opacity:0}
+.k-fx-line{position:absolute;left:50%;top:0;width:var(--k-fx-ll,400px);margin-left:calc(var(--k-fx-ll,400px)/-2);height:var(--k-fx-lh,6px);transform:translateY(-50%) scaleX(0);transform-origin:0 50%;border-radius:999px;background:#fff;box-shadow:0 0 0 2px var(--k-sumi);opacity:0}
+/* 印の色が上がったときの輪（1回だけ・細く） */
+.k-fx-ring{position:absolute;left:50%;top:50%;width:var(--k-fx-w,200px);aspect-ratio:1;border:4px solid var(--k-fx-c,var(--k-shu));border-radius:50%;transform:translate(-50%,-50%);opacity:0}
+/* 手裏剣（刺さったまま残す。次に投げるとき・KKit.fx.clear で消える） */
+.k-fx-star{position:absolute;left:0;top:0;width:var(--k-fx-s,80px);aspect-ratio:1;margin:calc(var(--k-fx-s,80px)/-2) 0 0 calc(var(--k-fx-s,80px)/-2);background:url(img/fx-shuriken.webp) center/100% 100% no-repeat;filter:drop-shadow(3px 3px 0 rgba(31,26,23,.55));z-index:2}
+.k-fx-hit{position:absolute;left:0;top:0;width:var(--k-fx-s,80px);aspect-ratio:1;margin:calc(var(--k-fx-s,80px)/-2) 0 0 calc(var(--k-fx-s,80px)/-2);border:3px solid var(--k-sumi);border-radius:50%;box-sizing:border-box;opacity:0;z-index:1}
+@media (prefers-reduced-motion:reduce){.k-fx{display:none}}
+
+/* =====================================================================
+   2026-10-20 追加の部品（清潔感・装飾は使い回す）
+   約束: 色は墨・生成り・オレンジ（朱）だけ／影は押せるものだけ／左揃えと罫線／絵文字なし／無限に動かさない
+   ===================================================================== */
+
+/* ---------- 背景の絵（ito・wordwolf・haa で同じだったものをまとめた） ---------- */
+.k-paper{background:var(--k-surface) url(img/paper.webp) 0 0/128px 128px repeat}      /* 白い紙の地 */
+.k-reveal-bg{background:#16213a url(img/reveal-bg.webp) center/cover no-repeat;color:#fff}  /* 藍の札の地（答え・役の見せ場） */
+
+/* ---------- ホーム画面に追加（k-install） ----------
+   <div class="k-install" data-k-key="サイト名_install_dismissed" role="dialog" aria-label="ホーム画面に追加" hidden> … README
+   kit.js が自動でつなぐ（iOS は手順を開く・Android は本物の追加画面・一度閉じたら出さない・PC では出さない）。
+   下に .k-fix があれば、その上に出る。 */
+.k-install{position:fixed;left:10px;right:10px;bottom:var(--k-install-bottom,12px);z-index:80;display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;box-sizing:border-box;max-width:520px;margin:0 auto;padding:10px 12px;background:var(--k-kinari) url(img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-l);color:var(--k-sumi);font-family:var(--k-body)}
+.k-install[hidden]{display:none}
+.k-install-t{flex:1;min-width:0}
+.k-install-t b{display:block;font-family:var(--k-bold);font-weight:400;font-size:15px;line-height:1.35}
+.k-install-t span{display:block;font-size:12px;color:var(--k-text-2);line-height:1.45}
+.k-install-x{flex:none;display:grid;place-items:center;width:44px;height:44px;margin:-4px -6px -4px -8px;padding:0;border:0;background:none;font-size:22px;line-height:1;color:var(--k-text-2);cursor:pointer}
+.k-install-how{flex:1 0 100%;margin:2px 0 0;padding:8px 0 0 1.4em;border-top:1px solid var(--k-line-soft);font-size:14px;line-height:1.6}
+.k-install-how[hidden]{display:none}
+
+/* ---------- 順位カード（k-teaser）＝ magic-teaser の D4 版 ----------
+   自分で書くとき: <a class="k-teaser" href="…" style="--k-teaser-c:#e60012"> の中に
+     .k-teaser-asof（時点）/ .k-teaser-q（問い）/ .k-teaser-v（<b>5位</b>・…）/ .k-teaser-go（行き先）
+   magic-teaser.js をそのまま使うとき: <div data-magic-teaser class="k-teaser-host" …> と書くだけで D4 の見た目になる
+   （差し色はカードの上の線だけ。地は和紙・文字は墨なので、球団の色が白でも黒でも読める） */
+.k-teaser,.k-teaser-host .mt-card,.k-teaser-host .mt-card.mt-lighttext{position:relative;display:block;box-sizing:border-box;margin:0;padding:14px 16px 12px;overflow:visible;background:var(--k-surface) url(img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:inset 0 6px 0 var(--k-teaser-c,var(--mt-accent,var(--k-orange))),var(--k-sh-s);color:var(--k-sumi);font-family:var(--k-body);text-decoration:none;transition:transform .08s,box-shadow .08s}
+.k-teaser:hover,.k-teaser-host .mt-card:hover{transform:none;background-color:#fff;box-shadow:inset 0 6px 0 var(--k-teaser-c,var(--mt-accent,var(--k-orange))),var(--k-sh-s)}
+.k-teaser:active,.k-teaser-host .mt-card:active{transform:translate(3px,3px);box-shadow:inset 0 6px 0 var(--k-teaser-c,var(--mt-accent,var(--k-orange))),0 0 0 var(--k-sumi)}
+.k-teaser-host .mt-card::after{content:none;display:none}
+.k-teaser-q,.k-teaser-host .mt-q{display:block;margin:4px 0 0;padding-right:84px;font-family:var(--k-bold);font-weight:400;font-size:15px;line-height:1.45;opacity:1;letter-spacing:.02em;font-feature-settings:"palt" 1}
+.k-teaser-v,.k-teaser-host .mt-stats{display:block;margin:6px 0 0;font-size:15px;font-weight:700;line-height:1.5;font-variant-numeric:tabular-nums}
+.k-teaser-v b,.k-teaser-host .mt-stats b{margin-right:2px;font-family:var(--k-bold);font-weight:400;font-size:24px;color:var(--k-shu)}
+.k-teaser-go,.k-teaser-host .mt-cta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:8px 0 0;font-size:14px;font-weight:700;text-decoration:underline;text-decoration-color:var(--k-orange);text-decoration-thickness:2px;text-underline-offset:4px}
+.k-teaser-go::after{content:"";flex:none;width:22px;height:15px;background:var(--k-sign) center/100% 100% no-repeat}
+.k-teaser-host .mt-arrow{display:inline-block;width:22px;height:15px;overflow:hidden;color:transparent;background:var(--k-sign) center/100% 100% no-repeat}
+.k-teaser-host .mt-badge,.k-teaser-host .mt-card.mt-lighttext .mt-badge{display:inline-block;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;background:none;color:var(--k-shu);font-size:12px;font-weight:400;line-height:1.6;letter-spacing:.04em;text-decoration:none}
+.k-teaser-asof,.k-teaser-host .mt-asof{position:absolute;right:12px;top:14px;font-size:12px;font-weight:400;color:var(--k-text-2);opacity:1}
+
+/* ---------- 通知（k-toast） ----------
+   KKit.toast('コピーしました') で出す（2.2秒で消える）。HTML に置かなくてよい。
+   消えている間は visibility:hidden ＝画面の端に札が残らない。中が空なら出ない */
+.k-toast{position:fixed;left:50%;bottom:calc(var(--k-install-bottom,12px) + 12px + env(safe-area-inset-bottom));z-index:1100;box-sizing:border-box;max-width:calc(100vw - 32px);padding:10px 16px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-sumi);color:#fff;font-family:var(--k-bold);font-size:15px;line-height:1.4;letter-spacing:.04em;text-align:left;pointer-events:none;opacity:0;visibility:hidden;transform:translate(-50%,6px);transition:opacity .18s,transform .18s,visibility 0s .18s}
+.k-toast.k-on{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .18s,transform .18s}
+.k-toast:empty{display:none}
+
+/* ---------- 空のとき（k-empty） ----------
+   グラフや表の代わりに置く。1行（何がない）＋次の操作。左揃え。絵を添えるなら .k-empty-img（小さく1つ） */
+.k-empty{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;box-sizing:border-box;min-height:112px;margin:0;padding:16px;border:var(--k-bw-s) solid var(--k-line-soft);border-radius:var(--k-r);background:var(--k-kinari);color:var(--k-sumi);text-align:left}
+.k-empty-img{flex:none;width:56px;height:auto;opacity:.85}
+.k-empty-body{flex:1 1 220px;min-width:0}
+.k-empty-t{margin:0;font-family:var(--k-bold);font-weight:400;font-size:16px;line-height:1.5}
+.k-empty-d{margin:2px 0 0;font-size:14px;line-height:1.6;color:var(--k-text-2)}
+.k-empty .k-btn{flex:none}
+
+/* ---------- たたむ見出し（k-fold） ----------
+   <details class="k-fold"><summary>見出し</summary><div>中身</div></details>（open は付けない）。
+   並べると罫線でつながる。右の＋／－が印。見出しが長くても折り返して、印は右に残る */
+.k-fold{margin:0;border-top:1px solid var(--k-line-soft);border-bottom:1px solid var(--k-line-soft)}
+.k-fold+.k-fold{border-top:0}
+.k-fold>summary{display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:10px 4px 10px 4px;list-style:none;cursor:pointer;color:var(--k-sumi);font-family:var(--k-bold);font-weight:400;font-size:16px;line-height:1.5;letter-spacing:.02em;font-feature-settings:"palt" 1;word-break:auto-phrase;-webkit-tap-highlight-color:transparent}
+.k-fold>summary::-webkit-details-marker{display:none}
+.k-fold>summary::marker{content:""}
+.k-fold>summary::after{content:"＋";flex:none;display:grid;place-items:center;width:28px;height:28px;margin-left:auto;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;font-family:var(--k-body);font-size:16px;font-weight:700;line-height:1}
+.k-fold[open]>summary::after{content:"－";background:var(--k-sumi);color:#fff}
+.k-fold>summary:hover{color:var(--k-shu)}
+.k-fold>:not(summary){margin:0;padding:0 4px 16px}
+.k-fold p{margin:0 0 8px;font-size:15px;line-height:1.7}
+
+/* ---------- 手順（k-steps） ----------
+   <ol class="k-steps"><li><b>見出し</b>説明</li>…</ol>。数字は墨の太字（丸いバッジなし）。行は罫線で区切る */
+.k-steps{margin:0;padding:0;list-style:none;counter-reset:k-step}
+.k-steps>li{position:relative;display:block;margin:0;padding:12px 0 12px 40px;border-top:1px solid var(--k-line-soft);counter-increment:k-step;font-size:15px;line-height:1.65}
+.k-steps>li:last-child{border-bottom:1px solid var(--k-line-soft)}
+.k-steps>li::before{content:counter(k-step);position:absolute;left:4px;top:10px;font-family:var(--k-bold);font-size:22px;line-height:1.2;color:var(--k-shu);font-variant-numeric:tabular-nums}
+.k-steps>li>b:first-child{display:block;font-family:var(--k-bold);font-weight:400;font-size:16px;line-height:1.5}
+
+/* ---------- 結果の表（k-table-result） ----------
+   <table class="k-table-result"> 項目／金額（.k-r）／式（.k-f）。勝った行・合計の行は <tr class="k-win">。
+   上下を墨2px、行の間を薄い罫線（箱にしない）。数字は右揃え・等幅 */
+.k-table-result{width:100%;border-collapse:collapse;margin:0;border-top:var(--k-bw-s) solid var(--k-sumi);border-bottom:var(--k-bw-s) solid var(--k-sumi);background:none;font-size:15px;line-height:1.5;color:var(--k-sumi)}
+.k-table-result caption{caption-side:top;padding:0 0 6px;text-align:left;font-family:var(--k-bold);font-size:15px}
+.k-table-result th,.k-table-result td{padding:8px 8px;border:0;border-bottom:1px solid var(--k-line-soft);text-align:left;vertical-align:top}
+.k-table-result thead th{border-bottom:1px solid var(--k-sumi);font-size:13px;font-weight:700;color:var(--k-text-2);white-space:nowrap}
+.k-table-result .k-r,.k-table-result td.num,.k-table-result th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.k-table-result .k-f{font-size:13px;color:var(--k-text-2)}
+.k-table-result tbody>tr>:first-child{min-width:7em;word-break:auto-phrase}
+.k-table-result tr.k-win td,.k-table-result tr.k-win th{background:var(--k-kinari);font-weight:700}
+.k-table-result tr.k-win .k-r{color:var(--k-shu);font-family:var(--k-bold);font-weight:400;font-size:17px}
+.k-table-result tr:last-child td,.k-table-result tr:last-child th{border-bottom:0}
+
+/* ---------- 選ぶボタンの並び（k-seg） ----------
+   <div class="k-seg" role="group"><button type="button" aria-pressed="true">…</button>…</div>
+   四角を墨の線でつなぐ。選択中＝朱。折り返しても行は横いっぱい。.k-seg-2 / .k-seg-3 で同じ幅に */
+.k-seg{display:flex;flex-wrap:wrap;overflow:hidden;box-sizing:border-box;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-surface)}
+.k-seg>button,.k-seg>a,.k-seg>label{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box;min-width:0;min-height:44px;margin:0 calc(var(--k-bw-s)*-1) calc(var(--k-bw-s)*-1) 0;padding:6px 12px;border:0;border-right:var(--k-bw-s) solid var(--k-sumi);border-bottom:var(--k-bw-s) solid var(--k-sumi);border-radius:0;background:none;color:var(--k-sumi);font-family:var(--k-body);font-size:15px;font-weight:700;line-height:1.3;text-align:center;text-decoration:none;word-break:auto-phrase;text-wrap:balance;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.k-seg>button small,.k-seg>label small{display:block;font-size:12px;font-weight:400;line-height:1.3;opacity:.85}
+.k-seg>:hover{background:#fff}
+.k-seg>[aria-pressed="true"],.k-seg>[aria-checked="true"],.k-seg>[aria-selected="true"],.k-seg>.on,.k-seg>label:has(input:checked){background:var(--k-shu);color:#fff}
+.k-seg>label input{position:absolute;opacity:0;pointer-events:none}
+.k-seg-2>*{flex-basis:50%}
+.k-seg-3>*{flex-basis:33.34%}
+
+/* ---------- 数を増やす・減らす（k-stepper） ----------
+   <div class="k-stepper"><button type="button" aria-label="減らす">−</button><output class="k-num">4</output><span>人</span><button type="button" aria-label="増やす">＋</button></div> */
+.k-stepper{display:inline-flex;align-items:center;gap:12px}
+.k-stepper>button{display:grid;place-items:center;width:48px;height:48px;padding:0;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-kinari);color:var(--k-sumi);font-family:var(--k-body);font-size:24px;font-weight:700;line-height:1;cursor:pointer;box-shadow:var(--k-sh-s);transition:transform .08s,box-shadow .08s;-webkit-tap-highlight-color:transparent}
+.k-stepper>button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--k-sumi)}
+.k-stepper>button[disabled]{opacity:.4;pointer-events:none}
+.k-stepper>output,.k-stepper>.k-stepper-v{min-width:2ch;font-family:var(--k-bold);font-size:34px;line-height:1;text-align:center;font-variant-numeric:tabular-nums}
+.k-stepper>span{font-size:16px;font-weight:700;margin-left:-6px}
+
+/* ---------- 手順の札（k-step） ----------
+   <h2><span class="k-step">STEP 1</span>人数を選ぶ</h2>。箱にせず、朱の太字と右の細い線だけ */
+.k-step{display:inline-block;margin:0 10px 0 0;padding:0 10px 0 0;border-right:var(--k-bw-s) solid var(--k-line-soft);color:var(--k-shu);font-family:var(--k-bold);font-weight:400;font-size:14px;line-height:1.3;letter-spacing:.06em;vertical-align:.1em;font-variant-numeric:tabular-nums}
+
+/* ---------- 時間の表示（k-timer） ----------
+   <div class="k-timer"><span class="k-timer-state">集中</span><span class="k-timer-t">25:00</span></div>。動いている間は .k-run */
+.k-timer{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.k-timer-state{display:inline-block;padding:2px 10px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;background:var(--k-kinari);font-family:var(--k-bold);font-size:15px;line-height:1.4;letter-spacing:.06em}
+.k-timer.k-run .k-timer-state{background:var(--k-shu);color:#fff}
+.k-timer-t{font-family:var(--k-bold);font-size:64px;line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--k-sumi)}
+.k-timer.k-end .k-timer-t{color:var(--k-shu)}
+@media (min-width:600px){.k-timer-t{font-size:88px}}
+
+/* ---------- 3・2・1（k-countdown） ----------
+   KKit.countdown(3, { onDone, sound }) で画面の真ん中に出す。HTML に置かなくてよい */
+.k-countdown{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;background:rgba(255,253,248,.72);pointer-events:none}
+.k-countdown[hidden]{display:none}
+.k-countdown>span{font-family:var(--k-bold);font-size:min(36vh,36vw);line-height:1;color:var(--k-sumi);font-variant-numeric:tabular-nums}
+.k-countdown>span.k-on{animation:k-cd .5s cubic-bezier(.2,.8,.3,1) both}
+@keyframes k-cd{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+
+/* ---------- 結果の見せ方（k-reveal） ----------
+   要素に .k-reveal（ふわっと出る）／.k-reveal-fuda（札が横から置かれる）／.k-reveal-stamp（判子が押される）を付け、
+   出すときに KKit.reveal(要素) を呼ぶ（何度でも出し直せる）。1回だけ動いて止まる。紙吹雪の代わりはこれか KKit.fx */
+.k-reveal.k-on{animation:k-rv .32s ease-out both}
+.k-reveal-fuda.k-on{animation:k-rv-fuda .36s cubic-bezier(.2,.8,.3,1) both}
+.k-reveal-stamp.k-on{animation:k-rv-stamp .3s cubic-bezier(.3,.9,.4,1) both}
+@keyframes k-rv{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes k-rv-fuda{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+@keyframes k-rv-stamp{from{opacity:0;transform:scale(1.6) rotate(var(--k-rv-rot,-8deg))}to{opacity:1;transform:scale(1) rotate(var(--k-rv-rot,-8deg))}}
+
+/* ---------- 共有（k-share） ----------
+   残すサイトだけで使う（2026-09-30 の原則撤去を守る）。<button type="button" class="k-share" data-k-share>リンクを送る</button>
+   kit.js が端末の共有画面を開く（なければリンクをコピーして k-toast）。URL には ?d=YYYYMMDD が付く */
+.k-share{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 14px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-surface);color:var(--k-sumi);font-family:var(--k-bold);font-weight:400;font-size:15px;line-height:1.2;letter-spacing:.04em;text-decoration:none;cursor:pointer;box-shadow:var(--k-sh-s);transition:transform .08s,box-shadow .08s;-webkit-tap-highlight-color:transparent}
+.k-share:hover{background:#fff}
+.k-share:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--k-sumi)}
+.k-share-row{display:flex;flex-wrap:wrap;gap:8px}
+
+@media (prefers-reduced-motion:reduce){
+  .k-countdown>span.k-on,.k-reveal.k-on,.k-reveal-fuda.k-on,.k-reveal-stamp.k-on{animation:none}
+  .k-toast,.k-toast.k-on,.k-teaser,.k-stepper>button,.k-share{transition:none}
 }

@@ -222,6 +222,11 @@ select:focus,input:focus{border-color:var(--k-shu)}
 .diff{font-family:var(--k-bold);font-weight:400;letter-spacing:.02em}
 .srctable th{background:var(--k-kinari)}
 .formula{border-color:var(--k-sumi);border-left-color:var(--k-orange);background:var(--k-surface)}
+/* ===== 2026-10-20 清潔感（kkp-kit 17eac63 の方針）: 見出しは k-h2 の形（帯・枠・左線なし、墨2pxの下線）・入れ物に影を付けない =====
+   本命＝オレンジ／夢枠＝ピンクの上の線・数字・出典・計算・MOTA の欄・広告は不変。 */
+h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);border-radius:0;padding:0 0 6px}
+.card,.result{box-shadow:none}
+.formula{border-left:var(--k-bw-s) solid var(--k-sumi)}
 </style>
 <!-- kkp-rel-d4:start -->
 <style id="kkp-rel-d4">
