@@ -8,14 +8,15 @@
 :root{
   /* 色はオレンジ・クリーム＋墨にしぼる（2026-10-20）。朱＝強調／オレンジ＝木札と票と進み具合。萌黄と金は変数だけ残す（kit の部品では使わない） */
   --k-sumi:#1f1a17; --k-kinari:#fbf3e4; --k-surface:#fffdf8;
-  --k-orange:#ff8a3d; --k-shu:#d9432a; --k-moegi:#8cbf3f; --k-kin:#c9a13b;
+  --k-orange:#ff8a3d; --k-shu:#c93b23; --k-moegi:#8cbf3f; --k-kin:#c9a13b;
   --k-text-2:#4a3f37; --k-line-soft:rgba(31,26,23,.15);
   /* 影は墨の斜めずらし1種類だけ（ぼかしの影は使わない） */
   --k-sh-l:4px 4px 0 var(--k-sumi); --k-sh-s:3px 3px 0 var(--k-sumi);
   /* 角は2段、ふちは2段 */
   --k-r:6px; --k-r-pill:999px; --k-bw:3px; --k-bw-s:2px;
-  /* 書体: 筆＝見出し／太字＝ボタン・数字・短い言葉／本文＝丸ゴシック */
+  /* 書体: 筆＝サイト名と大きな題字だけ／見出し＝丸ゴシックの太字／太字＝ボタン・数字・短い言葉／本文＝丸ゴシック（2026-10-20 読みやすさの見直し） */
   --k-brush:"Yuji Syuku",serif;
+  --k-head:"M PLUS Rounded 1c","Zen Maru Gothic","Hiragino Maru Gothic ProN","BIZ UDPGothic","Noto Sans JP",system-ui,sans-serif;
   --k-bold:"RocknRoll One","M PLUS Rounded 1c",sans-serif;
   --k-body:"M PLUS Rounded 1c",system-ui,sans-serif;
   /* 白い文字の墨のふち（2px） */
@@ -34,12 +35,12 @@
 .k-washi{background:var(--k-kinari) url(img/d4-washi.webp) 0 0/320px auto}
 
 /* ---------- ボタン（主＝木札／副／小／大） ---------- */
-.k-btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--k-bold);font-weight:400;letter-spacing:.06em;line-height:1.2;font-feature-settings:"palt" 1;text-decoration:none;cursor:pointer;transition:transform .08s,box-shadow .08s,filter .08s,background .15s;-webkit-tap-highlight-color:transparent}
+.k-btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--k-bold);font-weight:400;letter-spacing:.04em;line-height:1.2;font-feature-settings:"palt" 1;text-decoration:none;cursor:pointer;transition:transform .08s,box-shadow .08s,filter .08s,background .15s;-webkit-tap-highlight-color:transparent}
 .k-btn-main{position:relative;min-height:56px;padding:0 18px;border-style:solid;border-width:12px 16px;border-image:url(img/d3-wood.webp) 40 50 fill / 12px 16px stretch;background:none;color:#fff;font-size:17px;text-shadow:var(--k-outline);filter:drop-shadow(4px 4px 0 var(--k-sumi));white-space:nowrap}
 .k-btn-main::after{content:"";position:absolute;inset:-12px -16px;pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.65) 50%,transparent 62%) no-repeat;background-size:260% 100%;background-position:120% 0;-webkit-mask:url(img/d3-wood.webp) center/100% 100% no-repeat;mask:url(img/d3-wood.webp) center/100% 100% no-repeat;transition:background-position .7s ease}
 .k-btn-main:hover::after,.k-btn-main:focus-visible::after{background-position:-20% 0}
 .k-btn-main:active{transform:translate(4px,4px);filter:drop-shadow(0 0 0 var(--k-sumi))}
-.k-btn-big{min-height:72px;font-size:26px;letter-spacing:.3em}
+.k-btn-big{min-height:72px;font-size:26px;letter-spacing:.12em}
 .k-btn-sub{min-height:48px;padding:0 18px;border:var(--k-bw) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-kinari);color:var(--k-sumi);font-size:16px;box-shadow:var(--k-sh-l)}
 .k-btn-sub:hover{background:#fff}
 .k-btn-sub:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--k-sumi)}
@@ -52,12 +53,12 @@
    墨は3枚（左の筆の入り d2-ink-l・真ん中 d2-ink-m・右の端 d2-ink-r）。両端の形は固定で、真ん中だけが伸びる。
    長い見出しは墨ごと横に伸び、入りきらなければ折り返して墨が縦に伸びる（白い字が墨の外に出ない）。
    はね・飛び散った粒はない（2026-10-20）。16字を超える見出しは .k-h2（帯なし）のほうが読みやすい。 */
-.k-hd{display:inline-block;box-sizing:border-box;max-width:100%;margin:0;padding:12px 22px 14px 70px;background:url(img/d2-ink-l.webp) 0 0/68px 100% no-repeat,url(img/d2-ink-r.webp) 100% 0/14px 100% no-repeat,url(img/d2-ink-m.webp) 62px 0/calc(100% - 69px) 100% no-repeat;color:#fff;text-shadow:0 0 2px var(--k-sumi);font-family:var(--k-brush);font-weight:400;font-size:22px;letter-spacing:.14em;line-height:1.3;font-feature-settings:"palt" 1;word-break:auto-phrase;text-wrap:balance;transform:rotate(-1deg)}
+.k-hd{display:inline-block;box-sizing:border-box;max-width:100%;margin:0;padding:12px 22px 14px 70px;background:url(img/d2-ink-l.webp) 0 0/68px 100% no-repeat,url(img/d2-ink-r.webp) 100% 0/14px 100% no-repeat,url(img/d2-ink-m.webp) 62px 0/calc(100% - 69px) 100% no-repeat;color:#fff;text-shadow:0 0 2px var(--k-sumi);font-family:var(--k-head);font-weight:800;font-size:22px;letter-spacing:.04em;line-height:1.3;font-feature-settings:"palt" 1;word-break:auto-phrase;text-wrap:balance;transform:rotate(-1deg)}
 @media (min-width:600px){.k-hd{font-size:26px;padding:14px 26px 16px 84px;background-size:80px 100%,16px 100%,calc(100% - 80px) 100%;background-position:0 0,100% 0,72px 0}}
-.k-hd-brush{margin:0;font-family:var(--k-brush);font-weight:400;font-size:24px;letter-spacing:.14em;line-height:1.2}
+.k-hd-brush{margin:0;font-family:var(--k-brush);font-weight:400;font-size:24px;letter-spacing:.08em;line-height:1.2}   /* 筆を残すのはサイト名・大きな題字（24px 以上）だけ */
 /* 節見出し（帯なし）。筆＋墨2pxの下線。長い見出し・読みもの・FAQ の見出しに。古い「左オレンジ線＋薄い帯」の置き換え */
-.k-h2{margin:32px 0 12px;padding:0 0 6px;border-bottom:var(--k-bw-s) solid var(--k-sumi);color:var(--k-sumi);font-family:var(--k-brush);font-weight:400;font-size:22px;letter-spacing:.1em;line-height:1.4;font-feature-settings:"palt" 1;word-break:auto-phrase;text-wrap:balance}
-.k-h2-bold{font-family:var(--k-bold);letter-spacing:.04em}   /* 筆の字を読まないページ用（太字で同じ形） */
+.k-h2{margin:32px 0 12px;padding:0 0 6px;border-bottom:var(--k-bw-s) solid var(--k-sumi);color:var(--k-sumi);font-family:var(--k-head);font-weight:800;font-size:22px;letter-spacing:.02em;line-height:1.4;font-feature-settings:"palt" 1;word-break:auto-phrase;text-wrap:balance}
+.k-h2-bold{font-family:var(--k-bold);font-weight:400;letter-spacing:.04em}   /* RocknRoll One の太字にしたいとき */
 .k-h3{margin:24px 0 8px;padding:0 0 0 10px;border-left:3px solid var(--k-sumi);color:var(--k-sumi);font-family:var(--k-bold);font-weight:400;font-size:18px;letter-spacing:.04em;line-height:1.45;font-feature-settings:"palt" 1}
 @media (min-width:600px){.k-h2{font-size:26px}}
 
@@ -105,21 +106,21 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-fuda-new{display:inline-grid;place-items:center;width:92px;height:68px;background:url(img/d3-burst.webp) center/100% 100% no-repeat;font-family:var(--k-bold);font-size:15px;color:var(--k-sumi);transform:rotate(-6deg);font-feature-settings:"palt" 1}
 .k-fuda-osusume{display:inline-grid;place-items:center;width:108px;height:46px;background:url(img/d3-hanko-rect.webp) center/100% 100% no-repeat;font-family:var(--k-bold);font-size:15px;color:var(--k-shu);transform:rotate(-4deg);font-feature-settings:"palt" 1}
 /* 小さな朱の札（新作など）。カードの中では見出しの上に置く */
-.k-tag{display:inline-block;margin:0 0 4px;padding:1px 8px;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;font-size:12px;letter-spacing:.1em;line-height:1.4}
+.k-tag{display:inline-block;margin:0 0 4px;padding:1px 8px;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;font-size:13px;font-weight:700;letter-spacing:.04em;line-height:1.4}
 /* 縦書きの札（カードの角に下がる） */
-.k-tate-tag{position:absolute;top:-3px;right:12px;padding:8px 5px 10px;writing-mode:vertical-rl;text-orientation:upright;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-top:0;border-radius:0 0 6px 6px;font-family:var(--k-brush);font-size:13px;letter-spacing:.24em;line-height:1}
+.k-tate-tag{position:absolute;top:-3px;right:12px;padding:8px 5px 10px;writing-mode:vertical-rl;text-orientation:upright;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-top:0;border-radius:0 0 6px 6px;font-family:var(--k-head);font-weight:800;font-size:14px;letter-spacing:.1em;line-height:1}
 /* 朱の枠の小札（毎日更新など） */
-.k-upd{display:inline-block;margin-left:8px;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;color:var(--k-shu);font-family:var(--k-body);font-size:12px;line-height:1.6;vertical-align:2px;transform:rotate(-3deg)}
+.k-upd{display:inline-block;margin-left:8px;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;color:var(--k-shu);font-family:var(--k-body);font-size:13px;font-weight:700;line-height:1.6;vertical-align:2px;transform:rotate(-3deg)}
 
 /* ---------- 縦書き ---------- */
-.k-tate{writing-mode:vertical-rl;text-orientation:upright;font-family:var(--k-brush);font-weight:400;font-size:18px;letter-spacing:.24em;line-height:1}
+.k-tate{writing-mode:vertical-rl;text-orientation:upright;font-family:var(--k-head);font-weight:800;font-size:18px;letter-spacing:.12em;line-height:1}
 
 /* ---------- 巻物の結果欄 ---------- */
 .k-result{position:relative;display:block;border-style:solid;border-width:16px 42px;border-image:url(img/d3-scroll.webp) 56 84 fill / 16px 42px stretch;padding:4px 0;text-align:center}
-.k-result small{display:block;font-size:12px;font-weight:700;color:#5b4a3e}
+.k-result small{display:block;font-size:13px;font-weight:700;color:var(--k-text-2)}
 .k-result b{display:block;font-family:var(--k-bold);font-weight:400;font-size:32px;line-height:1.25;color:var(--k-shu);letter-spacing:.04em;text-shadow:var(--k-outline);font-variant-numeric:tabular-nums}
 /* 巻物の札（小見出しを巻物に載せる） */
-.k-scroll-label{display:inline-grid;place-items:center;min-width:200px;height:52px;padding:0 44px;background:url(img/d3-scroll.webp) center/100% 100% no-repeat;font-family:var(--k-brush);font-size:20px;letter-spacing:.12em;font-feature-settings:"palt" 1}
+.k-scroll-label{display:inline-grid;place-items:center;min-width:200px;height:52px;padding:0 44px;background:url(img/d3-scroll.webp) center/100% 100% no-repeat;font-family:var(--k-head);font-weight:800;font-size:20px;letter-spacing:.04em;font-feature-settings:"palt" 1}
 
 /* ---------- 進み具合のバー（オレンジ。2026-10-20 に萌黄から変更＝色はオレンジ・クリーム＋墨にしぼる） ---------- */
 .k-bar{position:relative;height:20px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r-pill);background:var(--k-surface)}
@@ -127,8 +128,8 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-bar>img{position:absolute;top:50%;width:34px;transform:translate(-50%,-50%);transition:left .4s}
 
 /* ---------- 判子・落款・金 ---------- */
-.k-stamp{display:inline-grid;place-items:center;width:54px;height:54px;background:url(img/d4-hanko.webp) center/100% 100% no-repeat;font-family:var(--k-brush);font-size:22px;color:var(--k-shu);transform:rotate(-8deg)}
-.k-seal{display:inline-grid;place-items:center;width:34px;height:34px;background:url(img/d4-seal.webp) center/100% 100% no-repeat;color:#fff;font-family:var(--k-brush);font-size:18px;line-height:1;flex:none}
+.k-stamp{display:inline-grid;place-items:center;width:54px;height:54px;background:url(img/d4-hanko.webp) center/100% 100% no-repeat;font-family:var(--k-head);font-weight:800;font-size:21px;color:var(--k-shu);transform:rotate(-8deg)}
+.k-seal{display:inline-grid;place-items:center;width:34px;height:34px;background:url(img/d4-seal.webp) center/100% 100% no-repeat;color:#fff;font-family:var(--k-head);font-weight:800;font-size:17px;line-height:1;flex:none}
 .k-kin{position:absolute;pointer-events:none;width:56px;opacity:.95}
 .k-kin-num{color:var(--k-kin);text-shadow:1px 1px 0 var(--k-sumi)}
 
@@ -156,7 +157,7 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 
 /* ---------- 広告枠（標準サイズ。format=auto は使わない） ---------- */
 .kkp-ad{text-align:center;margin:1.4rem auto 0;max-width:680px;min-height:288px;padding-top:6px}
-.kkp-ad-label{font-size:12px;color:var(--k-text-2);letter-spacing:.08em;margin:0 0 6px;line-height:1}
+.kkp-ad-label{font-size:12px;color:var(--k-text-2);letter-spacing:.04em;margin:0 0 6px;line-height:1}
 .kkp-ad ins.adsbygoogle{display:block;width:300px;height:250px;margin:0 auto}
 @media(min-width:768px){.kkp-ad{min-height:318px}.kkp-ad ins.adsbygoogle{width:336px;height:280px}}
 
@@ -217,7 +218,7 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-install[hidden]{display:none}
 .k-install-t{flex:1;min-width:0}
 .k-install-t b{display:block;font-family:var(--k-bold);font-weight:400;font-size:15px;line-height:1.35}
-.k-install-t span{display:block;font-size:12px;color:var(--k-text-2);line-height:1.45}
+.k-install-t span{display:block;font-size:13px;color:var(--k-text-2);line-height:1.45}
 .k-install-x{flex:none;display:grid;place-items:center;width:44px;height:44px;margin:-4px -6px -4px -8px;padding:0;border:0;background:none;font-size:22px;line-height:1;color:var(--k-text-2);cursor:pointer}
 .k-install-how{flex:1 0 100%;margin:2px 0 0;padding:8px 0 0 1.4em;border-top:1px solid var(--k-line-soft);font-size:14px;line-height:1.6}
 .k-install-how[hidden]{display:none}
@@ -237,8 +238,8 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-teaser-go,.k-teaser-host .mt-cta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:8px 0 0;font-size:14px;font-weight:700;text-decoration:underline;text-decoration-color:var(--k-orange);text-decoration-thickness:2px;text-underline-offset:4px}
 .k-teaser-go::after{content:"";flex:none;width:22px;height:15px;background:var(--k-sign) center/100% 100% no-repeat}
 .k-teaser-host .mt-arrow{display:inline-block;width:22px;height:15px;overflow:hidden;color:transparent;background:var(--k-sign) center/100% 100% no-repeat}
-.k-teaser-host .mt-badge,.k-teaser-host .mt-card.mt-lighttext .mt-badge{display:inline-block;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;background:none;color:var(--k-shu);font-size:12px;font-weight:400;line-height:1.6;letter-spacing:.04em;text-decoration:none}
-.k-teaser-asof,.k-teaser-host .mt-asof{position:absolute;right:12px;top:14px;font-size:12px;font-weight:400;color:var(--k-text-2);opacity:1}
+.k-teaser-host .mt-badge,.k-teaser-host .mt-card.mt-lighttext .mt-badge{display:inline-block;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;background:none;color:var(--k-shu);font-size:13px;font-weight:700;line-height:1.6;letter-spacing:.02em;text-decoration:none}
+.k-teaser-asof,.k-teaser-host .mt-asof{position:absolute;right:12px;top:14px;font-size:13px;font-weight:400;color:var(--k-text-2);opacity:1}
 
 /* ---------- 通知（k-toast） ----------
    KKit.toast('コピーしました') で出す（2.2秒で消える）。HTML に置かなくてよい。
@@ -284,9 +285,9 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-table-result{width:100%;border-collapse:collapse;margin:0;border-top:var(--k-bw-s) solid var(--k-sumi);border-bottom:var(--k-bw-s) solid var(--k-sumi);background:none;font-size:15px;line-height:1.5;color:var(--k-sumi)}
 .k-table-result caption{caption-side:top;padding:0 0 6px;text-align:left;font-family:var(--k-bold);font-size:15px}
 .k-table-result th,.k-table-result td{padding:8px 8px;border:0;border-bottom:1px solid var(--k-line-soft);text-align:left;vertical-align:top}
-.k-table-result thead th{border-bottom:1px solid var(--k-sumi);font-size:13px;font-weight:700;color:var(--k-text-2);white-space:nowrap}
+.k-table-result thead th{border-bottom:1px solid var(--k-sumi);font-size:14px;font-weight:700;color:var(--k-text-2);white-space:nowrap}
 .k-table-result .k-r,.k-table-result td.num,.k-table-result th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
-.k-table-result .k-f{font-size:13px;color:var(--k-text-2)}
+.k-table-result .k-f{font-size:14px;color:var(--k-text-2)}
 .k-table-result tbody>tr>:first-child{min-width:7em;word-break:auto-phrase}
 .k-table-result tr.k-win td,.k-table-result tr.k-win th{background:var(--k-kinari);font-weight:700}
 .k-table-result tr.k-win .k-r{color:var(--k-shu);font-family:var(--k-bold);font-weight:400;font-size:17px}
@@ -297,7 +298,7 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
    四角を墨の線でつなぐ。選択中＝朱。折り返しても行は横いっぱい。.k-seg-2 / .k-seg-3 で同じ幅に */
 .k-seg{display:flex;flex-wrap:wrap;overflow:hidden;box-sizing:border-box;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-surface)}
 .k-seg>button,.k-seg>a,.k-seg>label{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box;min-width:0;min-height:44px;margin:0 calc(var(--k-bw-s)*-1) calc(var(--k-bw-s)*-1) 0;padding:6px 12px;border:0;border-right:var(--k-bw-s) solid var(--k-sumi);border-bottom:var(--k-bw-s) solid var(--k-sumi);border-radius:0;background:none;color:var(--k-sumi);font-family:var(--k-body);font-size:15px;font-weight:700;line-height:1.3;text-align:center;text-decoration:none;word-break:auto-phrase;text-wrap:balance;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.k-seg>button small,.k-seg>label small{display:block;font-size:12px;font-weight:400;line-height:1.3;opacity:.85}
+.k-seg>button small,.k-seg>label small{display:block;font-size:13px;font-weight:400;line-height:1.3}
 .k-seg>:hover{background:#fff}
 .k-seg>[aria-pressed="true"],.k-seg>[aria-checked="true"],.k-seg>[aria-selected="true"],.k-seg>.on,.k-seg>label:has(input:checked){background:var(--k-shu);color:#fff}
 .k-seg>label input{position:absolute;opacity:0;pointer-events:none}
@@ -356,3 +357,6 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
   .k-countdown>span.k-on,.k-reveal.k-on,.k-reveal-fuda.k-on,.k-reveal-stamp.k-on{animation:none}
   .k-toast,.k-toast.k-on,.k-teaser,.k-stepper>button,.k-share{transition:none}
 }
+
+/* ---------- 墨の判子（k-stamp の墨色。ズレた・外れ・おしいなど、朱の判子と同じ重さで並べる用）2026-10-20 共通点探しで追加 ---------- */
+.k-stamp.k-stamp-sumi{filter:grayscale(1) brightness(.42) contrast(1.2);color:var(--k-sumi)}

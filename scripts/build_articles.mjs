@@ -170,10 +170,10 @@ ${JSON.stringify(ld, null, 1)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--cream);color:var(--ink);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Meiryo",sans-serif;line-height:1.8}
 .wrap{max-width:760px;margin:0 auto;padding:18px 16px 0}
-.breadcrumb{font-size:12px;color:var(--ink-soft);margin:0 0 10px}
+.breadcrumb{font-size:14px;color:var(--ink-soft);margin:0 0 10px}
 .breadcrumb a{color:var(--ink-soft)}
 h1{font-size:1.4rem;line-height:1.45;margin:.2rem 0 .3rem;font-weight:800}
-.dates{font-size:.78rem;color:var(--ink-soft);margin:0 0 1rem}
+.dates{font-size:.875rem;color:var(--ink-soft);margin:0 0 1rem}
 h2{font-size:1.12rem;margin:2rem 0 .7rem;font-weight:800;padding-left:.6rem;border-left:5px solid var(--orange)}
 p{margin:.5rem 0}
 a{color:#1565c0}
@@ -186,10 +186,10 @@ a{color:#1565c0}
 table{width:100%;border-collapse:collapse;background:#fff;font-size:.88rem}
 th,td{border-bottom:1px solid var(--line-soft);padding:.45rem .5rem;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 th{text-align:left;font-weight:700}
-thead th{background:#fff3df;font-size:.8rem;text-align:right}
+thead th{background:#fff3df;font-size:.875rem;text-align:right}
 thead th:first-child{text-align:left}
-td small,th small{display:block;font-size:.72rem;color:var(--ink-soft);font-weight:400;white-space:normal}
-.note{font-size:.78rem;color:var(--ink-soft)}
+td small,th small{display:block;font-size:.875rem;color:var(--ink-soft);font-weight:400;white-space:normal}
+.note{font-size:.875rem;color:var(--ink-soft)}
 .box{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:.7rem 1rem;font-size:.9rem}
 .box ul{margin:.2rem 0;padding-left:1.2rem}
 .faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:.4rem .9rem;margin:.5rem 0}
@@ -202,7 +202,7 @@ td small,th small{display:block;font-size:.72rem;color:var(--ink-soft);font-weig
    数字と表が主役。数字・出典・本文・広告の位置・GA4・JSON-LD・title は変えない。本文の書体もそのまま。 */
 body.k-page{background:var(--k-surface) url(/kit/img/d4-washi.webp) 0 0/320px auto;color:var(--ink);font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Meiryo",sans-serif;line-height:1.8}
 h1{font-family:var(--k-brush);font-weight:400;letter-spacing:.08em;color:var(--k-sumi);font-feature-settings:"palt" 1}
-h2{font-family:var(--k-brush);font-weight:400;letter-spacing:.1em;color:var(--k-sumi);background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw-s) solid var(--k-sumi);border-left:8px solid var(--k-orange);border-radius:var(--k-r);padding:.35rem .7rem;font-feature-settings:"palt" 1}
+h2{font-family:var(--k-head);font-weight:800;letter-spacing:.04em;color:var(--k-sumi);background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/320px auto;border:var(--k-bw-s) solid var(--k-sumi);border-left:8px solid var(--k-orange);border-radius:var(--k-r);padding:.35rem .7rem;font-feature-settings:"palt" 1}
 .answer{background:var(--k-surface);border:var(--k-bw) solid var(--k-sumi);border-radius:var(--k-r);box-shadow:var(--k-sh-l)}
 .today{background:var(--k-kinari);border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r)}
 table{border:var(--k-bw-s) solid var(--k-sumi)}
@@ -306,15 +306,15 @@ ${faq.map(([q, a]) => `  <details><summary>${esc(q)}</summary><p>${esc(a)}</p></
 <p style="text-align:center"><a class="cta" href="${toolUrl}" data-cta="${SLUG}" data-a="${pair[0].id}" data-b="${pair[1].id}">車2台の月々の実質負担を比べる</a></p>
 
 <!-- WEBNINJA_UNIFIED_FOOTER -->
-<footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:0.78rem;color:#94a3b8;line-height:2;border-top:1px solid #f0e6d2;margin-top:1.6rem;background:#fffcf7;">
-  <div style="font-weight:800;color:#8b6b3d;font-size:0.85rem;margin-bottom:0.4rem;">web忍者の砦</div>
+<footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:.875rem;color:#607490;line-height:2;border-top:1px solid #f0e6d2;margin-top:1.6rem;background:#fffcf7;">
+  <div style="font-weight:800;color:#8b6b3d;font-size:.875rem;margin-bottom:0.4rem;">web忍者の砦</div>
   <div>
     <a href="https://kkpwebninja.com/" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">本丸トップ</a>·
     <a href="https://privacypolicy.kkpwebninja.com/" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">プライバシーポリシー</a>·
     <a href="https://kkpwebninja.com/otoiawase" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">お問い合わせ</a>·
     <a href="https://x.com/kkp_webninja" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">@kkp_webninja</a>
   </div>
-  <div style="margin-top:0.5rem;color:#bfa97a;">© 2025-2026 web忍者の砦</div>
+  <div style="margin-top:0.5rem;color:#846e40;">© 2025-2026 web忍者の砦</div>
 </footer>
 </div>
 <script>
