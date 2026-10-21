@@ -360,3 +360,9 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 
 /* ---------- 墨の判子（k-stamp の墨色。ズレた・外れ・おしいなど、朱の判子と同じ重さで並べる用）2026-10-20 共通点探しで追加 ---------- */
 .k-stamp.k-stamp-sumi{filter:grayscale(1) brightness(.42) contrast(1.2);color:var(--k-sumi)}
+
+/* ---------- 古い「ホーム画面に追加」バナー（#installBanner・style 直書き）の字を読めるように 2026-10-21 ----------
+   26サイトに残っている形。直書きの色は !important で上書きする（橙の字・白字が 2.35:1、×が 2.85:1 だった） */
+#installBanner div[style*="color:#ff8a3d"]{color:#a8501a!important}
+#installBanner #installBtn{color:#1f1a17!important}
+#installBanner #installCloseBtn{color:#5c5c5c!important}
