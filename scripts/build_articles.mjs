@@ -195,7 +195,7 @@ td small,th small{display:block;font-size:.875rem;color:var(--ink-soft);font-wei
 .faq details{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:.4rem .9rem;margin:.5rem 0}
 .faq summary{cursor:pointer;font-weight:700}
 .kkp-ad{text-align:center;margin:1.4rem auto 0;max-width:680px;min-height:288px;padding-top:6px}
-.kkp-ad-label{font-size:11px;color:#999;letter-spacing:.08em;margin:0 0 6px;line-height:1}
+.kkp-ad-label{font-size:12px;color:#666;letter-spacing:.08em;margin:0 0 6px;line-height:1}
 .kkp-ad ins.adsbygoogle{display:block;width:300px;height:250px;margin:0 auto}
 @media(min-width:768px){.kkp-ad{min-height:318px}.kkp-ad ins.adsbygoogle{width:336px;height:280px}}
 /* ===== 2026-10-19 共通部品 D4（ストリート和忍者）に見た目をそろえる（トップ f5b5de2 と同じ控えめな入れ方） =====
