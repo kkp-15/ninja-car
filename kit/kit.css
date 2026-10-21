@@ -28,7 +28,7 @@
 /* ---------- 地と文字組み ---------- */
 .k-page{margin:0;background:var(--k-surface);color:var(--k-sumi);font-family:var(--k-body);font-size:16px;line-height:1.7;-webkit-text-size-adjust:100%}
 .k-page p,.k-page li{letter-spacing:.02em}
-.k-page small{letter-spacing:.04em;line-height:1.5}
+.k-page small{font-size:max(14px,.85em);letter-spacing:.04em;line-height:1.5}
 .k-page :focus-visible{outline:4px double var(--k-shu);outline-offset:3px}
 .k-wrap{max-width:1120px;margin:0 auto;padding:0 16px}
 .k-num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
@@ -106,18 +106,18 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-fuda-new{display:inline-grid;place-items:center;width:92px;height:68px;background:url(img/d3-burst.webp) center/100% 100% no-repeat;font-family:var(--k-bold);font-size:15px;color:var(--k-sumi);transform:rotate(-6deg);font-feature-settings:"palt" 1}
 .k-fuda-osusume{display:inline-grid;place-items:center;width:108px;height:46px;background:url(img/d3-hanko-rect.webp) center/100% 100% no-repeat;font-family:var(--k-bold);font-size:15px;color:var(--k-shu);transform:rotate(-4deg);font-feature-settings:"palt" 1}
 /* 小さな朱の札（新作など）。カードの中では見出しの上に置く */
-.k-tag{display:inline-block;margin:0 0 4px;padding:1px 8px;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;font-size:13px;font-weight:700;letter-spacing:.04em;line-height:1.4}
+.k-tag{display:inline-block;margin:0 0 4px;padding:1px 8px;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-radius:4px;font-size:14px;font-weight:700;letter-spacing:.04em;line-height:1.4}
 /* 縦書きの札（カードの角に下がる） */
 .k-tate-tag{position:absolute;top:-3px;right:12px;padding:8px 5px 10px;writing-mode:vertical-rl;text-orientation:upright;background:var(--k-shu);color:#fff;border:var(--k-bw-s) solid var(--k-sumi);border-top:0;border-radius:0 0 6px 6px;font-family:var(--k-head);font-weight:800;font-size:14px;letter-spacing:.1em;line-height:1}
 /* 朱の枠の小札（毎日更新など） */
-.k-upd{display:inline-block;margin-left:8px;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;color:var(--k-shu);font-family:var(--k-body);font-size:13px;font-weight:700;line-height:1.6;vertical-align:2px;transform:rotate(-3deg)}
+.k-upd{display:inline-block;margin-left:8px;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;color:var(--k-shu);font-family:var(--k-body);font-size:14px;font-weight:700;line-height:1.6;vertical-align:2px;transform:rotate(-3deg)}
 
 /* ---------- 縦書き ---------- */
 .k-tate{writing-mode:vertical-rl;text-orientation:upright;font-family:var(--k-head);font-weight:800;font-size:18px;letter-spacing:.12em;line-height:1}
 
 /* ---------- 巻物の結果欄 ---------- */
 .k-result{position:relative;display:block;border-style:solid;border-width:16px 42px;border-image:url(img/d3-scroll.webp) 56 84 fill / 16px 42px stretch;padding:4px 0;text-align:center}
-.k-result small{display:block;font-size:13px;font-weight:700;color:var(--k-text-2)}
+.k-result small{display:block;font-size:14px;font-weight:700;color:var(--k-text-2)}
 .k-result b{display:block;font-family:var(--k-bold);font-weight:400;font-size:32px;line-height:1.25;color:var(--k-shu);letter-spacing:.04em;text-shadow:var(--k-outline);font-variant-numeric:tabular-nums}
 /* 巻物の札（小見出しを巻物に載せる） */
 .k-scroll-label{display:inline-grid;place-items:center;min-width:200px;height:52px;padding:0 44px;background:url(img/d3-scroll.webp) center/100% 100% no-repeat;font-family:var(--k-head);font-weight:800;font-size:20px;letter-spacing:.04em;font-feature-settings:"palt" 1}
@@ -218,7 +218,7 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-install[hidden]{display:none}
 .k-install-t{flex:1;min-width:0}
 .k-install-t b{display:block;font-family:var(--k-bold);font-weight:400;font-size:15px;line-height:1.35}
-.k-install-t span{display:block;font-size:13px;color:var(--k-text-2);line-height:1.45}
+.k-install-t span{display:block;font-size:14px;color:var(--k-text-2);line-height:1.45}
 .k-install-x{flex:none;display:grid;place-items:center;width:44px;height:44px;margin:-4px -6px -4px -8px;padding:0;border:0;background:none;font-size:22px;line-height:1;color:var(--k-text-2);cursor:pointer}
 .k-install-how{flex:1 0 100%;margin:2px 0 0;padding:8px 0 0 1.4em;border-top:1px solid var(--k-line-soft);font-size:14px;line-height:1.6}
 .k-install-how[hidden]{display:none}
@@ -238,8 +238,8 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 .k-teaser-go,.k-teaser-host .mt-cta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:8px 0 0;font-size:14px;font-weight:700;text-decoration:underline;text-decoration-color:var(--k-orange);text-decoration-thickness:2px;text-underline-offset:4px}
 .k-teaser-go::after{content:"";flex:none;width:22px;height:15px;background:var(--k-sign) center/100% 100% no-repeat}
 .k-teaser-host .mt-arrow{display:inline-block;width:22px;height:15px;overflow:hidden;color:transparent;background:var(--k-sign) center/100% 100% no-repeat}
-.k-teaser-host .mt-badge,.k-teaser-host .mt-card.mt-lighttext .mt-badge{display:inline-block;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;background:none;color:var(--k-shu);font-size:13px;font-weight:700;line-height:1.6;letter-spacing:.02em;text-decoration:none}
-.k-teaser-asof,.k-teaser-host .mt-asof{position:absolute;right:12px;top:14px;font-size:13px;font-weight:400;color:var(--k-text-2);opacity:1}
+.k-teaser-host .mt-badge,.k-teaser-host .mt-card.mt-lighttext .mt-badge{display:inline-block;padding:0 6px;border:var(--k-bw-s) solid var(--k-shu);border-radius:4px;background:none;color:var(--k-shu);font-size:14px;font-weight:700;line-height:1.6;letter-spacing:.02em;text-decoration:none}
+.k-teaser-asof,.k-teaser-host .mt-asof{position:absolute;right:12px;top:14px;font-size:14px;font-weight:400;color:var(--k-text-2);opacity:1}
 
 /* ---------- 通知（k-toast） ----------
    KKit.toast('コピーしました') で出す（2.2秒で消える）。HTML に置かなくてよい。
@@ -298,7 +298,7 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
    四角を墨の線でつなぐ。選択中＝朱。折り返しても行は横いっぱい。.k-seg-2 / .k-seg-3 で同じ幅に */
 .k-seg{display:flex;flex-wrap:wrap;overflow:hidden;box-sizing:border-box;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-surface)}
 .k-seg>button,.k-seg>a,.k-seg>label{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;box-sizing:border-box;min-width:0;min-height:44px;margin:0 calc(var(--k-bw-s)*-1) calc(var(--k-bw-s)*-1) 0;padding:6px 12px;border:0;border-right:var(--k-bw-s) solid var(--k-sumi);border-bottom:var(--k-bw-s) solid var(--k-sumi);border-radius:0;background:none;color:var(--k-sumi);font-family:var(--k-body);font-size:15px;font-weight:700;line-height:1.3;text-align:center;text-decoration:none;word-break:auto-phrase;text-wrap:balance;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.k-seg>button small,.k-seg>label small{display:block;font-size:13px;font-weight:400;line-height:1.3}
+.k-seg>button small,.k-seg>label small{display:block;font-size:14px;font-weight:400;line-height:1.3}
 .k-seg>:hover{background:#fff}
 .k-seg>[aria-pressed="true"],.k-seg>[aria-checked="true"],.k-seg>[aria-selected="true"],.k-seg>.on,.k-seg>label:has(input:checked){background:var(--k-shu);color:#fff}
 .k-seg>label input{position:absolute;opacity:0;pointer-events:none}
