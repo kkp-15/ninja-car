@@ -257,8 +257,8 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
   <div class="sum-row"><span class="sa"><i>本命</i>月々<b id="sumA">—</b></span><span class="sb"><i>夢枠</i>月々<b id="sumB">—</b></span><span class="sd"><i>差</i>月<b id="sumD">—</b><small id="sumW"></small></span></div>
 </div>
 
-<p class="lead">検討中の車（本命）と憧れの車（夢枠）を選ぶと、<b>3年乗って売ったときの「月々の実質負担」</b>をその場で計算します。</p>
-<p class="updated">価格・諸元はメーカー公式、税は官公庁、売れる割合はガリバーの買取実績の幅から取っています。<br>公開 2026-09-14／更新 <time id="pageUpdated" datetime="2026-09-19">2026-09-19</time>／数字の確認日 <span id="checkedTop"></span></p>
+<p class="lead">本命と夢枠の2台を選ぶと、<b>3年乗って売ったときの「月々の実質負担」</b>を比べられます。</p>
+<p class="updated">出典：価格・諸元はメーカー公式、税は官公庁、売れる割合はガリバーの買取実績。<br>公開 2026-09-14／更新 <time id="pageUpdated" datetime="2026-09-19">2026-09-19</time>／数字の確認日 <span id="checkedTop"></span></p>
 
 <div class="cards">
   <section class="card a" aria-label="本命">
@@ -268,7 +268,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
     <p class="grade" id="grade-a"></p>
     <p class="hvnote" id="hv-a" hidden></p>
 
-    <label class="field" for="price-a">価格（上位グレードやオプションの分は上げる）</label>
+    <label class="field" for="price-a">価格（上位グレード・オプション分は上げる）</label>
     <div class="big" id="priceval-a"></div>
     <input type="range" id="price-a">
     <div class="ends"><span id="pmin-a"></span><span id="pmax-a"></span></div>
@@ -292,7 +292,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
     <p class="grade" id="grade-b"></p>
     <p class="hvnote" id="hv-b" hidden></p>
 
-    <label class="field" for="price-b">価格（上位グレードやオプションの分は上げる）</label>
+    <label class="field" for="price-b">価格（上位グレード・オプション分は上げる）</label>
     <div class="big" id="priceval-b"></div>
     <input type="range" id="price-b">
     <div class="ends"><span id="pmin-b"></span><span id="pmax-b"></span></div>
@@ -359,7 +359,6 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 
 <h2>リセールバリュー（3年後に売れる割合）の計算方法</h2>
 <div class="box">
-  <p style="margin:.2rem 0">このツールでは、3年後に売れる額を「価格 × 3年後に売れる割合」で出し、3年間に払うお金の合計から引いて、36か月で割っています。</p>
   <div class="formula">
     <div>3年後に売れる額 ＝ 価格 × 3年後に売れる割合（％）</div>
     <div>3年間の実質負担 ＝ 頭金 ＋ ローン返済（36回まで）＋ 3年時点のローン残り ＋ 購入時の重量税・自賠責 ＋ 3年分の維持費 − 3年後に売れる額</div>
@@ -367,10 +366,10 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
   </div>
   <p style="margin:.2rem 0" id="resaleExample"></p>
   <ul>
-    <li>3年後に売れる割合は、ガリバーが公表している車種ごとの最小値〜最大値の幅の中で動かせます。初期値は幅の中央（0.1%単位）です。</li>
+    <li>売れる割合は、ガリバーが公表している車種ごとの幅（最小〜最大）の中で動かせます。初期値は幅の中央です。</li>
     <li>3年分の維持費は、自動車税（年額×3）・燃料代・駐車場代・任意保険（入力したときだけ）の合計です。</li>
-    <li>ローンが36回より長いときは、3年時点の残りを売ったお金で一括返済する前提です。ローンは元利均等返済で計算しています。</li>
-    <li>売れる割合が高い車でも、価格が高ければ3年間に減る額（価格 − 売れる額）は大きくなることがあります。割合ではなく月々の実質負担を並べているのはそのためです。</li>
+    <li>ローンは元利均等返済です。36回より長いときは、3年時点の残りを売ったお金で返す前提です。</li>
+    <li>売れる割合が高くても、価格が高い車は3年で減る額が大きくなることがあります。だから割合ではなく月々の負担で比べます。</li>
   </ul>
 </div>
 
@@ -383,7 +382,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
     <li><b>登録手数料・リサイクル料金・販売店の諸費用、ローンの手数料</b>、値引き、下取り、売却時の手数料。</li>
     <li><b>自動車税の購入年の月割り</b>：年額×3年で計算しています。</li>
   </ul>
-  <p class="note" style="margin:.4rem 0 0">数字は目安です。燃費はWLTCモード（国土交通省審査値）で、実際の燃費は乗り方で変わります。3年後に売れる額はガリバーの注記どおり「表記のリセールバリュー値での買取を保証するものではございません」。実際の見積もりは販売店・買取店で確かめてください。</p>
+  <p class="note" style="margin:.4rem 0 0">数字は目安です。燃費はWLTCモード（国土交通省審査値）で、乗り方で変わります。売れる額はガリバーの注記どおり「表記のリセールバリュー値での買取を保証するものではございません」。実際の額は販売店・買取店で確かめてください。</p>
 </div>
 
 <h2>よくある質問</h2>
@@ -410,7 +409,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 <div class="scroll">
 <table class="srctable" id="rateTable"></table>
 </div>
-<p class="note">車種ごとの価格・諸元・エコカー減税の出典は、各カードの「この車の数字と出典」にあります。データ確認日：<span id="checkedDate"></span>。数字の誤りに気づいたら、下の「お問い合わせ」から教えてください。</p>
+<p class="note">車ごとの出典は、各カードの「この車の数字と出典」にあります。データ確認日：<span id="checkedDate"></span>。誤りに気づいたら、下の「お問い合わせ」から教えてください。</p>
 
 <div class="kkp-ad">
   <div class="kkp-ad-label">広告</div>
@@ -656,10 +655,10 @@ function compare3y(car, opt, rates, todayStr) {
     $('sumD').textContent = Math.abs(d) < 1 ? 'ほぼ同じ' : yen(Math.abs(d));
     $('sumW').textContent = Math.abs(d) < 1 ? '' : (d > 0 ? '（夢枠が多い）' : '（本命が多い）');
     $('commonNow').textContent = 'いまの条件：頭金 ' + (A.opt.down / 10000).toLocaleString('ja-JP') + '万円・年' + A.opt.ratePct + '%・' + months + '回・月' + A.opt.kmPerMonth.toLocaleString('ja-JP') + 'km・駐車場 ' + yen(A.opt.parkingMonth);
-    $('resaleExample').textContent = 'いま選んでいる本命（' + A.car.name + '）の例：' + yen(A.opt.price) + ' × ' + A.opt.resalePct.toFixed(1) + '% ＝ ' + manYen(ra.resale) + '。36か月で割ると、月あたり ' + yen(ra.resale / 36) + ' が実質負担から引かれます。';
+    $('resaleExample').textContent = '本命（' + A.car.name + '）の例：' + yen(A.opt.price) + ' × ' + A.opt.resalePct.toFixed(1) + '% ＝ ' + manYen(ra.resale) + '。36か月で割った ' + yen(ra.resale / 36) + ' が、月々の負担から引かれます。';
 
     const noIns = [!ra.insuranceIncluded ? '本命' : '', !rb.insuranceIncluded ? '夢枠' : ''].filter(Boolean);
-    $('insNote').textContent = noIns.length ? noIns.join('と') + 'は任意保険を含めていません（入力すると合計に入ります）。車検・メンテナンス費も含みません。' : '車検・メンテナンス費は含みません。';
+    $('insNote').textContent = noIns.length ? noIns.join('と') + 'は任意保険なしの額です（入力すると入ります）。車検・整備の費用は含みません。' : '車検・整備の費用は含みません。';
 
     const bRow = (label, a, b) => '<tr><th>' + label + '</th><td>' + a + '</td><td>' + b + '</td></tr>';
     const neg = n => '−' + yen(n);
@@ -706,7 +705,7 @@ function compare3y(car, opt, rates, todayStr) {
       '<tr><th>ローン金利の初期値</th><td>年' + R.loan_rate_default.annual_pct + '%（りそなマイカーローンの通常金利 年1.85〜4.45%のうち、公式の試算例で使われている金利・' + esc(R.loan_rate_default._source['適用日']) + '適用）<br>' + link(R.loan_rate_default._source, 'りそな銀行') + '</td></tr>' +
       '<tr><th>3年後に売れる割合</th><td>' + link(S.meta.resale_source, S.meta.resale_source.name) + '（' + esc(S.meta.resale_source['集計日']) + '集計・' + esc(S.meta.resale_source['対象期間']) + 'の査定・買取実績。複数型式がある場合は最小値と最大値）</td></tr>' +
       '<tr><th>価格・諸元</th><td>各メーカーの公式サイト・主要諸元表（車ごとの出典はカード内）</td></tr>';
-    $('rateHint').textContent = '金利の初期値 年' + R.loan_rate_default.annual_pct + '%は、りそなマイカーローンの試算例の金利です。お手元の見積もりの金利に変えてください。';
+    $('rateHint').textContent = '初期値の年' + R.loan_rate_default.annual_pct + '%は、りそなマイカーローンの試算例の金利です。見積もりの金利に変えてください。';
     $('checkedDate').textContent = S.meta.checked;
     $('checkedTop').textContent = S.meta.checked;
     // 期限のある制度を過ぎたら、数字が古い可能性を知らせる
