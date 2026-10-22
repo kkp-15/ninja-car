@@ -111,7 +111,7 @@ export function buildJibaiseki({ rates, carsDoc, C, defaults }) {
     '@context': 'https://schema.org',
     '@graph': [
       { '@type': 'Article', '@id': URL + '#article', headline: title, description: desc, datePublished: PUBLISHED, dateModified: UPDATED, inLanguage: 'ja',
-        mainEntityOfPage: URL, image: 'https://car.kkpwebninja.com/ogp.jpg?d=20261022',
+        mainEntityOfPage: URL, image: 'https://car.kkpwebninja.com/ogp.jpg?d=20261023',
         author: { '@type': 'Organization', name: 'web忍者の砦' }, publisher: { '@type': 'Organization', name: 'web忍者の砦', url: 'https://kkpwebninja.com/' } },
       { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: '本命vs夢枠 車コスト比較', item: 'https://car.kkpwebninja.com/' },
@@ -147,7 +147,7 @@ export function buildJibaiseki({ rates, carsDoc, C, defaults }) {
 <meta property="og:url" content="${URL}">
 <meta property="og:site_name" content="本命vs夢枠 車コスト比較">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:image" content="https://car.kkpwebninja.com/ogp.jpg?d=20261022">
+<meta property="og:image" content="https://car.kkpwebninja.com/ogp.jpg?d=20261023">
 <meta name="twitter:card" content="summary_large_image">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L"></script>
 <script>
