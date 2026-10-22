@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url';
 
 export const ROOT = new URL('..', import.meta.url).pathname;
 const read = p => fs.readFileSync(ROOT + p, 'utf8');
+// kit の読み込みに版を付ける（ブラウザに古い kit.js が残り、新しいページと食い違うのを防ぐ。2026-10-22）
+const KIT_Q = (() => { try { const v = read('kit/VERSION').trim(); return v ? '?v=' + v : ''; } catch (e) { return ''; } })();
 
 export function loadCalc(html) {
   const block = html.slice(html.indexOf('// CALC_START'), html.indexOf('// CALC_END'));
@@ -160,8 +162,8 @@ export function buildJibaiseki({ rates, carsDoc, C, defaults }) {
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
 <!-- D4_FONTS -->
 <!-- 共通部品 D4（kkp-kit を kit/ にコピーしたもの。中は手で直さず kkp-kit 側で直して sync.sh） -->
-<link rel="stylesheet" href="/kit/kit.css">
-<script src="/kit/kit.js" defer></script>
+<link rel="stylesheet" href="/kit/kit.css${KIT_Q}">
+<script src="/kit/kit.js${KIT_Q}" defer></script>
 <script type="application/ld+json">
 ${JSON.stringify(ld, null, 1)}
 </script>
