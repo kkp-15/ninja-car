@@ -227,6 +227,7 @@ select:focus,input:focus{border-color:var(--k-shu)}
 h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);border-radius:0;padding:0 0 6px}
 .card,.result{box-shadow:none}
 .formula{border-left:var(--k-bw-s) solid var(--k-sumi)}
+.neg-note{display:block;font-size:14px;font-weight:400;line-height:1.3}
 </style>
 <!-- kkp-rel-d4:start -->
 <style id="kkp-rel-d4">
@@ -633,13 +634,15 @@ function compare3y(car, opt, rates, todayStr) {
     const loanSub = months > 36 ? '36回払ったあと残り ' : '';
     const row = (label, a, b, subA, subB, cls) =>
       '<tr' + (cls ? ' class="' + cls + '"' : '') + '><th>' + label + '</th><td>' + a + (subA ? '<small>' + subA + '</small>' : '') + '</td><td>' + b + (subB ? '<small>' + subB + '</small>' : '') + '</td></tr>';
+    // 2026-10-25 売れる額が払った額を上回るとマイナスになる（ランドクルーザーなど）。マイナスのときだけ一言添える
+    const negNote = v => Math.round(v) < 0 ? '<span class="neg-note">（売った額のほうが多い計算）</span>' : '';
     const bal = r => months > 36 ? loanSub + manYen(r.balance) + 'は売却時に返す前提' : (months < 36 ? months + '回で完済' : '');
     $('rows').innerHTML =
       row('月々のローン', yen(ra.monthly), yen(rb.monthly), bal(ra), bal(rb)) +
       row('月々の維持費', yen(ra.upkeepMonth), yen(rb.upkeepMonth), '税・燃料・駐車場' + (ra.insuranceIncluded ? '・保険' : ''), '税・燃料・駐車場' + (rb.insuranceIncluded ? '・保険' : '')) +
       row('購入時の重量税・自賠責', yen(ra.weightTax + ra.jibai), yen(rb.weightTax + rb.jibai), '1回だけ', '1回だけ') +
       row('3年後に売れる額', manYen(ra.resale), manYen(rb.resale), A.opt.resalePct.toFixed(1) + '%', B.opt.resalePct.toFixed(1) + '%') +
-      row('月々の実質負担', yen(ra.perMonth), yen(rb.perMonth), '3年間の合計 ' + manYen(ra.total3y), '3年間の合計 ' + manYen(rb.total3y), 'total');
+      row('月々の実質負担', yen(ra.perMonth) + negNote(ra.perMonth), yen(rb.perMonth) + negNote(rb.perMonth), '3年間の合計 ' + manYen(ra.total3y), '3年間の合計 ' + manYen(rb.total3y), 'total');
 
     // 差は「画面に出ている2つの金額（円に丸めた値）」の引き算にそろえる。端数つきで引くと1円ずれて見える
     const d = Math.round(rb.perMonth) - Math.round(ra.perMonth);
@@ -649,8 +652,8 @@ function compare3y(car, opt, rates, todayStr) {
         '<small>3年間では ' + manYen(Math.abs(rb.total3y - ra.total3y)) + ' の差</small>';
 
     // 入力欄の上の要約（下の表と同じ計算結果から出す）
-    $('sumA').textContent = yen(ra.perMonth);
-    $('sumB').textContent = yen(rb.perMonth);
+    $('sumA').innerHTML = yen(ra.perMonth) + negNote(ra.perMonth);
+    $('sumB').innerHTML = yen(rb.perMonth) + negNote(rb.perMonth);
     $('sumD').textContent = Math.abs(d) < 1 ? 'ほぼ同じ' : yen(Math.abs(d));
     $('sumW').textContent = Math.abs(d) < 1 ? '' : (d > 0 ? '（夢枠が多い）' : '（本命が多い）');
     $('commonNow').textContent = 'いまの条件：頭金 ' + (A.opt.down / 10000).toLocaleString('ja-JP') + '万円・年' + A.opt.ratePct + '%・' + months + '回・月' + A.opt.kmPerMonth.toLocaleString('ja-JP') + 'km・駐車場 ' + yen(A.opt.parkingMonth);
