@@ -68,7 +68,8 @@
         {"@type":"Question","name":"ガソリン代はどう計算しますか","acceptedAnswer":{"@type":"Answer","text":"走る距離（km）÷燃費（km/L）で使う量（L）を出し、1Lの値段をかけます。100kmを燃費20km/Lの車で走ると5L、1L170円なら850円です。"}},
         {"@type":"Question","name":"カタログ燃費のとおりに走れますか","acceptedAnswer":{"@type":"Answer","text":"エアコン・渋滞・坂道・短い距離の繰り返しで、カタログより悪くなることが多いです。給油のときに走った距離と入れた量から自分の車の燃費を出して入れると近くなります。"}},
         {"@type":"Question","name":"距離が分かりません","acceptedAnswer":{"@type":"Answer","text":"出発地と目的地を入れて「Googleマップで距離を見る」を押すと、道のりが表示されます。そのkmを距離の欄に入れてください。"}},
-        {"@type":"Question","name":"高速代も入りますか","acceptedAnswer":{"@type":"Answer","text":"高速代は自動では入りません。分かっている場合は「高速代」の欄に入れると、合計と割り勘に足します。"}}
+        {"@type":"Question","name":"高速代も入りますか","acceptedAnswer":{"@type":"Answer","text":"高速代は自動では入りません。分かっている場合は「高速代」の欄に入れると、合計と割り勘に足します。"}},
+        {"@type":"Question","name":"ガソリンの値段は何の数字ですか","acceptedAnswer":{"@type":"Answer","text":"資源エネルギー庁が毎週公表している、給油所の店頭価格の全国平均です。地域や店で違うので、いつも入れる店の値段に変えてください。"}}
       ]
     }
   ]
@@ -249,7 +250,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <summary>高速代・人数・回数<small>割り勘や1か月分を出すとき</small></summary>
     <div class="grid">
       <div>
-        <label class="field" for="toll">高速代<small>（合計）</small></label>
+        <label class="field" for="toll">高速代<small>（往復なら往復分）</small></label>
         <div class="unit"><input type="number" id="toll" min="0" step="10" inputmode="numeric" placeholder="0"><span>円</span></div>
       </div>
       <div>
@@ -257,6 +258,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
         <div class="unit"><input type="number" id="people" min="1" step="1" inputmode="numeric" value="1"><span>人</span></div>
       </div>
     </div>
+    <label class="chk"><input type="checkbox" id="noDriver"><span>運転する人は払わない<span class="hint" style="display:block;margin:0">車を出す人の負担を考えて、ほかの人だけで割ります</span></span></label>
     <label class="field" for="times">回数<small>（通勤なら月の日数）</small></label>
     <div class="unit" style="max-width:50%"><input type="number" id="times" min="1" step="1" inputmode="numeric" value="1"><span>回</span></div>
   </details>
@@ -293,6 +295,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   </table>
   <p class="diff" id="diff" hidden></p>
   <p class="note" id="tNote" hidden style="margin:.5rem 0 0">燃費は入れた数字のとおりに走った場合です。エアコン・渋滞・坂道で悪くなることが多いので、少し多めに見てください。</p>
+  <button type="button" class="mapbtn" id="copyBtn" hidden>結果をコピー（LINEなどに貼れる）</button>
 </section>
 
 <div class="next" id="next" hidden>
@@ -474,15 +477,16 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     return { l: l, fuel: l * price };
   }
 
-  var lastKey = '';
+  var lastKey = '', copyText = '';
   function run(){
     var d = val('km'), k1 = val('kmpl'), p1 = val('price');
     var toll = val('toll') || 0, people = Math.max(1, Math.round(val('people') || 1)), times = Math.max(1, Math.round(val('times') || 1));
+    var noDriver = $('noDriver').checked && people > 1, payers = noDriver ? people - 1 : people;
     var cmp = $('cmp').checked, k2 = val('kmpl2'), p2 = val('price2');
     var head = $('vHead'), why = $('vWhy'), tbl = $('tbl'), body = $('tBody'), err = $('err');
     err.hidden = true;
     $('priceNote').textContent = FUEL_NAME[fuel] + 'の全国平均 ' + PRICE[fuel] + '円（' + PRICE_AT + '時点・資源エネルギー庁）。いつもの店の値段に変えられます。';
-    var hide = function(){ tbl.hidden = true; $('diff').hidden = true; $('tNote').hidden = true; $('next').hidden = true; $('sell').hidden = true; };
+    var hide = function(){ $('copyBtn').hidden = true; tbl.hidden = true; $('diff').hidden = true; $('tNote').hidden = true; $('next').hidden = true; $('sell').hidden = true; };
     if (d === null || isNaN(d) || d === 0) {
       head.className = 'v-head wait'; head.textContent = '走る距離を入れてください';
       why.textContent = '距離が分からなければ、上の「距離をGoogleマップで調べる」から地図で見られます。';
@@ -500,14 +504,17 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     head.textContent = '約' + yen(all);
     $('vLabel').textContent = (cmp ? '1台目の' : '') + (toll ? 'ガソリン代＋高速代' : 'ガソリン代') + '（目安）';
     why.innerHTML = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + 'で<b>' + km(dist) + '</b>、使う量は<b>約' + lit(a.l) + '</b>です。' +
-      (people > 1 ? '<br>' + people + '人で割ると<b>1人約' + yen(Math.ceil(all / people)) + '</b>です。' : '');
+      (people > 1 ? '<br>' + (noDriver ? '運転する人を除く' + payers + '人' : people + '人') + 'で割ると<b>1人約' + yen(Math.ceil(all / payers)) + '</b>です。' : '');
     var rows = '';
     if (!cmp) {
       rows += '<tr><th>走る距離</th><td>' + km(dist) + '</td></tr>';
       rows += '<tr><th>使う量</th><td>' + lit(a.l) + '<small>燃費' + k1 + 'km/L</small></td></tr>';
       rows += '<tr><th>ガソリン代</th><td>' + yen(a.fuel) + '<small>1L ' + p1 + '円・1kmあたり' + (Math.round(p1 / k1 * 10) / 10) + '円</small></td></tr>';
       if (toll) rows += '<tr><th>高速代</th><td>' + yen(toll) + '</td></tr>';
-      rows += '<tr class="total"><th>合計</th><td>' + yen(all) + (people > 1 ? '<small>' + people + '人で1人 ' + yen(Math.ceil(all / people)) + '</small>' : '') + '</td></tr>';
+      rows += '<tr class="total"><th>合計</th><td>' + yen(all) + (people > 1 ? '<small>' + payers + '人で1人 ' + yen(Math.ceil(all / payers)) + '</small>' : '') + '</td></tr>';
+      // 実際の燃費はカタログより下がりやすいので、1割悪いときも並べる
+      rows += '<tr><th>燃費が1割悪いと</th><td>' + yen(cost(dist, k1 * 0.9, p1).fuel + toll) + '<small>燃費' + (Math.round(k1 * 9) / 10) + 'km/Lで計算</small></td></tr>';
+      if (times > 1) rows += '<tr><th>これを毎月なら1年で</th><td>' + yen(all * 12) + '</td></tr>';
       tbl.className = 'tbl';
     }
     var b = null;
@@ -523,8 +530,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
         rows += '<tr><th>ガソリン代</th><td>' + yen(a.fuel) + '</td><td>' + yen(b.fuel) + '</td></tr>';
         rows += '<tr><th>高速代</th><td>' + yen(toll) + '</td><td>' + yen(toll) + '</td></tr>';
       }
-      var per1 = people > 1 ? '<small>1人 ' + yen(Math.ceil((a.fuel + toll) / people)) + '</small>' : '';
-      var per2 = people > 1 ? '<small>1人 ' + yen(Math.ceil((b.fuel + toll) / people)) + '</small>' : '';
+      var per1 = people > 1 ? '<small>1人 ' + yen(Math.ceil((a.fuel + toll) / payers)) + '</small>' : '';
+      var per2 = people > 1 ? '<small>1人 ' + yen(Math.ceil((b.fuel + toll) / payers)) + '</small>' : '';
       rows += '<tr class="total"><th>' + (toll ? '合計' : 'ガソリン代') + '</th><td>' + yen(a.fuel + toll) + per1 + '</td><td>' + yen(b.fuel + toll) + per2 + '</td></tr>';
       tbl.className = 'tbl cmp';
       var diff = a.fuel - b.fuel;
@@ -535,7 +542,11 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       $('diff').hidden = false;
     } else { $('diff').hidden = true; }
     body.innerHTML = rows;
-    tbl.hidden = false; $('tNote').hidden = false; $('next').hidden = false;
+    tbl.hidden = false; $('tNote').hidden = false; $('next').hidden = false; $('copyBtn').hidden = false;
+    copyText = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + ' ' + km(dist) + '（燃費' + k1 + 'km/L・1L ' + p1 + '円）\n' +
+      'ガソリン代 ' + yen(a.fuel) + (toll ? '\n高速代 ' + yen(toll) : '') + '\n合計 ' + yen(all) +
+      (people > 1 ? '\n' + (noDriver ? '運転する人を除く' : '') + payers + '人で割ると1人 ' + yen(Math.ceil(all / payers)) : '') +
+      '\n' + location.origin + '/drive/';
     // 売却の案内：比べる車のほうが安い（乗りかえを考えている）ときだけ
     var switching = !!(b && a.fuel - b.fuel >= 1);
     $('sell').hidden = !switching;
@@ -570,6 +581,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   $('car2').addEventListener('change', function(){ pickCar(2); run(); });
   $('cmp').addEventListener('change', function(){ $('car2Box').hidden = !this.checked; run(); });
   ['km','kmpl','price','toll','people','times','kmpl2','price2'].forEach(function(id){ $(id).addEventListener('input', run); });
+  $('noDriver').addEventListener('change', run);
   document.querySelectorAll('.ex button').forEach(function(b){
     b.addEventListener('click', function(){
       $('km').value = b.dataset.km;
@@ -588,6 +600,12 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     var u = 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=' + encodeURIComponent(t) + (f ? '&origin=' + encodeURIComponent(f) : '');
     window.open(u, '_blank', 'noopener');
     if (typeof gtag === 'function') gtag('event', 'drive_map');
+  });
+  $('copyBtn').addEventListener('click', function(){
+    var btn = this, done = function(ok){ btn.textContent = ok ? 'コピーしました' : 'コピーできませんでした'; setTimeout(function(){ btn.textContent = '結果をコピー（LINEなどに貼れる）'; }, 2000); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(copyText).then(function(){ done(true); }, function(){ done(false); });
+    else done(false);
+    if (typeof gtag === 'function') gtag('event', 'drive_copy');
   });
   $('sellLink').addEventListener('click', function(){
     if (typeof gtag === 'function') gtag('event', 'sell_click', { page: 'drive' });
