@@ -352,10 +352,10 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
 
 <h2 id="hayami">100kmあたりの早見表</h2>
 <div class="box">
-  <p>100km走ったときのガソリン代です。往復200kmなら2倍にします。</p>
+  <p>100km走ったときのガソリン代です。往復200kmなら2倍にします。1kmあたりはレギュラーの値段で計算しています。</p>
   <div class="scroll">
   <table class="rt">
-    <thead><tr><th>燃費</th><th>使う量</th><th>レギュラー<br><span id="hRegP"></span></th><th>ハイオク<br><span id="hPreP"></span></th></tr></thead>
+    <thead><tr><th>燃費</th><th>使う量</th><th>1km<br>あたり</th><th>レギュラー<br><span id="hRegP"></span></th><th>ハイオク<br><span id="hPreP"></span></th></tr></thead>
     <tbody id="hBody"></tbody>
   </table>
   </div>
@@ -581,7 +581,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     var rows = '';
     [10, 15, 20, 25, 30].forEach(function(k){
       var l = 100 / k;
-      rows += '<tr><th>' + k + 'km/L</th><td>' + lit(l) + '</td><td>' + yen(l * PRICE.gasoline_regular) + '</td><td>' + yen(l * PRICE.gasoline_premium) + '</td></tr>';
+      rows += '<tr><th>' + k + 'km/L</th><td>' + lit(l) + '</td><td>' + (Math.round(PRICE.gasoline_regular / k * 10) / 10) + '円</td><td>' + yen(l * PRICE.gasoline_regular) + '</td><td>' + yen(l * PRICE.gasoline_premium) + '</td></tr>';
     });
     $('hBody').innerHTML = rows;
     $('hRegP').textContent = PRICE.gasoline_regular + '円/L';
