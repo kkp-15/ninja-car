@@ -141,6 +141,28 @@
    "checked": "2026-11-01"
   },
   {
+   "id": "d-rav4-hv",
+   "name": "RAV4",
+   "maker": "トヨタ",
+   "grade": "HYBRID Adventure E-Four",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 22.9,
+   "source": "https://toyota.jp/pages/contents/rav4/003_p_001/pdf/rav4_spec_202609.pdf",
+   "checked": "2026-11-01"
+  },
+  {
+   "id": "d-aqua",
+   "name": "アクア",
+   "maker": "トヨタ",
+   "grade": "X 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 34.3,
+   "source": "https://toyota.jp/pages/contents/aqua/002_p_010/pdf/aqua_spec_202607.pdf",
+   "checked": "2026-11-01"
+  },
+  {
    "id": "d-stepwgn-hv",
    "name": "ステップワゴン",
    "maker": "ホンダ",
@@ -171,6 +193,28 @@
    "fuel": "レギュラー",
    "wltc_km_l": 26.0,
    "source": "https://www.honda.co.jp/VEZEL/webcatalog/type/list/",
+   "checked": "2026-11-01"
+  },
+  {
+   "id": "d-serena-hv",
+   "name": "セレナ",
+   "maker": "日産",
+   "grade": "e-POWER X 2WD",
+   "powertrain": "ハイブリッド（e-POWER）",
+   "fuel": "レギュラー",
+   "wltc_km_l": 20.3,
+   "source": "https://www-asia.nissan-cdn.net/content/dam/Nissan/jp/vehicles/serena/2603/pdf/serena_2603_specsheet.pdf",
+   "checked": "2026-11-01"
+  },
+  {
+   "id": "d-serena-g",
+   "name": "セレナ",
+   "maker": "日産",
+   "grade": "X 2WD",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 13.0,
+   "source": "https://www-asia.nissan-cdn.net/content/dam/Nissan/jp/vehicles/serena/2603/pdf/serena_2603_specsheet.pdf",
    "checked": "2026-11-01"
   },
   {
