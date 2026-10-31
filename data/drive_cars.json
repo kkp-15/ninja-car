@@ -1,0 +1,188 @@
+{
+ "_meta": {
+  "readme": "/drive/ だけで使う売れ筋車の燃費。cars.json（維持費比較の正本）とは別。値はメーカー公式の諸元で確認したWLTCモード燃費",
+  "checked": "2026-10-31",
+  "ranking": {
+   "登録車": "日本自動車販売協会連合会 乗用車ブランド通称名別順位 2026年4〜9月累計（https://www.jada.or.jp/pages/340/）",
+   "軽": "全国軽自動車協会連合会 2026年9月 通称名別速報 1〜9月累計（https://www.zenkeijikyo.or.jp/statistics/tushosoku）"
+  }
+ },
+ "cars": [
+  {
+   "id": "d-yaris-hv",
+   "name": "ヤリス",
+   "maker": "トヨタ",
+   "grade": "HYBRID X 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 36.0,
+   "source": "https://toyota.jp/pages/contents/yaris/001_p_001/pdf/yaris_spec_202604.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-yaris-g",
+   "name": "ヤリス",
+   "maker": "トヨタ",
+   "grade": "X 1.0L 2WD",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 20.2,
+   "source": "https://toyota.jp/pages/contents/yaris/001_p_001/pdf/yaris_spec_202604.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-corolla-hv",
+   "name": "カローラ（セダン）",
+   "maker": "トヨタ",
+   "grade": "X 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 29.1,
+   "source": "https://toyota.jp/pages/contents/corolla/002_p_001/pdf/corolla_spec_202605.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-sienta-hv",
+   "name": "シエンタ",
+   "maker": "トヨタ",
+   "grade": "HYBRID X 5人乗り 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 28.4,
+   "source": "https://toyota.jp/pages/contents/sienta/003_p_001/pdf/sienta_spec_202608.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-sienta-g",
+   "name": "シエンタ",
+   "maker": "トヨタ",
+   "grade": "X 5人乗り 2WD",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 18.2,
+   "source": "https://toyota.jp/pages/contents/sienta/003_p_001/pdf/sienta_spec_202608.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-raize-hv",
+   "name": "ライズ",
+   "maker": "トヨタ",
+   "grade": "HYBRID G 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 28.0,
+   "source": "https://toyota.jp/pages/contents/raize/001_p_001/pdf/raize_spec_202411.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-roomy",
+   "name": "ルーミー",
+   "maker": "トヨタ",
+   "grade": "X 2WD",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 18.4,
+   "source": "https://toyota.jp/pages/contents/roomy/001_p_006/pdf/roomy_spec_202610.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-alphard-hv8",
+   "name": "アルファードハイブリッド",
+   "maker": "トヨタ",
+   "grade": "HYBRID G 8人乗り 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 18.9,
+   "source": "https://toyota.jp/pages/contents/alphard/004_p_001/pdf/alphard_spec_202606.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-freed-hv",
+   "name": "フリード",
+   "maker": "ホンダ",
+   "grade": "e:HEV AIR FF",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 25.6,
+   "source": "https://www.honda.co.jp/FREED/common/pdf/freed_spec_list.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-freed-g",
+   "name": "フリード",
+   "maker": "ホンダ",
+   "grade": "AIR FF",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 16.5,
+   "source": "https://www.honda.co.jp/FREED/common/pdf/freed_spec_list.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-nbox",
+   "name": "N-BOX",
+   "maker": "ホンダ",
+   "grade": "N-BOX FF",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 21.6,
+   "source": "https://www.honda.co.jp/Nbox/common/pdf/nbox_spec_list.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-spacia",
+   "name": "スペーシア",
+   "maker": "スズキ",
+   "grade": "HYBRID G 2WD",
+   "powertrain": "マイルドハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 25.1,
+   "source": "https://www.suzuki.co.jp/car/spacia/detail/",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-tanto",
+   "name": "タント",
+   "maker": "ダイハツ",
+   "grade": "L 2WD",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 22.6,
+   "source": "https://www.daihatsu.co.jp/lineup/tanto/pdf/specifications.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-move",
+   "name": "ムーヴ",
+   "maker": "ダイハツ",
+   "grade": "L 2WD",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 22.6,
+   "source": "https://www.daihatsu.co.jp/lineup/move/pdf/specifications.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-roox",
+   "name": "ルークス",
+   "maker": "日産",
+   "grade": "S 2WD",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 21.0,
+   "source": "https://www-asia.nissan-cdn.net/content/dam/Nissan/jp/vehicles/roox/2605/pdf/roox_2605_specsheet_01.pdf",
+   "checked": "2026-10-31"
+  },
+  {
+   "id": "d-hustler",
+   "name": "ハスラー",
+   "maker": "スズキ",
+   "grade": "HYBRID G 2WD",
+   "powertrain": "マイルドハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 24.3,
+   "source": "https://www.suzuki.co.jp/car/hustler/detail/pdf/detail.pdf",
+   "checked": "2026-10-31"
+  }
+ ]
+}

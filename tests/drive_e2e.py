@@ -44,6 +44,9 @@ with sync_playwright() as p:
     check('車を選ぶと燃費が入る', pg.input_value('#kmpl'), '32.6')
     check('プリウス', head(), yen(200 / 32.6 * price))
 
+    pg.select_option('#car', 'd-nbox')
+    check('売れ筋の車（N-BOX 21.6）', pg.input_value('#kmpl'), '21.6')
+    pg.select_option('#car', 'prius')
     fill('times', 20)
     check('回数（月20日）', head(), yen(200 * 20 / 32.6 * price))
     fill('times', 1)

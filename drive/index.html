@@ -402,7 +402,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
 <ul class="src">
   <li>ガソリン・軽油の値段：資源エネルギー庁 石油製品価格調査（<a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html" target="_blank" rel="noopener">ページ</a>）の全国平均。<span id="srcFuel"></span></li>
   <li>電気の値段：全国家庭電気製品公正取引協議会「電力料金の目安単価」31円/kWh（税込・令和4年7月22日改定）（<a href="https://www.eftc.or.jp/qa/" target="_blank" rel="noopener">Q&amp;A Q7</a>）。2026年10月31日確認</li>
-  <li>車の燃費：各メーカー公式の主要諸元（WLTCモード）。グレードは新車で買える一番安いもの。<span id="srcCar"></span></li>
+  <li>よく売れている車：日本自動車販売協会連合会（2026年4〜9月累計）と全国軽自動車協会連合会（2026年1〜9月累計）の通称名別の上位から選び、燃費はトヨタ・ホンダ・スズキ・ダイハツ・日産の公式諸元表（WLTCモード・選んだグレード）。2026年10月31日確認</li>
+  <li>そのほかの車の燃費：各メーカー公式の主要諸元（WLTCモード）。グレードは新車で買える一番安いもの。<span id="srcCar"></span></li>
 </ul>
 
 <div class="author">
@@ -471,8 +472,14 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   }
   function carOptions(){
     var byMaker = {};
-    CARS.forEach(function(c){ (byMaker[c.maker] = byMaker[c.maker] || []).push(c); });
+    CARS.forEach(function(c){ if (!c.popular) (byMaker[c.maker] = byMaker[c.maker] || []).push(c); });
     var html = '<option value="">燃費を自分で入れる</option>';
+    var pop = CARS.filter(function(c){ return c.popular; });
+    if (pop.length) {
+      html += '<optgroup label="よく売れている車（2026年）">';
+      pop.forEach(function(c){ html += '<option value="' + c.id + '">' + c.name + ' ' + c.grade + '（' + c.wltc_km_l + 'km/L）</option>'; });
+      html += '</optgroup>';
+    }
     Object.keys(byMaker).forEach(function(m){
       html += '<optgroup label="' + m + '">';
       byMaker[m].sort(function(a, b){ return a.name < b.name ? -1 : 1; }).forEach(function(c){
@@ -634,9 +641,10 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   setFuel(1, fuel); setFuel(2, fuel2); hayami(); run();
   Promise.all([
     fetch('/data/public_rates.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
-    fetch('/data/cars.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+    fetch('/data/cars.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+    fetch('/data/drive_cars.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
   ]).then(function(res){
-    var rates = res[0], cars = res[1];
+    var rates = res[0], cars = res[1], pop = res[2];
     if (rates) {
       ['gasoline_regular','gasoline_premium','diesel'].forEach(function(k){ if (rates[k] && rates[k].yen_per_l) PRICE[k] = rates[k].yen_per_l; });
       var t = rates.gasoline_regular && rates.gasoline_regular._source && rates.gasoline_regular._source['時点'];
@@ -644,7 +652,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       setFuel(1, fuel); setFuel(2, fuel2); hayami();
     }
     if (cars) {
-      CARS = cars.cars || cars;
+      CARS = (pop ? pop.cars.map(function(c){ c.popular = true; return c; }) : []).concat(cars.cars || cars);
       carOptions();
       if (cars._meta && cars._meta.checked) { var c = cars._meta.checked.split('-'); $('srcCar').textContent = c[0] + '年' + (+c[1]) + '月' + (+c[2]) + '日確認。'; }
     }
