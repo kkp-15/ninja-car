@@ -231,11 +231,11 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   <select id="car"><option value="">燃費を自分で入れる</option></select>
   <div class="grid">
     <div>
-      <label class="field" for="kmpl">燃費</label>
+      <label class="field" for="kmpl" id="kmplL">燃費</label>
       <div class="unit"><input type="number" id="kmpl" min="1" step="0.1" inputmode="decimal" value="15"><span>km/L</span></div>
     </div>
     <div>
-      <label class="field" for="price">1Lの値段</label>
+      <label class="field" for="price" id="priceL">1Lの値段</label>
       <div class="unit"><input type="number" id="price" min="1" step="0.1" inputmode="decimal"><span>円</span></div>
     </div>
   </div>
@@ -243,6 +243,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <button type="button" data-v="gasoline_regular" aria-pressed="true">レギュラー</button>
     <button type="button" data-v="gasoline_premium" aria-pressed="false">ハイオク</button>
     <button type="button" data-v="diesel" aria-pressed="false">軽油</button>
+    <button type="button" data-v="electric" aria-pressed="false">電気</button>
   </div>
   <p class="hint" id="priceNote"></p>
 
@@ -269,11 +270,11 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <select id="car2"><option value="">燃費を自分で入れる</option></select>
     <div class="grid">
       <div>
-        <label class="field" for="kmpl2">燃費</label>
+        <label class="field" for="kmpl2" id="kmpl2L">燃費</label>
         <div class="unit"><input type="number" id="kmpl2" min="1" step="0.1" inputmode="decimal" value="25"><span>km/L</span></div>
       </div>
       <div>
-        <label class="field" for="price2">1Lの値段</label>
+        <label class="field" for="price2" id="price2L">1Lの値段</label>
         <div class="unit"><input type="number" id="price2" min="1" step="0.1" inputmode="decimal"><span>円</span></div>
       </div>
     </div>
@@ -281,6 +282,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       <button type="button" data-v="gasoline_regular" aria-pressed="true">レギュラー</button>
       <button type="button" data-v="gasoline_premium" aria-pressed="false">ハイオク</button>
       <button type="button" data-v="diesel" aria-pressed="false">軽油</button>
+    <button type="button" data-v="electric" aria-pressed="false">電気</button>
     </div>
   </div>
 </div>
@@ -396,6 +398,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
 <h2>数字の出典</h2>
 <ul class="src">
   <li>ガソリン・軽油の値段：資源エネルギー庁 石油製品価格調査（<a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html" target="_blank" rel="noopener">ページ</a>）の全国平均。<span id="srcFuel"></span></li>
+  <li>電気の値段：全国家庭電気製品公正取引協議会「電力料金の目安単価」31円/kWh（税込・令和4年7月22日改定）（<a href="https://www.eftc.or.jp/qa/" target="_blank" rel="noopener">Q&amp;A Q7</a>）。2026年10月31日確認</li>
   <li>車の燃費：各メーカー公式の主要諸元（WLTCモード）。グレードは新車で買える一番安いもの。<span id="srcCar"></span></li>
 </ul>
 
@@ -427,16 +430,20 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   'use strict';
   var $ = function(id){ return document.getElementById(id); };
   // 読み込みに失敗しても計算はできるように、public_rates.json と同じ値を最初から持っておく
-  var PRICE = { gasoline_regular:170.1, gasoline_premium:181.0, diesel:159.7 };
+  var PRICE = { gasoline_regular:170.1, gasoline_premium:181.0, diesel:159.7, electric:31 };
   var PRICE_AT = '2026年10月26日';
   var FUEL_KEY = { 'レギュラー':'gasoline_regular', 'ハイオク':'gasoline_premium', '軽油':'diesel' };
-  var FUEL_NAME = { gasoline_regular:'レギュラー', gasoline_premium:'ハイオク', diesel:'軽油' };
+  var FUEL_NAME = { gasoline_regular:'レギュラー', gasoline_premium:'ハイオク', diesel:'軽油', electric:'電気' };
   var CARS = [];
   var trip = 2, fuel = 'gasoline_regular', fuel2 = 'gasoline_regular';
   var priceTouched = false, price2Touched = false;
 
   function yen(n){ return Math.round(n).toLocaleString('ja-JP') + '円'; }
-  function lit(n){ return (Math.round(n * 10) / 10).toLocaleString('ja-JP', { maximumFractionDigits: 1 }) + 'L'; }
+  function lit(n, key){ return (Math.round(n * 10) / 10).toLocaleString('ja-JP', { maximumFractionDigits: 1 }) + (key === 'electric' ? 'kWh' : 'L'); }
+  // 電気自動車は「燃費 km/L」の代わりに「電費 km/kWh」、値段は 1kWh あたり
+  function eff(k, key){ return k + (key === 'electric' ? 'km/kWh' : 'km/L'); }
+  function unitPrice(key){ return key === 'electric' ? '1kWh ' : '1L '; }
+  function costName(key){ return key === 'electric' ? '電気代' : 'ガソリン代'; }
   function km(n){ return Math.round(n).toLocaleString('ja-JP') + 'km'; }
   function val(id){
     var s = $(id).value.trim();
@@ -448,8 +455,16 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     box.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.v === String(v) ? 'true' : 'false'); });
   }
   function setFuel(n, key){
-    if (n === 2) { fuel2 = key; pressSeg($('fuel2'), key); if (!price2Touched) $('price2').value = PRICE[key]; }
-    else { fuel = key; pressSeg($('fuel'), key); if (!priceTouched) $('price').value = PRICE[key]; }
+    var sfx = n === 2 ? '2' : '', was = n === 2 ? fuel2 : fuel, el = key === 'electric';
+    // 電気とガソリンを切り替えたときは単位が変わるので、手で入れた値段も入れ直す
+    var touched = (n === 2 ? price2Touched : priceTouched) && (was === 'electric') === el;
+    if (n === 2) { fuel2 = key; price2Touched = touched; } else { fuel = key; priceTouched = touched; }
+    pressSeg($('fuel' + sfx), key);
+    if (!touched) $('price' + sfx).value = PRICE[key];
+    $('kmpl' + sfx + 'L').textContent = el ? '電費' : '燃費';
+    $('price' + sfx + 'L').textContent = el ? '1kWhの値段' : '1Lの値段';
+    $('kmpl' + sfx).nextElementSibling.textContent = el ? 'km/kWh' : 'km/L';
+    $('price' + sfx).nextElementSibling.textContent = el ? '円/kWh' : '円';
   }
   function carOptions(){
     var byMaker = {};
@@ -485,7 +500,9 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     var cmp = $('cmp').checked, k2 = val('kmpl2'), p2 = val('price2');
     var head = $('vHead'), why = $('vWhy'), tbl = $('tbl'), body = $('tBody'), err = $('err');
     err.hidden = true;
-    $('priceNote').textContent = FUEL_NAME[fuel] + 'の全国平均 ' + PRICE[fuel] + '円（' + PRICE_AT + '時点・資源エネルギー庁）。いつもの店の値段に変えられます。';
+    $('priceNote').textContent = fuel === 'electric' ?
+      '電気代は家電の表示に使う目安単価 31円/kWh（全国家庭電気製品公正取引協議会）。電費は諸元表の「交流電力量消費率（Wh/km）」なら 1000÷その数で km/kWh になります。急速充電は単価が違うので書きかえてください。' :
+      FUEL_NAME[fuel] + 'の全国平均 ' + PRICE[fuel] + '円（' + PRICE_AT + '時点・資源エネルギー庁）。いつもの店の値段に変えられます。';
     var hide = function(){ $('copyBtn').hidden = true; tbl.hidden = true; $('diff').hidden = true; $('tNote').hidden = true; $('next').hidden = true; $('sell').hidden = true; };
     if (d === null || isNaN(d) || d === 0) {
       head.className = 'v-head wait'; head.textContent = '走る距離を入れてください';
@@ -493,7 +510,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       hide(); return;
     }
     if (!k1 || isNaN(k1) || !p1 || isNaN(p1)) {
-      head.className = 'v-head wait'; head.textContent = '燃費と1Lの値段を入れてください';
+      head.className = 'v-head wait'; head.textContent = fuel === 'electric' ? '電費と1kWhの値段を入れてください' : '燃費と1Lの値段を入れてください';
       why.textContent = '燃費は車を選ぶと入ります。'; hide(); return;
     }
     if (k1 > 60 || (cmp && k2 > 60)) { err.hidden = false; err.textContent = '燃費が60km/Lを超えています。km/Lの数字か確かめてください。'; }
@@ -502,18 +519,18 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     var all = a.fuel + toll;
     head.className = 'v-head';
     head.textContent = '約' + yen(all);
-    $('vLabel').textContent = (cmp ? '1台目の' : '') + (toll ? 'ガソリン代＋高速代' : 'ガソリン代') + '（目安）';
-    why.innerHTML = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + 'で<b>' + km(dist) + '</b>、使う量は<b>約' + lit(a.l) + '</b>です。' +
+    $('vLabel').textContent = (cmp ? '1台目の' : '') + costName(fuel) + (toll ? '＋高速代' : '') + '（目安）';
+    why.innerHTML = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + 'で<b>' + km(dist) + '</b>、使う量は<b>約' + lit(a.l, fuel) + '</b>です。' +
       (people > 1 ? '<br>' + (noDriver ? '運転する人を除く' + payers + '人' : people + '人') + 'で割ると<b>1人約' + yen(Math.ceil(all / payers)) + '</b>です。' : '');
     var rows = '';
     if (!cmp) {
       rows += '<tr><th>走る距離</th><td>' + km(dist) + '</td></tr>';
-      rows += '<tr><th>使う量</th><td>' + lit(a.l) + '<small>燃費' + k1 + 'km/L</small></td></tr>';
-      rows += '<tr><th>ガソリン代</th><td>' + yen(a.fuel) + '<small>1L ' + p1 + '円・1kmあたり' + (Math.round(p1 / k1 * 10) / 10) + '円</small></td></tr>';
+      rows += '<tr><th>使う量</th><td>' + lit(a.l, fuel) + '<small>' + (fuel === 'electric' ? '電費' : '燃費') + eff(k1, fuel) + '</small></td></tr>';
+      rows += '<tr><th>' + costName(fuel) + '</th><td>' + yen(a.fuel) + '<small>' + unitPrice(fuel) + p1 + '円・1kmあたり' + (Math.round(p1 / k1 * 10) / 10) + '円</small></td></tr>';
       if (toll) rows += '<tr><th>高速代</th><td>' + yen(toll) + '</td></tr>';
       rows += '<tr class="total"><th>合計</th><td>' + yen(all) + (people > 1 ? '<small>' + payers + '人で1人 ' + yen(Math.ceil(all / payers)) + '</small>' : '') + '</td></tr>';
       // 実際の燃費はカタログより下がりやすいので、1割悪いときも並べる
-      rows += '<tr><th>燃費が1割悪いと</th><td>' + yen(cost(dist, k1 * 0.9, p1).fuel + toll) + '<small>燃費' + (Math.round(k1 * 9) / 10) + 'km/Lで計算</small></td></tr>';
+      rows += '<tr><th>燃費が1割悪いと</th><td>' + yen(cost(dist, k1 * 0.9, p1).fuel + toll) + '<small>' + eff(Math.round(k1 * 9) / 10, fuel) + 'で計算</small></td></tr>';
       if (times > 1) rows += '<tr><th>これを毎月なら1年で</th><td>' + yen(all * 12) + '</td></tr>';
       tbl.className = 'tbl';
     }
@@ -523,28 +540,28 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       var n1 = $('car').value ? $('car').selectedOptions[0].text.replace(/（.*/, '') : '今の車';
       var n2 = $('car2').value ? $('car2').selectedOptions[0].text.replace(/（.*/, '') : '比べる車';
       rows = '<tr><th></th><th>' + n1 + '</th><th>' + n2 + '</th></tr>';
-      rows += '<tr><th>燃費</th><td>' + k1 + 'km/L</td><td>' + k2 + 'km/L</td></tr>';
-      rows += '<tr><th>使う量</th><td>' + lit(a.l) + '</td><td>' + lit(b.l) + '</td></tr>';
+      rows += '<tr><th>燃費・電費</th><td>' + eff(k1, fuel) + '</td><td>' + eff(k2, fuel2) + '</td></tr>';
+      rows += '<tr><th>使う量</th><td>' + lit(a.l, fuel) + '</td><td>' + lit(b.l, fuel2) + '</td></tr>';
       rows += '<tr><th>1kmあたり</th><td>' + (Math.round(p1 / k1 * 10) / 10) + '円</td><td>' + (Math.round(p2 / k2 * 10) / 10) + '円</td></tr>';
       if (toll) {
-        rows += '<tr><th>ガソリン代</th><td>' + yen(a.fuel) + '</td><td>' + yen(b.fuel) + '</td></tr>';
+        rows += '<tr><th>燃料・電気代</th><td>' + yen(a.fuel) + '</td><td>' + yen(b.fuel) + '</td></tr>';
         rows += '<tr><th>高速代</th><td>' + yen(toll) + '</td><td>' + yen(toll) + '</td></tr>';
       }
       var per1 = people > 1 ? '<small>1人 ' + yen(Math.ceil((a.fuel + toll) / payers)) + '</small>' : '';
       var per2 = people > 1 ? '<small>1人 ' + yen(Math.ceil((b.fuel + toll) / payers)) + '</small>' : '';
-      rows += '<tr class="total"><th>' + (toll ? '合計' : 'ガソリン代') + '</th><td>' + yen(a.fuel + toll) + per1 + '</td><td>' + yen(b.fuel + toll) + per2 + '</td></tr>';
+      rows += '<tr class="total"><th>' + (toll ? '合計' : '燃料・電気代') + '</th><td>' + yen(a.fuel + toll) + per1 + '</td><td>' + yen(b.fuel + toll) + per2 + '</td></tr>';
       tbl.className = 'tbl cmp';
       var diff = a.fuel - b.fuel;
       var per = Math.abs(diff);
-      $('diff').innerHTML = per < 1 ? 'ガソリン代はほぼ同じです。' :
+      $('diff').innerHTML = per < 1 ? '燃料・電気代はほぼ同じです。' :
         '<b>' + (diff > 0 ? n2 : n1) + '</b>のほうが<b>' + yen(per) + '</b>安くなります。' +
         '<br>毎月この距離を走るなら、1年で約<b>' + yen(per * 12) + '</b>の差です。';
       $('diff').hidden = false;
     } else { $('diff').hidden = true; }
     body.innerHTML = rows;
     tbl.hidden = false; $('tNote').hidden = false; $('next').hidden = false; $('copyBtn').hidden = false;
-    copyText = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + ' ' + km(dist) + '（燃費' + k1 + 'km/L・1L ' + p1 + '円）\n' +
-      'ガソリン代 ' + yen(a.fuel) + (toll ? '\n高速代 ' + yen(toll) : '') + '\n合計 ' + yen(all) +
+    copyText = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + ' ' + km(dist) + '（' + eff(k1, fuel) + '・' + unitPrice(fuel) + p1 + '円）\n' +
+      costName(fuel) + ' ' + yen(a.fuel) + (toll ? '\n高速代 ' + yen(toll) : '') + '\n合計 ' + yen(all) +
       (people > 1 ? '\n' + (noDriver ? '運転する人を除く' : '') + payers + '人で割ると1人 ' + yen(Math.ceil(all / payers)) : '') +
       '\n' + location.origin + '/drive/';
     // 売却の案内：比べる車のほうが安い（乗りかえを考えている）ときだけ
