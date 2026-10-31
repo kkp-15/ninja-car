@@ -128,12 +128,12 @@
   },
   "gasoline_regular": {
     "_source": {
-      "url": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html",
-      "時点": "2026-09-07",
-      "確認日": "2026-09-14",
-      "資料": "石油製品価格調査 2026-09-09公表（結果概要版 260909.docx／結果詳細版 260909.xlsx の全国参考値）"
+      "url": "https://nenryo-teigakuhikisage.go.jp/current_graph.pdf",
+      "資料": "燃料油価格定額引下げ措置「ガソリン全国平均価格の推移」（資源エネルギー庁 石油製品価格調査 2026-10-28公表の全国平均）",
+      "時点": "2026-10-26",
+      "確認日": "2026-10-31"
     },
-    "yen_per_l": 170.0
+    "yen_per_l": 170.1
   },
   "excluded_not_sold_new": [
     {
@@ -155,20 +155,20 @@
   "gasoline_premium": {
     "_source": {
       "url": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html",
-      "資料": "石油製品価格調査 2026-09-09公表（結果概要版 260909.docx／結果詳細版 260909.xlsx の全国参考値）",
-      "時点": "2026-09-07",
-      "確認日": "2026-09-14"
+      "資料": "資源エネルギー庁 石油製品価格調査 2026-10-28公表（結果ファイルは自動取得できず、同公表を伝える報道 carview!/グーネット 2026-10-28 で値を確認。レギュラー・軽油は国の資料と一致）",
+      "時点": "2026-10-26",
+      "確認日": "2026-10-31"
     },
-    "yen_per_l": 180.9
+    "yen_per_l": 181.0
   },
   "diesel": {
     "_source": {
-      "url": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html",
-      "資料": "石油製品価格調査 2026-09-09公表（結果概要版 260909.docx／結果詳細版 260909.xlsx の全国参考値）",
-      "時点": "2026-09-07",
-      "確認日": "2026-09-14"
+      "url": "https://nenryo-teigakuhikisage.go.jp/current_graph.pdf",
+      "資料": "燃料油価格定額引下げ措置「軽油全国平均価格の推移」（資源エネルギー庁 石油製品価格調査 2026-10-28公表の全国平均）",
+      "時点": "2026-10-26",
+      "確認日": "2026-10-31"
     },
-    "yen_per_l": 159.5
+    "yen_per_l": 159.7
   },
   "loan_rate_default": {
     "_source": {

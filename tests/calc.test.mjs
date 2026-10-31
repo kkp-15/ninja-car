@@ -57,10 +57,10 @@ t('総合例 ハリアー', () => {
   near(r.monthly, 71077.66723668101, 1e-6, 'monthly');
   near(r.balance, 1661374.668239377, 1e-4, 'balance');
   assert.equal(r.weightTax, 7500); assert.equal(r.jibai, 24190); assert.equal(r.carTax, 43500);
-  near(r.fuelMonth*36, 269603.5242290749, 1e-6, 'fuel');
+  near(r.fuelMonth*36, 269762.11453744496, 1e-6, 'fuel');
   near(r.resale, 3462401.25, 1e-6, 'resale');
-  near(r.total3y, 1946262.962988968, 1e-3, 'total');
-  near(r.perMonth, 54062.86008302689, 1e-4, 'perMonth');
+  near(r.total3y, 1946421.5532974126, 1e-3, 'total');
+  near(r.perMonth, 54067.26536937257, 1e-4, 'perMonth');
   assert.equal(r.insuranceIncluded, false);
 });
 t('任意保険を入れると月額分だけ増える', () => {
@@ -69,5 +69,5 @@ t('任意保険を入れると月額分だけ増える', () => {
   near(b.perMonth - a.perMonth, 8000, 1e-6, 'ins'); assert.equal(b.insuranceIncluded, true);
 });
 t('頭金が価格を超えても借入は0', () => { const r = C.compare3y(harrier, {...opt, down: 9999999}, rates, '2026-09-14'); assert.equal(r.principal, 0); assert.equal(r.monthly, 0); assert.equal(r.down, 4396700); });
-t('燃料の種類', () => { assert.equal(C.fuelPrice('ハイオク', rates), 180.9); assert.equal(C.fuelPrice('軽油', rates), 159.5); assert.throws(() => C.fuelPrice('電気', rates)); });
+t('燃料の種類', () => { assert.equal(C.fuelPrice('ハイオク', rates), 181.0); assert.equal(C.fuelPrice('軽油', rates), 159.7); assert.throws(() => C.fuelPrice('電気', rates)); });
 console.log(`\n${n} tests passed`);
