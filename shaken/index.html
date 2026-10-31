@@ -215,6 +215,12 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <button type="button" data-est="18" data-sale="15">見積18万・売値15万</button>
   </p>
 
+  <details class="more" id="later">
+    <summary>通してから売る場合と比べる<small>車検を通したあとの売値が分かるときだけ</small></summary>
+    <label class="field" for="sale2">車検を通したあとの売値</label>
+    <div class="unit" style="max-width:50%"><input type="number" id="sale2" min="0" step="0.1" inputmode="decimal" placeholder="例 33"><span>万円</span></div>
+    <p class="hint">買取店に「車検を通してから売るといくらか」も聞いてみてください。</p>
+  </details>
   <details class="more" id="more">
     <summary><span id="carSum">普通車・2017年・1.5トン</span><small>税の計算に使う車の情報。そのままでも判定は出ます</small></summary>
   <label class="field">車の種類</label>
@@ -585,6 +591,12 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     if (!eco && age < 13 && age + 1 >= 13) f.push('来年度から自動車税が上がります（年' + yen(carTax(regYear, 12, false)) + '→' + yen(carTax(regYear, 13, false)) + '）。');
     else if (!eco && age >= 13) f.push('13年を超えているので、上がった税額で計算しています。');
     if (!eco && age < 18 && age + 2 >= 18) f.push('次の車検は18年経過で、重量税がもう一段上がります。');
+    var s2 = num('sale2');
+    if (s2 !== null && !isNaN(s2) && sale !== null) {
+      var keep = s2 - est, gap = sale - keep;
+      f.push('通してから売ると、手元に残るのは' + man(keep) + '（売値' + man(s2) + '−見積' + man(est) + '）。' +
+        (Math.abs(gap) < 1000 ? '今売るのとほぼ同じです。' : gap > 0 ? '<b>今売るほうが' + man(gap) + '多く残ります。</b>' : '<b>通してから売るほうが' + man(-gap) + '多く残ります。</b>'));
+    }
     var opt = num('opt');
     if (opt && !isNaN(opt) && opt < est) {
       var e2 = est - opt, v2 = sale === null ? '' : e2 >= sale ? '売るのを考えてよい' : e2 >= sale / 2 ? '迷いどころ' : '通して乗るのが自然';
@@ -625,7 +637,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     $('ccWrap').hidden = kind === 'kei';
     run();
   });
-  ['year','weight','cc','eco','est','sale','opt'].forEach(function(id){
+  ['year','weight','cc','eco','est','sale','opt','sale2'].forEach(function(id){
     $(id).addEventListener('input', run);
     $(id).addEventListener('change', run);
   });

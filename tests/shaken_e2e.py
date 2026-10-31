@@ -51,6 +51,9 @@ with sync_playwright() as p:
     fill('opt', 4)
     check('急がない整備を外した判定', '見積は11万円です。判定は「迷いどころ」です。' in pg.inner_text('#flags'), True)
     fill('opt', '')
+    pg.click('#later summary'); fill('sale2', 20)
+    check('通してから売る比較（売値15万→通して20万・見積15万）', '今売るほうが10万円多く残ります。' in pg.inner_text('#flags'), True)
+    fill('sale2', '')
 
     # 13年目：重量税 34,200円・自動車税は1.15倍（2013年登録＝引下げ前 1,500cc 34,500→39,600円）
     pg.click('#more summary')
