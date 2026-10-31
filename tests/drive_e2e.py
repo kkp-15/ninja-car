@@ -30,6 +30,8 @@ with sync_playwright() as p:
     check('最初は距離を求める', head(), '走る距離を入れてください')
     fill('km', 100)
     check('往復100km・15km/L', head(), yen(200 / 15 * price))
+    check('入力のすぐ下にも金額', pg.inner_text('#miniV'), '往復 ' + yen(200 / 15 * price))
+    check('その金額が1画面目に見える', pg.evaluate("document.getElementById('mini').getBoundingClientRect().bottom <= innerHeight"), True)
     pg.click('#trip [data-v="1"]')
     check('片道', head(), yen(100 / 15 * price))
     pg.click('#trip [data-v="2"]')
@@ -69,6 +71,8 @@ with sync_playwright() as p:
     fill('kmpl2', 10)
     check('比べる車が高いと売却の案内は出ない', pg.is_visible('#sell'), False)
 
+    pg.select_option('#car', 'd-alphard-hv8'); pg.select_option('#car2', 'd-nbox')
+    check('長い車名どうしの比較でもはみ出さない', pg.evaluate('document.documentElement.scrollWidth <= innerWidth'), True)
     check('横にはみ出さない', pg.evaluate('document.documentElement.scrollWidth <= innerWidth'), True)
     check('JS のエラーなし', errors, [])
     b.close()

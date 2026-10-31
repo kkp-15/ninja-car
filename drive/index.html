@@ -170,6 +170,8 @@ select:focus,input:focus{outline:none;border-color:var(--k-shu,var(--orange))}
 .toc{margin:1.6rem 0 0;padding:.6rem 1rem .4rem;border:1px solid #e8dcc8;background:#fffaf0;border-radius:4px}
 .toc-h{margin:0;font-weight:800}
 .toc ol{margin:.2rem 0 .3rem;padding-left:1.4rem;line-height:2}
+.mini{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin:.6rem 0 0;padding:.5rem .75rem;border-left:4px solid var(--orange);background:#fff8ef;font-weight:700}
+.mini a{display:inline-flex;align-items:center;min-height:44px;font-size:.875rem;white-space:nowrap}
 .toc li a{display:inline-block;min-height:44px;padding:.55rem 0 0;line-height:1.5}
 .chk4{padding-left:1.4rem;margin:.4rem 0}
 .chk4 li{margin:.6rem 0;line-height:1.7}
@@ -214,6 +216,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <button type="button" data-km="300" data-trip="2">帰省300km</button>
     <button type="button" data-km="15" data-trip="2" data-times="20">通勤15km×20日</button>
   </p>
+  <p class="mini" id="mini" hidden><span id="miniV"></span><a href="#result">内訳を見る</a></p>
   <details class="more" id="mapBox">
     <summary>距離をGoogleマップで調べる<small>出発地と目的地を入れると、道のりが地図に出ます</small></summary>
     <div class="grid g1">
@@ -517,11 +520,11 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     if (d === null || isNaN(d) || d === 0) {
       head.className = 'v-head wait'; head.textContent = '走る距離を入れてください';
       why.textContent = '距離が分からなければ、上の「距離をGoogleマップで調べる」から地図で見られます。';
-      hide(); return;
+      hide(); $('mini').hidden = true; return;
     }
     if (!k1 || isNaN(k1) || !p1 || isNaN(p1)) {
       head.className = 'v-head wait'; head.textContent = fuel === 'electric' ? '電費と1kWhの値段を入れてください' : '燃費と1Lの値段を入れてください';
-      why.textContent = '燃費は車を選ぶと入ります。'; hide(); return;
+      why.textContent = '燃費は車を選ぶと入ります。'; hide(); $('mini').hidden = true; return;
     }
     if (k1 > 60 || (cmp && k2 > 60)) { err.hidden = false; err.textContent = '燃費が60km/Lを超えています。km/Lの数字か確かめてください。'; }
     var dist = d * trip * times;
@@ -529,6 +532,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     var all = a.fuel + toll;
     head.className = 'v-head';
     head.textContent = '約' + yen(all);
+    $('miniV').textContent = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + ' 約' + yen(all) + (people > 1 ? '・1人約' + yen(Math.ceil(all / payers)) : '');
+    $('mini').hidden = false;
     $('vLabel').textContent = (cmp ? '1台目の' : '') + costName(fuel) + (toll ? '＋高速代' : '') + '（目安）';
     why.innerHTML = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + 'で<b>' + km(dist) + '</b>、使う量は<b>約' + lit(a.l, fuel) + '</b>です。' +
       (people > 1 ? '<br>' + (noDriver ? '運転する人を除く' + payers + '人' : people + '人') + 'で割ると<b>1人約' + yen(Math.ceil(all / payers)) + '</b>です。' : '');
