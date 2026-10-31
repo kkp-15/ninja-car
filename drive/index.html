@@ -116,6 +116,8 @@ select:focus,input:focus{outline:none;border-color:var(--k-shu,var(--orange))}
 .more>summary{cursor:pointer;padding:.6rem 0 .2rem;font-weight:700;font-size:.9375rem;line-height:1.5;min-height:44px}
 .more>summary small{display:block;font-weight:400;font-size:.875rem;color:var(--ink-soft)}
 .mapbtn{display:block;width:100%;margin:.7rem 0 0;min-height:44px;font:inherit;font-size:1rem;font-weight:700;color:var(--ink);background:var(--k-kinari,var(--cream));border:var(--k-bw-s,2px) solid var(--k-sumi,#333);border-radius:var(--k-r,8px);cursor:pointer}
+#fuel,#fuel2{gap:6px}
+#fuel button,#fuel2 button{font-size:.8125rem;white-space:nowrap;padding:0 .1rem}
 .car2{margin:.4rem 0 0;padding:.2rem 0 0;border-top:1px dashed var(--line)}
 .car2[hidden]{display:none}
 
@@ -168,6 +170,7 @@ select:focus,input:focus{outline:none;border-color:var(--k-shu,var(--orange))}
 .toc{margin:1.6rem 0 0;padding:.6rem 1rem .4rem;border:1px solid #e8dcc8;background:#fffaf0;border-radius:4px}
 .toc-h{margin:0;font-weight:800}
 .toc ol{margin:.2rem 0 .3rem;padding-left:1.4rem;line-height:2}
+.toc li a{display:inline-block;min-height:44px;padding:.55rem 0 0;line-height:1.5}
 .chk4{padding-left:1.4rem;margin:.4rem 0}
 .chk4 li{margin:.6rem 0;line-height:1.7}
 .author{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--line);border-radius:4px;font-size:.9375rem}
@@ -206,10 +209,10 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       </div>
     </div>
   </div>
-  <p class="ex">例を入れて試す：
-    <button type="button" data-km="50" data-trip="2">日帰り 片道50km</button>
-    <button type="button" data-km="300" data-trip="2">帰省 片道300km</button>
-    <button type="button" data-km="15" data-trip="2" data-times="20">通勤 片道15km×月20日</button>
+  <p class="ex">例（片道）：
+    <button type="button" data-km="50" data-trip="2">日帰り50km</button>
+    <button type="button" data-km="300" data-trip="2">帰省300km</button>
+    <button type="button" data-km="15" data-trip="2" data-times="20">通勤15km×20日</button>
   </p>
   <details class="more" id="mapBox">
     <summary>距離をGoogleマップで調べる<small>出発地と目的地を入れると、道のりが地図に出ます</small></summary>
@@ -502,7 +505,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     err.hidden = true;
     $('priceNote').textContent = fuel === 'electric' ?
       '電気代は家電の表示に使う目安単価 31円/kWh（全国家庭電気製品公正取引協議会）。電費は諸元表の「交流電力量消費率（Wh/km）」なら 1000÷その数で km/kWh になります。急速充電は単価が違うので書きかえてください。' :
-      FUEL_NAME[fuel] + 'の全国平均 ' + PRICE[fuel] + '円（' + PRICE_AT + '時点・資源エネルギー庁）。いつもの店の値段に変えられます。';
+      '全国平均（' + PRICE_AT.replace(/^\d+年/, '') + '時点・資源エネルギー庁）。店の値段に変えられます。';
     var hide = function(){ $('copyBtn').hidden = true; tbl.hidden = true; $('diff').hidden = true; $('tNote').hidden = true; $('next').hidden = true; $('sell').hidden = true; };
     if (d === null || isNaN(d) || d === 0) {
       head.className = 'v-head wait'; head.textContent = '走る距離を入れてください';
