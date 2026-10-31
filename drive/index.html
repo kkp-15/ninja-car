@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ドライブのガソリン代計算｜距離と燃費で往復いくら？高速代・割り勘・2台比べも</title>
+<meta name="description" content="走る距離と車の燃費を入れるだけで、ドライブや帰省のガソリン代と給油量が分かる無料ツール。往復・高速代・人数での割り勘、2台の燃料代比べにも対応。距離はGoogleマップで調べて入れられます。ガソリン価格は資源エネルギー庁の全国平均を初期値にしています。">
+<link rel="canonical" href="https://car.kkpwebninja.com/drive/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#ff8a3d">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ドライブのガソリン代計算｜距離と燃費で往復いくら？">
+<meta property="og:description" content="距離と燃費を入れるだけ。往復・高速代・割り勘・2台比べに対応。">
+<meta property="og:url" content="https://car.kkpwebninja.com/drive/">
+<meta property="og:site_name" content="本命vs夢枠 車コスト比較">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://car.kkpwebninja.com/ogp.jpg?d=20261023b">
+<meta name="twitter:card" content="summary_large_image">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2LM85GJN0L');
+</script>
+<script async data-overlays="bottom" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1298304917726270" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+<!-- 筆と太字はこのページで使う字だけ（python3 ~/test/kkp-kit/fonttext.py drive/index.html --extra "（JS 内の文字）"） -->
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=RocknRoll+One&display=swap&text=%2C-%2F0123456789ACEGLMNOTWXbegklmow%C2%A9%C2%B7%C3%97%C3%B7%E2%80%94%E2%80%BB%E3%80%81%E3%80%82%E3%80%85%E3%80%8C%E3%80%8D%E3%81%82%E3%81%84%E3%81%86%E3%81%88%E3%81%8A%E3%81%8B%E3%81%8C%E3%81%8D%E3%81%8F%E3%81%91%E3%81%92%E3%81%93%E3%81%95%E3%81%97%E3%81%99%E3%81%9A%E3%81%9B%E3%81%9D%E3%81%9F%E3%81%A0%E3%81%A1%E3%81%A3%E3%81%A4%E3%81%A5%E3%81%A6%E3%81%A7%E3%81%A8%E3%81%A9%E3%81%AA%E3%81%AB%E3%81%AE%E3%81%AF%E3%81%B0%E3%81%B5%E3%81%B7%E3%81%B9%E3%81%BE%E3%81%BF%E3%82%81%E3%82%82%E3%82%84%E3%82%88%E3%82%89%E3%82%8A%E3%82%8B%E3%82%8C%E3%82%8F%E3%82%92%E3%82%93%E3%82%A2%E3%82%A4%E3%82%A8%E3%82%AA%E3%82%AB%E3%82%AC%E3%82%AE%E3%82%AF%E3%82%B0%E3%82%B3%E3%82%B5%E3%82%B7%E3%82%B8%E3%82%B9%E3%82%BD%E3%82%BF%E3%83%83%E3%83%84%E3%83%88%E3%83%89%E3%83%8D%E3%83%8F%E3%83%90%E3%83%96%E3%83%97%E3%83%9A%E3%83%9D%E3%83%9E%E3%83%9F%E3%83%A1%E3%83%A2%E3%83%A5%E3%83%A7%E3%83%A9%E3%83%AA%E3%83%AB%E3%83%AC%E3%83%AD%E3%83%B3%E3%83%BB%E3%83%BC%E4%B8%80%E4%B8%8A%E4%B8%8B%E4%B8%B8%E4%B8%BB%E4%B9%97%E4%BA%BA%E4%BB%8A%E4%BB%A3%E4%BC%9A%E4%BD%8D%E4%BD%95%E4%BD%9C%E4%BD%BF%E4%BE%8B%E4%BE%A1%E4%BF%82%E4%BF%9D%E4%BF%A1%E5%80%8B%E5%80%8D%E5%80%A4%E5%85%83%E5%85%88%E5%85%A5%E5%85%A8%E5%85%AC%E5%85%B8%E5%86%85%E5%86%86%E5%86%B7%E5%87%BA%E5%88%86%E5%88%87%E5%88%A4%E5%88%A5%E5%89%8D%E5%89%B2%E5%8B%95%E5%8B%98%E5%8B%A4%E5%8D%98%E5%8D%B4%E5%8F%8B%E5%8F%96%E5%8F%97%E5%8F%AF%E5%8F%B0%E5%8F%B7%E5%90%84%E5%90%88%E5%90%8D%E5%90%AB%E5%91%8A%E5%93%81%E5%95%8F%E5%96%B6%E5%9B%9E%E5%9B%B3%E5%9B%BA%E5%9B%BD%E5%9C%B0%E5%9D%82%E5%9D%87%E5%9F%9F%E5%A0%B4%E5%A3%B2%E5%A4%89%E5%A4%96%E5%A4%9A%E5%A4%A7%E5%AD%97%E5%AE%89%E5%AE%9A%E5%AE%9F%E5%AE%B6%E5%AE%B9%E5%B0%91%E5%B7%AE%E5%B8%82%E5%B8%B0%E5%B9%B3%E5%B9%B4%E5%BA%81%E5%BA%83%E5%BA%97%E5%BA%A6%E5%BC%8F%E5%BE%80%E5%BE%8C%E5%BE%A9%E5%BF%8D%E6%80%A7%E6%82%AA%E6%85%8B%E6%88%BF%E6%89%80%E6%89%8B%E6%89%95%E6%8A%BC%E6%8B%85%E6%8C%81%E6%94%AF%E6%95%99%E6%95%B0%E6%96%99%E6%96%B0%E6%96%B9%E6%97%85%E6%97%A5%E6%97%A9%E6%99%82%E6%9A%96%E6%9B%B4%E6%9C%80%E6%9C%88%E6%9C%AC%E6%9C%AD%E6%9F%BB%E6%A0%BC%E6%A4%9C%E6%A5%BD%E6%A6%82%E6%AC%84%E6%AC%A1%E6%AE%8B%E6%AE%B5%E6%AF%8E%E6%AF%94%E6%B0%97%E6%B1%BA%E6%B2%B9%E6%B7%BB%E6%B8%8B%E6%B8%9B%E6%B8%AC%E6%BA%80%E6%BA%90%E6%BB%9E%E7%87%83%E7%89%87%E7%89%A9%E7%8A%B6%E7%94%B3%E7%95%AA%E7%95%B0%E7%99%BA%E7%9A%84%E7%9B%AE%E7%9C%81%E7%9F%AD%E7%9F%B3%E7%A0%A6%E7%A2%BA%E7%A4%BA%E7%A4%BE%E7%A8%8E%E7%A9%8D%E7%AB%AF%E7%AD%94%E7%AE%97%E7%B4%84%E7%B5%A6%E7%B6%AD%E7%B9%B0%E8%80%83%E8%80%85%E8%81%9E%E8%83%BD%E8%87%AA%E8%8D%B7%E8%A1%8C%E8%A1%97%E8%A1%A8%E8%A3%BD%E8%A6%81%E8%A6%8B%E8%A6%A7%E8%A8%88%E8%A8%98%E8%A9%A6%E8%A9%B1%E8%AA%8D%E8%AA%A4%E8%AA%AD%E8%AA%BF%E8%AB%B8%E8%B2%A0%E8%B2%B7%E8%B2%BB%E8%B3%87%E8%B3%AA%E8%B5%B0%E8%B6%B3%E8%B7%9D%E8%B7%AF%E8%BB%8A%E8%BB%A2%E8%BB%BD%E8%BC%83%E8%BC%89%E8%BE%BC%E8%BF%91%E8%BF%94%E9%80%9A%E9%80%9F%E9%80%B1%E9%81%8B%E9%81%93%E9%81%95%E9%83%8A%E9%87%8F%E9%95%B7%E9%96%8B%E9%96%93%E9%96%A2%E9%99%BA%E9%9A%9B%E9%9B%A2%E9%9B%BB%E9%A0%AD%E9%A1%8D%E9%A7%90%E9%AB%98%EF%BC%88%EF%BC%89%EF%BC%9A%EF%BC%9D%EF%BC%9E%EF%BC%9F%EF%BD%9C" rel="stylesheet">
+<!-- 共通部品 D4（kkp-kit を kit/ にコピーしたもの。中は手で直さず kkp-kit 側で直して sync.sh） -->
+<link rel="stylesheet" href="/kit/kit.css?v=24214b5">
+<script src="/kit/kit.js?v=24214b5" defer></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebApplication",
+      "@id":"https://car.kkpwebninja.com/drive/#app",
+      "name":"ドライブのガソリン代計算",
+      "url":"https://car.kkpwebninja.com/drive/",
+      "applicationCategory":"UtilitiesApplication",
+      "operatingSystem":"Web",
+      "inLanguage":"ja",
+      "datePublished":"2026-10-31",
+      "dateModified":"2026-10-31",
+      "description":"走る距離と車の燃費から、ドライブや帰省のガソリン代と給油量を出す無料ツール。往復・高速代・割り勘・2台比べに対応。",
+      "offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},
+      "author":{"@type":"Organization","name":"web忍者の砦"},
+      "publisher":{"@type":"Organization","name":"web忍者の砦","url":"https://kkpwebninja.com/"},
+      "isAccessibleForFree":true
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"本命vs夢枠 車コスト比較","item":"https://car.kkpwebninja.com/"},
+        {"@type":"ListItem","position":2,"name":"ドライブのガソリン代計算"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"ガソリン代はどう計算しますか","acceptedAnswer":{"@type":"Answer","text":"走る距離（km）÷燃費（km/L）で使う量（L）を出し、1Lの値段をかけます。100kmを燃費20km/Lの車で走ると5L、1L170円なら850円です。"}},
+        {"@type":"Question","name":"カタログ燃費のとおりに走れますか","acceptedAnswer":{"@type":"Answer","text":"エアコン・渋滞・坂道・短い距離の繰り返しで、カタログより悪くなることが多いです。給油のときに走った距離と入れた量から自分の車の燃費を出して入れると近くなります。"}},
+        {"@type":"Question","name":"距離が分かりません","acceptedAnswer":{"@type":"Answer","text":"出発地と目的地を入れて「Googleマップで距離を見る」を押すと、道のりが表示されます。そのkmを距離の欄に入れてください。"}},
+        {"@type":"Question","name":"高速代も入りますか","acceptedAnswer":{"@type":"Answer","text":"高速代は自動では入りません。分かっている場合は「高速代」の欄に入れると、合計と割り勘に足します。"}}
+      ]
+    }
+  ]
+}
+</script>
+<style>
+:root{
+  --orange:#ff8a3d; --orange-deep:#b35d20; --cream:#fff8ee; --ink:#333; --ink-soft:#6b5a4c; --line:#ddd; --line-soft:#eee;
+  --ok:#2f6f3e;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#fff;color:var(--ink);font-size:16px;
+  font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Meiryo",sans-serif;line-height:1.8}
+.wrap{max-width:760px;margin:0 auto;padding:14px 16px 0}
+.crumb{font-size:.875rem;margin:0;color:var(--ink-soft)}
+h1{font-size:1.5rem;line-height:1.35;margin:.3rem 0 .5rem;font-weight:800}
+.lead{margin:.6rem 0 .2rem;font-size:1rem;line-height:1.7}
+.updated{margin:0 0 .6rem;font-size:.875rem;color:var(--ink-soft);line-height:1.6}
+h2{font-size:1.3125rem;line-height:1.45;margin:2.4rem 0 .8rem;font-weight:800}
+a{color:#1a6fc4}
+
+/* ===== 入力 ===== */
+.form{border:var(--k-bw-s,2px) solid var(--k-sumi,#333);border-top:6px solid var(--orange);border-radius:var(--k-r,10px);background:var(--k-surface,#fff);padding:10px 14px 14px;margin-top:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media(max-width:420px){.grid.g1{grid-template-columns:1fr}}
+label.field{display:block;font-size:.875rem;font-weight:700;color:var(--ink-soft);margin:.7rem 0 .2rem;line-height:1.5}
+label.field small{font-weight:400}
+select,input[type=number],input[type=text]{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:#fff;
+  border:var(--k-bw-s,2px) solid var(--k-sumi,#d8cdbd);border-radius:var(--k-r,8px);padding:.5rem .7rem;min-height:44px;line-height:1.5}
+select:focus,input:focus{outline:none;border-color:var(--k-shu,var(--orange))}
+.unit{position:relative}
+.unit span{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);font-size:.875rem;color:var(--ink-soft);pointer-events:none}
+.unit input{padding-right:3.6rem}
+.seg{display:flex;gap:8px;margin:0}
+.seg button{flex:1;min-height:44px;font:inherit;font-size:1rem;font-weight:700;border:var(--k-bw-s,2px) solid var(--k-sumi,#333);border-radius:var(--k-r,8px);background:#fff;color:var(--ink);cursor:pointer;padding:0 .3rem}
+.seg button[aria-pressed="true"]{background:var(--orange);color:#fff;border-color:var(--orange-deep)}
+.chk{display:flex;align-items:flex-start;gap:.5rem;font-size:.9375rem;margin:.8rem 0 0;line-height:1.5;min-height:44px;cursor:pointer}
+.chk input{width:22px;height:22px;margin:.1rem 0 0;flex:none;accent-color:var(--orange)}
+.hint{font-size:.875rem;color:var(--ink-soft);margin:.25rem 0 0;line-height:1.6}
+.ex{font-size:.875rem;color:var(--ink-soft);margin:.7rem 0 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ex button{min-height:40px;font:inherit;font-size:.875rem;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--k-sumi,#333);border-radius:var(--k-r,6px);padding:0 .7rem;cursor:pointer}
+.more{margin:.9rem 0 0;border-top:1px solid var(--line)}
+.more>summary{cursor:pointer;padding:.6rem 0 .2rem;font-weight:700;font-size:.9375rem;line-height:1.5;min-height:44px}
+.more>summary small{display:block;font-weight:400;font-size:.875rem;color:var(--ink-soft)}
+.mapbtn{display:block;width:100%;margin:.7rem 0 0;min-height:44px;font:inherit;font-size:1rem;font-weight:700;color:var(--ink);background:var(--k-kinari,var(--cream));border:var(--k-bw-s,2px) solid var(--k-sumi,#333);border-radius:var(--k-r,8px);cursor:pointer}
+.car2{margin:.4rem 0 0;padding:.2rem 0 0;border-top:1px dashed var(--line)}
+.car2[hidden]{display:none}
+
+/* ===== 結果 ===== */
+.verdict{margin:16px 0 0;border:var(--k-bw,3px) solid var(--k-sumi,#333);border-radius:var(--k-r,10px);background:var(--k-surface,#fff);padding:14px 16px;scroll-margin-top:12px}
+.v-label{font-size:.875rem;color:var(--ink-soft);font-weight:700;margin:0}
+.v-head{font-family:var(--k-bold,inherit);font-size:1.75rem;line-height:1.4;margin:.1rem 0 .3rem;font-weight:400;font-variant-numeric:tabular-nums}
+.v-head.wait{font-size:1.25rem}
+.v-why{margin:0 0 .3rem;font-size:1rem;line-height:1.75}
+.tbl{width:100%;border-collapse:collapse;font-size:.9375rem;line-height:1.5;margin:.8rem 0 0}
+.tbl th,.tbl td{padding:.5rem .4rem;border-bottom:1px solid var(--line-soft)}
+.tbl th{text-align:left;font-weight:700;color:var(--ink-soft);font-size:.875rem;width:44%}
+.tbl td{text-align:right;font-variant-numeric:tabular-nums}
+.tbl td small{display:block;font-size:.8125rem;color:var(--ink-soft);white-space:normal;line-height:1.4}
+.tbl tr.total th{color:var(--ink)}
+.tbl tr.total td{font-family:var(--k-bold,inherit);font-size:1.15rem;background:var(--k-kinari,var(--cream))}
+.tbl thead th{text-align:right;color:var(--ink)}
+.tbl thead th:first-child{text-align:left}
+.cmp th{width:34%}
+.cmp td{white-space:nowrap}
+.cmp tr.total td{font-size:1rem}
+.diff{margin:.7rem 0 0;font-size:1rem;line-height:1.7}
+.err{background:#ffe9e9;color:#9b1c1c;border-radius:8px;padding:.8rem 1rem;font-size:.9375rem;margin:12px 0 0}
+.next{margin:1.2rem 0 0;padding:.9rem 0;border-top:1px solid var(--line);font-size:.9375rem;line-height:1.8}
+.next p{margin:0 0 .5rem}
+.next a{font-weight:700}
+/* ===== 売る場合の案内（MOTA） ===== */
+.sell{margin:0;padding:.9rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:.9375rem;line-height:1.8}
+.sell p{margin:0 0 .5rem}
+.sell-h{font-weight:800}
+.sell-link a{font-weight:700}
+/* ===== 本文 ===== */
+.box{font-size:1rem}
+.box ul{margin:.2rem 0;padding-left:1.3rem}
+.box li{margin:.35rem 0}
+.scroll{overflow-x:auto}
+.rt{width:100%;border-collapse:collapse;font-size:.875rem;line-height:1.55;background:#fff}
+.rt th,.rt td{border:1px solid var(--line);padding:.4rem .3rem;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rt th{background:var(--k-kinari,var(--cream));text-align:left}
+.rt thead th{text-align:center}
+.formula{margin:.6rem 0;padding:.5rem .8rem;border:var(--k-bw-s,1px) solid var(--k-sumi,#ddd);font-size:.9375rem;line-height:1.7}
+.formula div{padding-left:1em;text-indent:-1em;margin:.3rem 0}
+.faq details{border-bottom:1px solid var(--line);padding:.3rem 0;margin:0}
+.faq details:first-child{border-top:1px solid var(--line)}
+.faq summary{font-size:1rem;color:var(--ink);padding:.45rem 0;cursor:pointer}
+.faq p{margin:.2rem 0 .7rem;font-size:1rem}
+.note{font-size:.875rem;color:var(--ink-soft);line-height:1.7}
+.src{font-size:.875rem;line-height:1.7;padding-left:1.2rem}
+.src li{margin:.2rem 0}
+.toc{margin:1.6rem 0 0;padding:.6rem 1rem .4rem;border:1px solid #e8dcc8;background:#fffaf0;border-radius:4px}
+.toc-h{margin:0;font-weight:800}
+.toc ol{margin:.2rem 0 .3rem;padding-left:1.4rem;line-height:2}
+.chk4{padding-left:1.4rem;margin:.4rem 0}
+.chk4 li{margin:.6rem 0;line-height:1.7}
+.author{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--line);border-radius:4px;font-size:.9375rem}
+.author p{margin:0 0 .3rem}
+.author-h{font-weight:800}
+/* ===== 広告（標準サイズ・ラベルつき・高さ予約） ===== */
+.kkp-ad{text-align:center;margin:1.4rem auto 0;max-width:680px;min-height:288px;padding-top:6px}
+.kkp-ad-label{font-size:12px;color:#666;letter-spacing:.08em;margin:0 0 6px;line-height:1}
+.kkp-ad ins.adsbygoogle{display:block;width:300px;height:250px;margin:0 auto}
+@media(min-width:768px){.kkp-ad{min-height:318px}.kkp-ad ins.adsbygoogle{width:336px;height:280px}}
+/* ===== 共通部品 D4 にそろえる（トップと同じ: 地は和紙・見出しは墨の下線） ===== */
+body.k-page{background:var(--k-surface) url(/kit/img/d4-washi.webp) 0 0/320px auto;color:var(--ink);line-height:1.8}
+h1{font-family:var(--k-brush);font-weight:400;letter-spacing:.08em;color:var(--k-sumi);font-feature-settings:"palt" 1}
+h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bottom:var(--k-bw-s) solid var(--k-sumi);padding:0 0 6px}
+.kkp-rel{box-sizing:border-box;background:var(--k-kinari) url(/kit/img/d4-washi.webp) 0 0/320px auto!important;border:var(--k-bw-s) solid var(--k-sumi)!important;border-radius:var(--k-r)!important;padding:12px 16px 6px!important;color:var(--k-sumi)}
+.kkp-rel>a{display:block;min-height:44px;padding:10px 0!important;color:var(--k-sumi)!important;text-decoration:underline!important;text-decoration-color:var(--k-orange)!important;text-underline-offset:4px}
+</style>
+</head>
+<body class="k-page">
+<div class="wrap">
+<p class="crumb"><a href="/">車コスト比較</a> ＞ ドライブのガソリン代</p>
+<h1>ドライブのガソリン代</h1>
+<p class="lead">距離と燃費を入れると、ガソリン代と給油する量が出ます。高速代と人数を入れれば割り勘もできます。</p>
+
+<div class="form" id="form">
+  <div class="grid g1">
+    <div>
+      <label class="field" for="km">走る距離<small>（片道）</small></label>
+      <div class="unit"><input type="number" id="km" min="0" step="1" inputmode="decimal" placeholder="例 120"><span>km</span></div>
+    </div>
+    <div>
+      <label class="field">行き帰り</label>
+      <div class="seg" id="trip" role="group" aria-label="行き帰り">
+        <button type="button" data-v="2" aria-pressed="true">往復</button>
+        <button type="button" data-v="1" aria-pressed="false">片道</button>
+      </div>
+    </div>
+  </div>
+  <p class="ex">例を入れて試す：
+    <button type="button" data-km="50" data-trip="2">日帰り 片道50km</button>
+    <button type="button" data-km="300" data-trip="2">帰省 片道300km</button>
+    <button type="button" data-km="15" data-trip="2" data-times="20">通勤 片道15km×月20日</button>
+  </p>
+  <details class="more" id="mapBox">
+    <summary>距離をGoogleマップで調べる<small>出発地と目的地を入れると、道のりが地図に出ます</small></summary>
+    <div class="grid g1">
+      <div>
+        <label class="field" for="from">出発地</label>
+        <input type="text" id="from" placeholder="例 広島駅" autocomplete="off">
+      </div>
+      <div>
+        <label class="field" for="to">目的地</label>
+        <input type="text" id="to" placeholder="例 出雲大社" autocomplete="off">
+      </div>
+    </div>
+    <button type="button" class="mapbtn" id="mapBtn">Googleマップで距離を見る</button>
+    <p class="hint">別のタブで開きます。地図に出たkmを、上の「走る距離」に入れてください。入れた地名はこのページには残りません。</p>
+  </details>
+
+  <label class="field" for="car">車</label>
+  <select id="car"><option value="">燃費を自分で入れる</option></select>
+  <div class="grid">
+    <div>
+      <label class="field" for="kmpl">燃費</label>
+      <div class="unit"><input type="number" id="kmpl" min="1" step="0.1" inputmode="decimal" value="15"><span>km/L</span></div>
+    </div>
+    <div>
+      <label class="field" for="price">1Lの値段</label>
+      <div class="unit"><input type="number" id="price" min="1" step="0.1" inputmode="decimal"><span>円</span></div>
+    </div>
+  </div>
+  <div class="seg" id="fuel" role="group" aria-label="油の種類" style="margin-top:.6rem">
+    <button type="button" data-v="gasoline_regular" aria-pressed="true">レギュラー</button>
+    <button type="button" data-v="gasoline_premium" aria-pressed="false">ハイオク</button>
+    <button type="button" data-v="diesel" aria-pressed="false">軽油</button>
+  </div>
+  <p class="hint" id="priceNote"></p>
+
+  <details class="more" id="extra">
+    <summary>高速代・人数・回数<small>割り勘や1か月分を出すとき</small></summary>
+    <div class="grid">
+      <div>
+        <label class="field" for="toll">高速代<small>（合計）</small></label>
+        <div class="unit"><input type="number" id="toll" min="0" step="10" inputmode="numeric" placeholder="0"><span>円</span></div>
+      </div>
+      <div>
+        <label class="field" for="people">乗る人数</label>
+        <div class="unit"><input type="number" id="people" min="1" step="1" inputmode="numeric" value="1"><span>人</span></div>
+      </div>
+    </div>
+    <label class="field" for="times">回数<small>（通勤なら月の日数）</small></label>
+    <div class="unit" style="max-width:50%"><input type="number" id="times" min="1" step="1" inputmode="numeric" value="1"><span>回</span></div>
+  </details>
+
+  <label class="chk"><input type="checkbox" id="cmp"><span>もう1台と比べる<span class="hint" style="display:block;margin:0">乗りかえ先の車や、家のもう1台と燃料代を比べます</span></span></label>
+  <div class="car2" id="car2Box" hidden>
+    <label class="field" for="car2">比べる車</label>
+    <select id="car2"><option value="">燃費を自分で入れる</option></select>
+    <div class="grid">
+      <div>
+        <label class="field" for="kmpl2">燃費</label>
+        <div class="unit"><input type="number" id="kmpl2" min="1" step="0.1" inputmode="decimal" value="25"><span>km/L</span></div>
+      </div>
+      <div>
+        <label class="field" for="price2">1Lの値段</label>
+        <div class="unit"><input type="number" id="price2" min="1" step="0.1" inputmode="decimal"><span>円</span></div>
+      </div>
+    </div>
+    <div class="seg" id="fuel2" role="group" aria-label="比べる車の油の種類" style="margin-top:.6rem">
+      <button type="button" data-v="gasoline_regular" aria-pressed="true">レギュラー</button>
+      <button type="button" data-v="gasoline_premium" aria-pressed="false">ハイオク</button>
+      <button type="button" data-v="diesel" aria-pressed="false">軽油</button>
+    </div>
+  </div>
+</div>
+
+<div id="err" class="err" hidden></div>
+<section class="verdict" id="result" aria-live="polite">
+  <p class="v-label" id="vLabel">ガソリン代（目安）</p>
+  <p class="v-head wait" id="vHead">走る距離を入れてください</p>
+  <p class="v-why" id="vWhy">距離が分からなければ、上の「距離をGoogleマップで調べる」から地図で見られます。</p>
+  <table class="tbl" id="tbl" hidden>
+    <tbody id="tBody"></tbody>
+  </table>
+  <p class="diff" id="diff" hidden></p>
+  <p class="note" id="tNote" hidden style="margin:.5rem 0 0">燃費は入れた数字のとおりに走った場合です。エアコン・渋滞・坂道で悪くなることが多いので、少し多めに見てください。</p>
+</section>
+
+<div class="next" id="next" hidden>
+  <p id="nextText">燃料代を下げたいなら、燃費のよい車との差を「もう1台と比べる」で見られます。</p>
+  <p><a href="/shaken/">車検を通す？売る？判定</a> — 今の車の車検が近いなら、見積額と売値で判定します。</p>
+  <p><a href="/">車の維持費シミュレーション</a> — 乗りかえ先の月々（ローン・税・保険・ガソリン）を2台で比べます。</p>
+</div>
+<!-- 今の車の売却（2026-09-25・MOTA公式 https://autoc-one.jp/ullo/ で確認。表現はMOTAのクリエイティブチェックリストVer.5.0に合わせる: R13注釈・R17「入札」）。
+     トップ（/）・/shaken/ と同じ文面。A8提携前は公式への通常リンク。提携後は <a>…</a><img> に差し替えて PR 表記を付ける。
+     2台を比べて、乗りかえ先のほうが燃料代が安いときだけ出す（乗りかえを考えている場面だけ） -->
+<div class="sell" id="sell" hidden>
+  <p class="sell-h">乗りかえるなら、今の車の売値から</p>
+  <p>売値は買取店によって差が出ます。何社かの査定を見てから決めると確かです。</p>
+  <p>たとえばMOTA車買取は、最大20社の買取店がWeb上で入札し、やり取りするのは高額査定の上位最大3社です。概算の査定額は最短3時間後に分かります。</p>
+  <p class="sell-link"><a id="sellLink" href="https://autoc-one.jp/ullo/" target="_blank" rel="noopener">MOTA車買取の公式サイト</a></p>
+  <p class="note" style="margin:.2rem 0 0">※最多で上位3社からの電話またはメールはあります。※申込内容と実車の状態が異なる場合は減額の可能性があります。（MOTA公式サイトの記載・2026年9月25日確認）</p>
+</div>
+
+<div class="kkp-ad">
+  <div class="kkp-ad-label">広告</div>
+  <ins class="adsbygoogle" style="display:block"
+       data-ad-client="ca-pub-1298304917726270"
+       data-ad-slot="2937937957"
+       data-ad-format="rectangle"
+       data-full-width-responsive="false"></ins>
+</div>
+
+<p class="updated" style="margin-top:1.4rem">更新 2026年10月31日｜ガソリン価格は資源エネルギー庁の全国平均、燃費はメーカー公式のWLTCモード</p>
+
+<nav class="toc" aria-label="目次">
+  <p class="toc-h">目次</p>
+  <ol>
+    <li><a href="#shiki">ガソリン代の計算式</a></li>
+    <li><a href="#hayami">100kmあたりの早見表</a></li>
+    <li><a href="#jitsu">カタログ燃費と実際の燃費</a></li>
+    <li><a href="#warikan">割り勘の決め方</a></li>
+    <li><a href="#faq">よくある質問</a></li>
+  </ol>
+</nav>
+
+<h2 id="shiki">ガソリン代の計算式</h2>
+<div class="box">
+  <div class="formula">
+    <div>使う量（L）＝ 走る距離（km）÷ 燃費（km/L）</div>
+    <div>ガソリン代 ＝ 使う量（L）× 1Lの値段</div>
+  </div>
+  <p>たとえば片道100kmを往復（200km）、燃費20km/Lの車なら10L。1L170円なら1,700円です。</p>
+</div>
+
+<h2 id="hayami">100kmあたりの早見表</h2>
+<div class="box">
+  <p>100km走ったときのガソリン代です。往復200kmなら2倍にします。</p>
+  <div class="scroll">
+  <table class="rt">
+    <thead><tr><th>燃費</th><th>使う量</th><th>レギュラー<br><span id="hRegP"></span></th><th>ハイオク<br><span id="hPreP"></span></th></tr></thead>
+    <tbody id="hBody"></tbody>
+  </table>
+  </div>
+</div>
+
+<h2 id="jitsu">カタログ燃費と実際の燃費</h2>
+<div class="box">
+  <p>カタログの燃費（WLTCモード）は、決まった走り方で測った値です。実際には次のことで悪くなります。</p>
+  <ul>
+    <li>エアコン・暖房を使う</li>
+    <li>渋滞や信号の多い道</li>
+    <li>上り坂・荷物や人が多い</li>
+    <li>短い距離を何度も走る（エンジンが冷えたまま）</li>
+  </ul>
+  <p>自分の車の燃費は、満タンにしてから次に満タンにするまでに走った距離を、入れた量で割ると出ます。それを燃費の欄に入れると、いちばん近い答えになります。</p>
+  <p class="note">WLTCモードは市街地・郊外・高速道路を合わせた燃費です。高速道路を一定の速さで走る長い旅は、街乗りより燃費がよくなることがあります。</p>
+</div>
+
+<h2 id="warikan">割り勘の決め方</h2>
+<div class="box">
+  <p>友だちと出かけるときは、出発前に決めておくと気まずくなりません。</p>
+  <ol class="chk4">
+    <li><b>何を割るか</b><br>ガソリン代と高速代、駐車場代。車を出す人の負担を考えて、運転手は少なめにすることもあります。</li>
+    <li><b>燃費はどの数字か</b><br>車の持ち主に、ふだんの燃費を聞くのが確かです。</li>
+    <li><b>端数はどうするか</b><br>100円単位に切り上げると、払うのも受け取るのも楽です。</li>
+  </ol>
+</div>
+
+<h2 id="faq">よくある質問</h2>
+<div class="faq">
+  <details><summary>ガソリン代はどう計算しますか</summary>
+    <p>走る距離（km）÷燃費（km/L）で使う量（L）を出し、1Lの値段をかけます。100kmを燃費20km/Lの車で走ると5L、1L170円なら850円です。</p></details>
+  <details><summary>カタログ燃費のとおりに走れますか</summary>
+    <p>エアコン・渋滞・坂道・短い距離の繰り返しで、カタログより悪くなることが多いです。給油のときに走った距離と入れた量から自分の車の燃費を出して入れると近くなります。</p></details>
+  <details><summary>距離が分かりません</summary>
+    <p>出発地と目的地を入れて「Googleマップで距離を見る」を押すと、道のりが表示されます。そのkmを距離の欄に入れてください。</p></details>
+  <details><summary>高速代も入りますか</summary>
+    <p>高速代は自動では入りません。分かっている場合は「高速代」の欄に入れると、合計と割り勘に足します。高速代はNEXCOの<a href="https://www.driveplaza.com/" target="_blank" rel="noopener">ドラぷら</a>で調べられます。</p></details>
+  <details><summary>ガソリンの値段は何の数字ですか</summary>
+    <p>資源エネルギー庁が毎週公表している、給油所の店頭価格の全国平均です。地域や店で違うので、いつも入れる店の値段に変えてください。</p></details>
+</div>
+
+<h2>数字の出典</h2>
+<ul class="src">
+  <li>ガソリン・軽油の値段：資源エネルギー庁 石油製品価格調査（<a href="https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/results.html" target="_blank" rel="noopener">ページ</a>）の全国平均。<span id="srcFuel"></span></li>
+  <li>車の燃費：各メーカー公式の主要諸元（WLTCモード）。グレードは新車で買える一番安いもの。<span id="srcCar"></span></li>
+</ul>
+
+<div class="author">
+  <p class="author-h">このページを作った人</p>
+  <p>web忍者の砦（個人運営）。値段や燃費は公式の資料を読み、確認した日を添えて載せています。メーカー・石油会社・買取会社とは関係ありません。誤りに気づいたら、下の「お問い合わせ」から教えてください。</p>
+</div>
+
+<div class="kkp-rel" style="margin:2rem 0 0">
+  <div>あわせて使えるアプリ</div>
+  <a href="/">車の維持費シミュレーション — 次の車のローン込みの月々と3年後の売却額を2台で比べる</a>
+  <a href="/shaken/">車検を通す？売る？判定 — 見積額と今の売値で比べる</a>
+  <a href="https://kotei.kkpwebninja.com/">固定費の砦 — 車のローンや保険も含めて毎月の支払いを一覧にする</a>
+</div>
+<p class="note" style="text-align:center;margin:1.6rem 0 0">メーカー・石油会社・買取会社とは関係のない個人運営のツールです。</p>
+<!-- WEBNINJA_UNIFIED_FOOTER -->
+<footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:.875rem;color:#607490;line-height:2;border-top:1px solid #f0e6d2;margin-top:1.6rem;background:#fffcf7;">
+  <div style="font-weight:800;color:#8b6b3d;font-size:.875rem;margin-bottom:0.4rem;">web忍者の砦</div>
+  <div>
+    <a href="https://kkpwebninja.com/" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">本丸トップ</a>·
+    <a href="https://privacypolicy.kkpwebninja.com/" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">プライバシーポリシー</a>·
+    <a href="https://kkpwebninja.com/otoiawase" target="_blank" rel="noopener" style="color:#8b6b3d;text-decoration:none;margin:0 0.5rem;">お問い合わせ</a>
+  </div>
+  <div style="margin-top:0.5rem;color:#846e40;">© 2025-2026 web忍者の砦</div>
+</footer>
+</div>
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  // 読み込みに失敗しても計算はできるように、public_rates.json と同じ値を最初から持っておく
+  var PRICE = { gasoline_regular:170.0, gasoline_premium:180.9, diesel:159.5 };
+  var PRICE_AT = '2026年9月7日';
+  var FUEL_KEY = { 'レギュラー':'gasoline_regular', 'ハイオク':'gasoline_premium', '軽油':'diesel' };
+  var FUEL_NAME = { gasoline_regular:'レギュラー', gasoline_premium:'ハイオク', diesel:'軽油' };
+  var CARS = [];
+  var trip = 2, fuel = 'gasoline_regular', fuel2 = 'gasoline_regular';
+  var priceTouched = false, price2Touched = false;
+
+  function yen(n){ return Math.round(n).toLocaleString('ja-JP') + '円'; }
+  function lit(n){ return (Math.round(n * 10) / 10).toLocaleString('ja-JP', { maximumFractionDigits: 1 }) + 'L'; }
+  function km(n){ return Math.round(n).toLocaleString('ja-JP') + 'km'; }
+  function val(id){
+    var s = $(id).value.trim();
+    if (s === '') return null;
+    var v = parseFloat(s);
+    return isFinite(v) && v >= 0 ? v : NaN;
+  }
+  function pressSeg(box, v){
+    box.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.v === String(v) ? 'true' : 'false'); });
+  }
+  function setFuel(n, key){
+    if (n === 2) { fuel2 = key; pressSeg($('fuel2'), key); if (!price2Touched) $('price2').value = PRICE[key]; }
+    else { fuel = key; pressSeg($('fuel'), key); if (!priceTouched) $('price').value = PRICE[key]; }
+  }
+  function carOptions(){
+    var byMaker = {};
+    CARS.forEach(function(c){ (byMaker[c.maker] = byMaker[c.maker] || []).push(c); });
+    var html = '<option value="">燃費を自分で入れる</option>';
+    Object.keys(byMaker).forEach(function(m){
+      html += '<optgroup label="' + m + '">';
+      byMaker[m].sort(function(a, b){ return a.name < b.name ? -1 : 1; }).forEach(function(c){
+        html += '<option value="' + c.id + '">' + c.name + '（' + c.wltc_km_l + 'km/L・' + c.fuel + '）</option>';
+      });
+      html += '</optgroup>';
+    });
+    $('car').innerHTML = html; $('car2').innerHTML = html;
+  }
+  function pickCar(n){
+    var id = $(n === 2 ? 'car2' : 'car').value;
+    var c = CARS.filter(function(x){ return x.id === id; })[0];
+    if (!c) return;
+    $(n === 2 ? 'kmpl2' : 'kmpl').value = c.wltc_km_l;
+    setFuel(n, FUEL_KEY[c.fuel] || 'gasoline_regular');
+  }
+
+  function cost(dist, kmpl, price){
+    var l = dist / kmpl;
+    return { l: l, fuel: l * price };
+  }
+
+  var lastKey = '';
+  function run(){
+    var d = val('km'), k1 = val('kmpl'), p1 = val('price');
+    var toll = val('toll') || 0, people = Math.max(1, Math.round(val('people') || 1)), times = Math.max(1, Math.round(val('times') || 1));
+    var cmp = $('cmp').checked, k2 = val('kmpl2'), p2 = val('price2');
+    var head = $('vHead'), why = $('vWhy'), tbl = $('tbl'), body = $('tBody'), err = $('err');
+    err.hidden = true;
+    $('priceNote').textContent = FUEL_NAME[fuel] + 'の全国平均 ' + PRICE[fuel] + '円（' + PRICE_AT + '時点・資源エネルギー庁）。いつもの店の値段に変えられます。';
+    var hide = function(){ tbl.hidden = true; $('diff').hidden = true; $('tNote').hidden = true; $('next').hidden = true; $('sell').hidden = true; };
+    if (d === null || isNaN(d) || d === 0) {
+      head.className = 'v-head wait'; head.textContent = '走る距離を入れてください';
+      why.textContent = '距離が分からなければ、上の「距離をGoogleマップで調べる」から地図で見られます。';
+      hide(); return;
+    }
+    if (!k1 || isNaN(k1) || !p1 || isNaN(p1)) {
+      head.className = 'v-head wait'; head.textContent = '燃費と1Lの値段を入れてください';
+      why.textContent = '燃費は車を選ぶと入ります。'; hide(); return;
+    }
+    if (k1 > 60 || (cmp && k2 > 60)) { err.hidden = false; err.textContent = '燃費が60km/Lを超えています。km/Lの数字か確かめてください。'; }
+    var dist = d * trip * times;
+    var a = cost(dist, k1, p1);
+    var all = a.fuel + toll;
+    head.className = 'v-head';
+    head.textContent = '約' + yen(all);
+    $('vLabel').textContent = (cmp ? '1台目の' : '') + (toll ? 'ガソリン代＋高速代' : 'ガソリン代') + '（目安）';
+    why.innerHTML = (trip === 2 ? '往復' : '片道') + (times > 1 ? '×' + times + '回' : '') + 'で<b>' + km(dist) + '</b>、使う量は<b>約' + lit(a.l) + '</b>です。' +
+      (people > 1 ? '<br>' + people + '人で割ると<b>1人約' + yen(Math.ceil(all / people)) + '</b>です。' : '');
+    var rows = '';
+    if (!cmp) {
+      rows += '<tr><th>走る距離</th><td>' + km(dist) + '</td></tr>';
+      rows += '<tr><th>使う量</th><td>' + lit(a.l) + '<small>燃費' + k1 + 'km/L</small></td></tr>';
+      rows += '<tr><th>ガソリン代</th><td>' + yen(a.fuel) + '<small>1L ' + p1 + '円・1kmあたり' + (Math.round(p1 / k1 * 10) / 10) + '円</small></td></tr>';
+      if (toll) rows += '<tr><th>高速代</th><td>' + yen(toll) + '</td></tr>';
+      rows += '<tr class="total"><th>合計</th><td>' + yen(all) + (people > 1 ? '<small>' + people + '人で1人 ' + yen(Math.ceil(all / people)) + '</small>' : '') + '</td></tr>';
+      tbl.className = 'tbl';
+    }
+    var b = null;
+    if (cmp && k2 && !isNaN(k2) && p2 && !isNaN(p2)) {
+      b = cost(dist, k2, p2);
+      var n1 = $('car').value ? $('car').selectedOptions[0].text.replace(/（.*/, '') : '今の車';
+      var n2 = $('car2').value ? $('car2').selectedOptions[0].text.replace(/（.*/, '') : '比べる車';
+      rows = '<tr><th></th><th>' + n1 + '</th><th>' + n2 + '</th></tr>';
+      rows += '<tr><th>燃費</th><td>' + k1 + 'km/L</td><td>' + k2 + 'km/L</td></tr>';
+      rows += '<tr><th>使う量</th><td>' + lit(a.l) + '</td><td>' + lit(b.l) + '</td></tr>';
+      rows += '<tr><th>1kmあたり</th><td>' + (Math.round(p1 / k1 * 10) / 10) + '円</td><td>' + (Math.round(p2 / k2 * 10) / 10) + '円</td></tr>';
+      if (toll) {
+        rows += '<tr><th>ガソリン代</th><td>' + yen(a.fuel) + '</td><td>' + yen(b.fuel) + '</td></tr>';
+        rows += '<tr><th>高速代</th><td>' + yen(toll) + '</td><td>' + yen(toll) + '</td></tr>';
+      }
+      var per1 = people > 1 ? '<small>1人 ' + yen(Math.ceil((a.fuel + toll) / people)) + '</small>' : '';
+      var per2 = people > 1 ? '<small>1人 ' + yen(Math.ceil((b.fuel + toll) / people)) + '</small>' : '';
+      rows += '<tr class="total"><th>' + (toll ? '合計' : 'ガソリン代') + '</th><td>' + yen(a.fuel + toll) + per1 + '</td><td>' + yen(b.fuel + toll) + per2 + '</td></tr>';
+      tbl.className = 'tbl cmp';
+      var diff = a.fuel - b.fuel;
+      var per = Math.abs(diff);
+      $('diff').innerHTML = per < 1 ? 'ガソリン代はほぼ同じです。' :
+        '<b>' + (diff > 0 ? n2 : n1) + '</b>のほうが<b>' + yen(per) + '</b>安くなります。' +
+        '<br>毎月この距離を走るなら、1年で約<b>' + yen(per * 12) + '</b>の差です。';
+      $('diff').hidden = false;
+    } else { $('diff').hidden = true; }
+    body.innerHTML = rows;
+    tbl.hidden = false; $('tNote').hidden = false; $('next').hidden = false;
+    // 売却の案内：比べる車のほうが安い（乗りかえを考えている）ときだけ
+    var switching = !!(b && a.fuel - b.fuel >= 1);
+    $('sell').hidden = !switching;
+    $('nextText').textContent = switching ? '乗りかえると燃料代はこう変わります。車の値段・税・保険まで含めると、月々の差は下で比べられます。' : '燃料代を下げたいなら、燃費のよい車との差を「もう1台と比べる」で見られます。';
+    var key = [trip, times > 1, cmp, people > 1, !!toll].join('-');
+    if (key !== lastKey && typeof gtag === 'function') gtag('event', 'drive_run', { trip: trip, multi: times > 1 ? 1 : 0, compare: b ? 1 : 0, people: people, toll: toll ? 1 : 0, dist: Math.round(dist) });
+    lastKey = key;
+  }
+
+  // 早見表
+  function hayami(){
+    var rows = '';
+    [10, 15, 20, 25, 30].forEach(function(k){
+      var l = 100 / k;
+      rows += '<tr><th>' + k + 'km/L</th><td>' + lit(l) + '</td><td>' + yen(l * PRICE.gasoline_regular) + '</td><td>' + yen(l * PRICE.gasoline_premium) + '</td></tr>';
+    });
+    $('hBody').innerHTML = rows;
+    $('hRegP').textContent = PRICE.gasoline_regular + '円/L';
+    $('hPreP').textContent = PRICE.gasoline_premium + '円/L';
+    $('srcFuel').textContent = PRICE_AT + '時点（レギュラー' + PRICE.gasoline_regular + '円・ハイオク' + PRICE.gasoline_premium + '円・軽油' + PRICE.diesel + '円）。';
+  }
+
+  $('trip').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    trip = +b.dataset.v; pressSeg(this, trip); run();
+  });
+  $('fuel').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) { setFuel(1, b.dataset.v); run(); } });
+  $('fuel2').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) { setFuel(2, b.dataset.v); run(); } });
+  $('price').addEventListener('input', function(){ priceTouched = true; });
+  $('price2').addEventListener('input', function(){ price2Touched = true; });
+  $('car').addEventListener('change', function(){ pickCar(1); run(); });
+  $('car2').addEventListener('change', function(){ pickCar(2); run(); });
+  $('cmp').addEventListener('change', function(){ $('car2Box').hidden = !this.checked; run(); });
+  ['km','kmpl','price','toll','people','times','kmpl2','price2'].forEach(function(id){ $(id).addEventListener('input', run); });
+  document.querySelectorAll('.ex button').forEach(function(b){
+    b.addEventListener('click', function(){
+      $('km').value = b.dataset.km;
+      trip = +b.dataset.trip; pressSeg($('trip'), trip);
+      $('times').value = b.dataset.times || 1;
+      if (b.dataset.times) $('extra').open = true;
+      run();
+      $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (typeof gtag === 'function') gtag('event', 'drive_example', { km: b.dataset.km });
+    });
+  });
+  $('mapBtn').addEventListener('click', function(){
+    var f = $('from').value.trim(), t = $('to').value.trim();
+    if (!t) { $('to').focus(); return; }
+    // Google マップの公式の URL 形式（キー不要）。地名はこのページに保存しない
+    var u = 'https://www.google.com/maps/dir/?api=1&travelmode=driving&destination=' + encodeURIComponent(t) + (f ? '&origin=' + encodeURIComponent(f) : '');
+    window.open(u, '_blank', 'noopener');
+    if (typeof gtag === 'function') gtag('event', 'drive_map');
+  });
+  $('sellLink').addEventListener('click', function(){
+    if (typeof gtag === 'function') gtag('event', 'sell_click', { page: 'drive' });
+  });
+
+  setFuel(1, fuel); setFuel(2, fuel2); hayami(); run();
+  Promise.all([
+    fetch('/data/public_rates.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
+    fetch('/data/cars.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; })
+  ]).then(function(res){
+    var rates = res[0], cars = res[1];
+    if (rates) {
+      ['gasoline_regular','gasoline_premium','diesel'].forEach(function(k){ if (rates[k] && rates[k].yen_per_l) PRICE[k] = rates[k].yen_per_l; });
+      var t = rates.gasoline_regular && rates.gasoline_regular._source && rates.gasoline_regular._source['時点'];
+      if (t) { var m = t.split('-'); PRICE_AT = m[0] + '年' + (+m[1]) + '月' + (+m[2]) + '日'; }
+      setFuel(1, fuel); setFuel(2, fuel2); hayami();
+    }
+    if (cars) {
+      CARS = cars.cars || cars;
+      carOptions();
+      if (cars._meta && cars._meta.checked) { var c = cars._meta.checked.split('-'); $('srcCar').textContent = c[0] + '年' + (+c[1]) + '月' + (+c[2]) + '日確認。'; }
+    }
+    run();
+  });
+})();
+</script>
+<script>
+// 広告枠ぶんだけ読み込む。二重に走らせない
+(function(){
+  var slots = document.querySelectorAll('ins.adsbygoogle');
+  for (var i = 0; i < slots.length; i++){
+    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>
