@@ -119,6 +119,28 @@
    "checked": "2026-10-31"
   },
   {
+   "id": "d-voxy",
+   "name": "ヴォクシー",
+   "maker": "トヨタ",
+   "grade": "HYBRID S-G 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 23.6,
+   "source": "https://toyota.jp/pages/contents/voxy/004_p_001/pdf/voxy_spec_202609.pdf",
+   "checked": "2026-11-01"
+  },
+  {
+   "id": "d-noah",
+   "name": "ノア",
+   "maker": "トヨタ",
+   "grade": "HYBRID S-X 2WD",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 23.8,
+   "source": "https://toyota.jp/pages/contents/noah/004_p_001/pdf/noah_spec_202609.pdf",
+   "checked": "2026-11-01"
+  },
+  {
    "id": "d-nbox",
    "name": "N-BOX",
    "maker": "ホンダ",
