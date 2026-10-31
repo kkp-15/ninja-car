@@ -48,6 +48,9 @@ with sync_playwright() as p:
     check('見積15万・売値12万＝売る', head(), '売るのを考えてよい')
     fill('sale', 15)
     check('同額は売る側', head(), '売るのを考えてよい')
+    fill('opt', 4)
+    check('急がない整備を外した判定', '見積は11万円です。判定は「迷いどころ」です。' in pg.inner_text('#flags'), True)
+    fill('opt', '')
 
     # 13年目：重量税 34,200円・自動車税は1.15倍（2013年登録＝引下げ前 1,500cc 34,500→39,600円）
     pg.click('#more summary')

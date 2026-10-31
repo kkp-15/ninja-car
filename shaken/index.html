@@ -68,6 +68,7 @@
         {"@type":"Question","name":"法定費用はどれですか","acceptedAnswer":{"@type":"Answer","text":"重量税・自賠責・検査手数料の3つです。どの店でも同じ額で、残りが整備・部品代です。"}},
         {"@type":"Question","name":"13年を超えると、いくら上がりますか","acceptedAnswer":{"@type":"Answer","text":"重量税は2年で、1.5トンの普通車が24,600円→34,200円、軽が6,600円→8,200円です。自動車税は普通車がおおむね15%、軽がおおむね20%上がります。"}},
         {"@type":"Question","name":"売値が分かりません","acceptedAnswer":{"@type":"Answer","text":"空欄でも、法定費用と整備代は分かります。判定には売値が要るので、買取店の査定で確かめてください。"}},
+        {"@type":"Question","name":"車検が切れた車でも売れますか","acceptedAnswer":{"@type":"Answer","text":"売れます。ただし車検が切れた車は公道を走れないので、買取店に引き取りに来てもらいます。満了日の前に査定を取っておくと、選べる道が増えます。"}},
         {"@type":"Question","name":"見積が法定費用より安いと出ます","acceptedAnswer":{"@type":"Answer","text":"車両重量かエコカーの選び方が、実際と違うかもしれません。見積書の「重量税」の欄と比べてください。"}}
       ]
     }
@@ -205,6 +206,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       <div class="unit"><input type="number" id="sale" min="0" step="0.1" inputmode="decimal" placeholder="例 30"><span>万円</span></div>
     </div>
   </div>
+  <label class="field" for="opt">見積のうち急がない整備<small>（分かれば。予防の交換など）</small></label>
+  <div class="unit" style="max-width:50%"><input type="number" id="opt" min="0" step="0.1" inputmode="decimal" placeholder="例 3"><span>万円</span></div>
   <p class="ex">例を入れて試す：
     <button type="button" data-est="12" data-sale="40">見積12万・売値40万</button>
     <button type="button" data-est="18" data-sale="15">見積18万・売値15万</button>
@@ -372,6 +375,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <p>重量税は2年で、1.5トンの普通車が24,600円→34,200円、軽が6,600円→8,200円です。自動車税は普通車がおおむね15%、軽がおおむね20%上がります。</p></details>
   <details><summary>売値が分かりません</summary>
     <p>空欄でも、法定費用と整備代は分かります。判定には売値が要るので、買取店の査定で確かめてください。</p></details>
+  <details><summary>車検が切れた車でも売れますか</summary>
+    <p>売れます。ただし車検が切れた車は公道を走れないので、買取店に引き取りに来てもらいます。満了日の前に査定を取っておくと、選べる道が増えます。</p></details>
   <details><summary>見積が法定費用より安いと出ます</summary>
     <p>車両重量かエコカーの選び方が、実際と違うかもしれません。見積書の「重量税」の欄と比べてください。</p></details>
 </div>
@@ -555,6 +560,11 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     if (!eco && age < 13 && age + 1 >= 13) f.push('来年度から自動車税が上がります（年' + yen(carTax(regYear, 12, false)) + '→' + yen(carTax(regYear, 13, false)) + '）。');
     else if (!eco && age >= 13) f.push('13年を超えているので、上がった税額で計算しています。');
     if (!eco && age < 18 && age + 2 >= 18) f.push('次の車検は18年経過で、重量税がもう一段上がります。');
+    var opt = num('opt');
+    if (opt && !isNaN(opt) && opt < est) {
+      var e2 = est - opt, v2 = sale === null ? '' : e2 >= sale ? '売るのを考えてよい' : e2 >= sale / 2 ? '迷いどころ' : '通して乗るのが自然';
+      f.push('急がない整備' + man(opt) + 'を外すと、見積は' + man(e2) + 'です。' + (v2 ? '判定は「' + v2 + '」です。' : '') + '外してよいかは店に確かめてください。');
+    }
     if (shop >= 100000) f.push('整備・部品代が' + man(shop) + 'です。急がない部品は後回しにできるか、店に聞いてみてください。');
     flags.innerHTML = f.map(function(s){ return '<li>' + s + '</li>'; }).join('');
     flags.hidden = f.length === 0;
@@ -590,7 +600,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     $('ccWrap').hidden = kind === 'kei';
     run();
   });
-  ['year','weight','cc','eco','est','sale'].forEach(function(id){
+  ['year','weight','cc','eco','est','sale','opt'].forEach(function(id){
     $(id).addEventListener('input', run);
     $(id).addEventListener('change', run);
   });
