@@ -83,6 +83,14 @@ with sync_playwright() as p:
     fill('est', 3)
     check('法定費用より安い見積は注意を出す', pg.is_visible('#err'), True)
 
+    # 3月：名義変更の期限の注意（自動車税は4月1日の持ち主に1年分）
+    pg2 = b.new_page(viewport={'width': 375, 'height': 812})
+    pg2.clock.set_fixed_time(datetime.datetime(Y + 1, 3, 10, 12))
+    pg2.route('**/*', lambda r: r.abort() if any(h in r.request.url for h in ('googlesyndication', 'googletagmanager', 'doubleclick')) else r.continue_())
+    pg2.goto(URL); pg2.fill('#est', '15'); pg2.fill('#sale', '12')
+    check('3月は名義変更の期限を出す', '3月31日まで' in pg2.inner_text('#flags'), True)
+    pg2.close()
+    if today.month > 3: check('4〜12月は出さない', '3月31日まで' in pg.inner_text('#flags'), False)
     check('横にはみ出さない', pg.evaluate('document.documentElement.scrollWidth <= innerWidth'), True)
     check('JS のエラーなし', errors, [])
     b.close()

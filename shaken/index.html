@@ -610,6 +610,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     }
     if (yrs === 1) f.push('1年で手放すなら、2年分の車検代を1年で使い切る計算です。乗る1年にかかるのは約<b>' + man(est + tax1) + '</b>（見積＋自動車税1年分）で、2年乗る場合の1年あたり約' + man(total / 2) + 'の' + (Math.round((est + tax1) / (total / 2) * 10) / 10) + '倍です。');
     else if (yrs === 4) f.push('2年より長く乗るなら、' + (THIS_YEAR + 2) + '年ごろの次の車検でも同じくらいの費用がかかる前提で考えてください。今の1年あたりは約' + man(total / 2) + 'です。');
+    // 1〜3月：自動車税は4月1日の登録上の持ち主に1年分（東京都主税局 Q&A Q10・Q18）
+    if (now.getMonth() <= 2 && sale !== null && v !== 'ok') f.push('売るなら、名義変更の登録が<b>3月31日まで</b>に終わるか店に確かめてください。間に合わないと、4月からの1年分（約' + man(tax2) + '）があなたにかかります。車を渡した日ではなく、登録した日で決まります。');
     if (shop >= 100000) f.push('整備・部品代が' + man(shop) + 'です。急がない部品は後回しにできるか、店に聞いてみてください。');
     flags.innerHTML = f.map(function(s){ return '<li>' + s + '</li>'; }).join('');
     flags.hidden = f.length === 0;
