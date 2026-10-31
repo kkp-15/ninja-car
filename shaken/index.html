@@ -48,7 +48,7 @@
       "operatingSystem":"Web",
       "inLanguage":"ja",
       "datePublished":"2026-10-30",
-      "dateModified":"2026-10-31",
+      "dateModified":"2026-11-01",
       "description":"車検の見積額と今の車が売れる額から、車検を通して乗るか売って乗り換えるかの目安を出す無料ツール。重量税・自賠責・自動車税は国の資料の数字で計算します。",
       "offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"},
       "author":{"@type":"Organization","name":"web忍者の砦"},
@@ -166,6 +166,9 @@ select:focus,input:focus{outline:none;border-color:var(--k-shu,var(--orange))}
 .toc{margin:1.6rem 0 0;padding:.6rem 1rem .4rem;border:1px solid #e8dcc8;background:#fffaf0;border-radius:4px}
 .toc-h{margin:0;font-weight:800}
 .toc ol{margin:.2rem 0 .3rem;padding-left:1.4rem;line-height:2}
+.mini{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin:.6rem 0 0;padding:.5rem .75rem;border-left:4px solid var(--orange);background:#fff8ef;font-weight:700}
+.mini .ok{color:var(--ok)} .mini .mid{color:var(--mid)} .mini .go{color:var(--go)}
+.mini a{display:inline-flex;align-items:center;min-height:44px;font-size:.875rem;white-space:nowrap}
 .toc li a{display:inline-block;min-height:44px;padding:.55rem 0 0;line-height:1.5}
 .chk4{padding-left:1.4rem;margin:.4rem 0}
 .chk4 li{margin:.6rem 0;line-height:1.7}
@@ -195,7 +198,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
 
 <p class="lead"><b>車検の見積額が、今の売値より高いなら売る。</b><b>売値の半分より安いなら通して乗る。</b>その間は迷いどころです。</p>
 <p class="lead">見積額と売値を入れると、あなたの車で判定します。</p>
-<p class="updated">更新 2026年10月31日｜税と保険料は国の資料の数字で計算</p>
+<p class="updated">更新 2026年11月1日｜税と保険料は国の資料の数字で計算</p>
 
 <div class="form" id="form">
   <div class="grid g1">
@@ -208,6 +211,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       <div class="unit"><input type="number" id="sale" min="0" step="0.1" inputmode="decimal" placeholder="例 30"><span>万円</span></div>
     </div>
   </div>
+  <p class="mini" id="mini" hidden><span id="miniV"></span><a href="#result">理由と内訳</a></p>
   <label class="field" for="opt">見積のうち急がない整備<small>（分かれば。予防の交換など）</small></label>
   <div class="unit" style="max-width:50%"><input type="number" id="opt" min="0" step="0.1" inputmode="decimal" placeholder="例 3"><span>万円</span></div>
   <label class="field">通したあと、あと何年乗る？<small>（決まっていれば）</small></label>
@@ -551,7 +555,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       head.className = 'v-head wait';
       head.textContent = '見積額を入れてください';
       why.textContent = 'この車の法定費用は約' + man(legal) + 'です。見積額を入れると、整備代と判定が出ます。';
-      flags.hidden = true; tbl.hidden = true; $('tNote').hidden = true; sell.hidden = true;
+      flags.hidden = true; tbl.hidden = true; $('tNote').hidden = true; sell.hidden = true; $('mini').hidden = true;
       return;
     }
     if (isNaN(sale)) sale = null;
@@ -590,6 +594,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       why.innerHTML = '見積' + man(est) + 'は、売値' + man(sale) + 'の半分より小さいです。車検代は重くありません。';
     }
     head.className = 'v-head ' + cls;
+    $('miniV').textContent = v === 'wait' ? '通して2年で約' + man(total) : '判定：' + head.textContent;
+    $('miniV').className = cls; $('mini').hidden = false;
 
     // 注意
     var f = [];

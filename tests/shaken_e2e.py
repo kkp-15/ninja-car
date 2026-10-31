@@ -48,6 +48,8 @@ with sync_playwright() as p:
     check('見積15万・売値12万＝売る', head(), '売るのを考えてよい')
     fill('sale', 15)
     check('同額は売る側', head(), '売るのを考えてよい')
+    check('入力のすぐ下にも判定', pg.inner_text('#miniV'), '判定：売るのを考えてよい')
+    check('その判定が1画面目に見える', pg.evaluate("document.getElementById('mini').getBoundingClientRect().bottom <= innerHeight"), True)
     fill('opt', 4)
     check('急がない整備を外した判定', '見積は11万円です。判定は「迷いどころ」です。' in pg.inner_text('#flags'), True)
     fill('opt', '')
