@@ -210,6 +210,12 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   </div>
   <label class="field" for="opt">見積のうち急がない整備<small>（分かれば。予防の交換など）</small></label>
   <div class="unit" style="max-width:50%"><input type="number" id="opt" min="0" step="0.1" inputmode="decimal" placeholder="例 3"><span>万円</span></div>
+  <label class="field">通したあと、あと何年乗る？<small>（決まっていれば）</small></label>
+  <div class="seg" id="yrs" role="group" aria-label="あと何年乗るか">
+    <button type="button" data-v="1" aria-pressed="false">1年くらい</button>
+    <button type="button" data-v="2" aria-pressed="false">2年</button>
+    <button type="button" data-v="4" aria-pressed="false">もっと長く</button>
+  </div>
   <p class="ex">例を入れて試す：
     <button type="button" data-est="12" data-sale="40">見積12万・売値40万</button>
     <button type="button" data-est="18" data-sale="15">見積18万・売値15万</button>
@@ -475,7 +481,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   var $ = function(id){ return document.getElementById(id); };
   var now = new Date();
   var THIS_YEAR = now.getFullYear();
-  var kind = 'futsu';
+  var kind = 'futsu', yrs = 0;
 
   // 初度登録の年（今年の3年前〜30年前。新車の最初の車検は3年目）
   (function(){
@@ -602,6 +608,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
       var e2 = est - opt, v2 = sale === null ? '' : e2 >= sale ? '売るのを考えてよい' : e2 >= sale / 2 ? '迷いどころ' : '通して乗るのが自然';
       f.push('急がない整備' + man(opt) + 'を外すと、見積は' + man(e2) + 'です。' + (v2 ? '判定は「' + v2 + '」です。' : '') + '外してよいかは店に確かめてください。');
     }
+    if (yrs === 1) f.push('1年で手放すなら、2年分の車検代を1年で使い切る計算です。乗る1年にかかるのは約<b>' + man(est + tax1) + '</b>（見積＋自動車税1年分）で、2年乗る場合の1年あたり約' + man(total / 2) + 'の' + (Math.round((est + tax1) / (total / 2) * 10) / 10) + '倍です。');
+    else if (yrs === 4) f.push('2年より長く乗るなら、' + (THIS_YEAR + 2) + '年ごろの次の車検でも同じくらいの費用がかかる前提で考えてください。今の1年あたりは約' + man(total / 2) + 'です。');
     if (shop >= 100000) f.push('整備・部品代が' + man(shop) + 'です。急がない部品は後回しにできるか、店に聞いてみてください。');
     flags.innerHTML = f.map(function(s){ return '<li>' + s + '</li>'; }).join('');
     flags.hidden = f.length === 0;
@@ -629,6 +637,12 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     $('rtJibaK').textContent = yen(JIBA.kei.now);
   })();
 
+  $('yrs').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    yrs = b.getAttribute('aria-pressed') === 'true' ? 0 : +b.dataset.v;
+    this.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', String(+x.dataset.v === yrs)); });
+    run();
+  });
   $('kind').addEventListener('click', function(e){
     var b = e.target.closest('button'); if (!b) return;
     kind = b.dataset.v;

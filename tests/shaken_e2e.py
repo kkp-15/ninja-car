@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /shaken/（車検を通す？売る？判定）を本物のブラウザで動かして確かめる。数字は国の資料の値から手で計算して比べる。
 #   ~/test/instagram/.venv/bin/python tests/shaken_e2e.py [URL]   （既定は手元の devserve http://localhost:8951/shaken/）
-import sys, datetime
+import sys, datetime, re
 from playwright.sync_api import sync_playwright
 
 URL = sys.argv[1] if len(sys.argv) > 1 else 'http://localhost:8951/shaken/'
@@ -51,6 +51,11 @@ with sync_playwright() as p:
     fill('opt', 4)
     check('急がない整備を外した判定', '見積は11万円です。判定は「迷いどころ」です。' in pg.inner_text('#flags'), True)
     fill('opt', '')
+    pg.click('#yrs [data-v="1"]')
+    tax1 = int(re.search(r'<small>([\d,]+)円', pg.inner_html('#tTax')).group(1).replace(',', ''))
+    check('1年で手放す（見積15万＋税1年）', f'約{int((150000 + tax1) / 1000 + 0.5) / 10:g}万円' in pg.inner_text('#flags'), True)
+    pg.click('#yrs [data-v="1"]')
+    check('もう一度押すと外れる', '1年で手放すなら' in pg.inner_text('#flags'), False)
     pg.click('#later summary'); fill('sale2', 20)
     check('通してから売る比較（売値15万→通して20万・見積15万）', '今売るほうが10万円多く残ります。' in pg.inner_text('#flags'), True)
     fill('sale2', '')
