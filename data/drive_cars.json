@@ -141,6 +141,39 @@
    "checked": "2026-11-01"
   },
   {
+   "id": "d-stepwgn-hv",
+   "name": "ステップワゴン",
+   "maker": "ホンダ",
+   "grade": "e:HEV AIR EX FF",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 19.8,
+   "source": "https://www.honda.co.jp/STEPWGN/webcatalog/type/list/",
+   "checked": "2026-11-01"
+  },
+  {
+   "id": "d-stepwgn-g",
+   "name": "ステップワゴン",
+   "maker": "ホンダ",
+   "grade": "AIR FF",
+   "powertrain": "ガソリン",
+   "fuel": "レギュラー",
+   "wltc_km_l": 13.2,
+   "source": "https://www.honda.co.jp/STEPWGN/webcatalog/type/list/",
+   "checked": "2026-11-01"
+  },
+  {
+   "id": "d-vezel-hv",
+   "name": "ヴェゼル",
+   "maker": "ホンダ",
+   "grade": "e:HEV X FF",
+   "powertrain": "ハイブリッド",
+   "fuel": "レギュラー",
+   "wltc_km_l": 26.0,
+   "source": "https://www.honda.co.jp/VEZEL/webcatalog/type/list/",
+   "checked": "2026-11-01"
+  },
+  {
    "id": "d-nbox",
    "name": "N-BOX",
    "maker": "ホンダ",

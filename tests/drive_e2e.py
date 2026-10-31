@@ -48,6 +48,8 @@ with sync_playwright() as p:
 
     pg.select_option('#car', 'd-nbox')
     check('売れ筋の車（N-BOX 21.6）', pg.input_value('#kmpl'), '21.6')
+    pg.select_option('#car', 'd-stepwgn-g')
+    check('売れ筋の車（ステップワゴン AIR 13.2）', pg.input_value('#kmpl'), '13.2')
     pg.select_option('#car', 'prius')
     fill('times', 20)
     check('回数（月20日）', head(), yen(200 * 20 / 32.6 * price))
