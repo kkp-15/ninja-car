@@ -63,7 +63,7 @@ export function buildJibaiseki({ rates, carsDoc, C, defaults }) {
   const SLUG = 'jibaiseki-neage-2026';
   const URL = 'https://car.kkpwebninja.com/articles/' + SLUG;
   const PUBLISHED = '2026-09-14';
-  const UPDATED = '2026-09-14';
+  const UPDATED = '2026-11-01';
   const REV = rates.jibaiseki_revision_2026;
   const NEW = REV['適用開始'];
   const BEFORE_DATE = '2026-10-31';
@@ -96,13 +96,13 @@ export function buildJibaiseki({ rates, carsDoc, C, defaults }) {
     cases: cases.map(x => ({ id: x.car.id, jibaiBefore: x.before.jibai, jibaiAfter: x.after.jibai, perMonthBefore: Math.round(x.before.perMonth), perMonthAfter: Math.round(x.after.perMonth), total3yBefore: Math.round(x.before.total3y), total3yAfter: Math.round(x.after.total3y) }))
   };
 
-  const title = '自賠責は2026年11月から値上げ｜いつから・いくら上がる？乗用車と軽の保険料';
-  const desc = `自賠責保険の基準料率が${ymdJa(NEW)}以降に始まる契約から上がります。自家用乗用車は24か月${yen(p24.before)}→${yen(p24.after)}、新車で払う37か月は${yen(p37.before)}→${yen(p37.after)}。軽自動車も含め、損害保険料率算出機構の料率表で改定前と改定後を並べました。`;
+  const title = '自賠責は2026年11月から値上げ（改定済み）｜いくら上がった？乗用車と軽の保険料';
+  const desc = `自賠責保険の基準料率が${ymdJa(NEW)}以降に始まる契約から上がりました。自家用乗用車は24か月${yen(p24.before)}→${yen(p24.after)}、新車で払う37か月は${yen(p37.before)}→${yen(p37.after)}。軽自動車も含め、損害保険料率算出機構の料率表で改定前と改定後を並べました。`;
   const faq = [
     ['自賠責の値上げはいつの契約からですか',
      `${ymdJa(NEW)}以降に保険期間が始まる契約から新しい料率になります。${ymdJa(BEFORE_DATE)}以前に保険期間が始まる契約は改定前の料率です（損害保険料率算出機構の基準料率表の適用条件）。`],
-    ['軽自動車の自賠責はいくら上がりますか',
-     `軽自動車（検査対象車）の24か月契約は${yen(k24.before)}から${yen(k24.after)}へ、${yen(k24.diff)}上がります。離島以外の地域（沖縄県を除く）の基準料率です。`],
+    ['軽自動車の自賠責はいくら上がりましたか',
+     `軽自動車（検査対象車）の24か月契約は${yen(k24.before)}から${yen(k24.after)}へ、${yen(k24.diff)}上がりました。離島以外の地域（沖縄県を除く）の基準料率です。`],
     ['自賠責はなぜ値上げになるのですか',
      `損害保険料率算出機構によると、過去の契約から生じた滞留資金を充てて安く設定していた料率について、その資金が保険金の支払いで減ってきたことと、物価・賃金の上昇で経費が増えたことが理由です。基準料率は平均${REV['平均改定率_pct']}%の引き上げで、内訳は純保険料率が${REV['純保険料率_改定率_pct']}%、社費と代理店手数料が${REV['社費と代理店手数料_改定率_pct']}%の引き上げです。`]
   ];
@@ -226,11 +226,11 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 <body class="k-page">
 <div class="wrap">
 <nav class="breadcrumb"><a href="/">本命vs夢枠 車コスト比較</a> &gt; 読み物 &gt; 自賠責の値上げ</nav>
-<h1>自賠責は2026年11月から値上げ<br>いつから・いくら上がる？乗用車と軽の保険料</h1>
+<h1>自賠責は2026年11月から値上げ（改定済み）<br>いくら上がった？乗用車と軽の保険料</h1>
 <p class="dates">公開 ${ymdJa(PUBLISHED)}／更新 ${ymdJa(UPDATED)}／数字の確認日 ${ymdJa(src['確認日'])}</p>
 
 <div class="answer">
-  <p style="margin-top:0"><b>${ymdJa(NEW)}以降に保険期間が始まる契約から</b>、自賠責保険の基準料率が上がります（損害保険料率算出機構の届出）。</p>
+  <p style="margin-top:0"><b>${ymdJa(NEW)}以降に保険期間が始まる契約から</b>、自賠責保険の基準料率が上がりました（損害保険料率算出機構の届出）。</p>
   <ul>
     <li>自家用乗用車 24か月：${yen(p24.before)} → <b>${yen(p24.after)}</b>（+${yen(p24.diff)}）</li>
     <li>自家用乗用車 37か月（新車の購入時）：${yen(p37.before)} → <b>${yen(p37.after)}</b>（+${yen(p37.diff)}）</li>
@@ -254,7 +254,7 @@ ${rateTable}
 <p>新しい料率は、<b>${ymdJa(NEW)}以降に保険期間が始まる契約</b>に適用されます。${ymdJa(BEFORE_DATE)}以前に保険期間が始まる契約は、改定前の料率です。</p>
 <p>損害保険料率算出機構が${ymdJa(REV['届出日'])}に金融庁長官へ届け出て、${ymdJa(REV['適合性審査終了'])}に適合性審査が終わっています。</p>
 
-<h2>なぜ上がる？</h2>
+<h2>なぜ上がった？</h2>
 <p>損害保険料率算出機構の案内では、基準料率は<b>平均${REV['平均改定率_pct']}%の引き上げ</b>です。</p>
 <ul>
   <li><b>純保険料率（${REV['純保険料率_改定率_pct']}%の引き上げ）</b>：いまの料率は、過去の契約から生じた滞留資金を充てて安く設定されていました。その資金が保険金の支払いで減ったため、収支を合わせるために引き上げます。</li>
