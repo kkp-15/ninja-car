@@ -69,6 +69,7 @@
         {"@type":"Question","name":"13年を超えると、いくら上がりますか","acceptedAnswer":{"@type":"Answer","text":"重量税は2年で、1.5トンの普通車が24,600円→34,200円、軽が6,600円→8,200円です。自動車税は普通車がおおむね15%、軽がおおむね20%上がります。"}},
         {"@type":"Question","name":"売値が分かりません","acceptedAnswer":{"@type":"Answer","text":"空欄でも、法定費用と整備代は分かります。判定には売値が要るので、買取店の査定で確かめてください。"}},
         {"@type":"Question","name":"車検が切れた車でも売れますか","acceptedAnswer":{"@type":"Answer","text":"売れます。ただし車検が切れた車は公道を走れないので、買取店に引き取りに来てもらいます。満了日の前に査定を取っておくと、選べる道が増えます。"}},
+        {"@type":"Question","name":"軽自動車は、手放すと税金が戻りますか","acceptedAnswer":{"@type":"Answer","text":"軽自動車税には月割の制度がないので、年度の途中で手放しても戻りません。普通車の自動車税は、廃車（抹消）にすると翌月から月割で戻ります。"}},
         {"@type":"Question","name":"見積が法定費用より安いと出ます","acceptedAnswer":{"@type":"Answer","text":"車両重量かエコカーの選び方が、実際と違うかもしれません。見積書の「重量税」の欄と比べてください。"}}
       ]
     }
@@ -303,6 +304,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <li><a href="#houtei">法定費用はどの店でも同じ</a></li>
     <li><a href="#13nen">13年を超えると税が上がる</a></li>
     <li><a href="#tejun">売ると決めたら：4つの手順</a></li>
+    <li><a href="#modoru">手放すときに戻るお金</a></li>
     <li><a href="#faq">よくある質問</a></li>
     <li><a href="#matome">まとめ</a></li>
   </ol>
@@ -367,6 +369,23 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   <p class="note">ローンが残っている車は、車検証の「所有者」がローン会社になっていることがあります。売る前に確かめてください。</p>
 </div>
 
+<h2 id="modoru">手放すときに戻るお金</h2>
+<div class="box">
+  <p>売る（名義を変える）か、廃車にする（抹消する）かで違います。</p>
+  <div class="scroll">
+  <table class="rt">
+    <thead><tr><th></th><th>売る<br>（名義変更）</th><th>廃車<br>（抹消）</th></tr></thead>
+    <tbody>
+      <tr><th>自動車税<br>（普通車）</th><td style="white-space:normal;text-align:left">戻らない。その年度の分は前の持ち主にかかる</td><td style="white-space:normal;text-align:left">抹消した翌月から月割で戻る</td></tr>
+      <tr><th>軽自動車税</th><td style="white-space:normal;text-align:left">戻らない</td><td style="white-space:normal;text-align:left">戻らない（月割がない）</td></tr>
+      <tr><th>重量税</th><td style="white-space:normal;text-align:left">戻らない</td><td style="white-space:normal;text-align:left">解体して永久抹消したときだけ、車検の残り分が戻る（残り1か月未満は戻らない）</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>売るときは、税の残りの分を買取額に含めているかどうかを、店に聞いてみてください。</p>
+  <p class="note">自動車税は4月1日の持ち主に1年分がかかります。3月31日までに名義変更の登録が済めば、次の年度の分は新しい持ち主にかかります。</p>
+</div>
+
 <h2 id="faq">よくある質問</h2>
 <div class="faq">
   <details><summary>法定費用はどれですか</summary>
@@ -377,6 +396,8 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     <p>空欄でも、法定費用と整備代は分かります。判定には売値が要るので、買取店の査定で確かめてください。</p></details>
   <details><summary>車検が切れた車でも売れますか</summary>
     <p>売れます。ただし車検が切れた車は公道を走れないので、買取店に引き取りに来てもらいます。満了日の前に査定を取っておくと、選べる道が増えます。</p></details>
+  <details><summary>軽自動車は、手放すと税金が戻りますか</summary>
+    <p>軽自動車税には月割の制度がないので、年度の途中で手放しても戻りません。普通車の自動車税は、廃車（抹消）にすると翌月から月割で戻ります。</p></details>
   <details><summary>見積が法定費用より安いと出ます</summary>
     <p>車両重量かエコカーの選び方が、実際と違うかもしれません。見積書の「重量税」の欄と比べてください。</p></details>
 </div>
@@ -396,6 +417,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   <li>重量税：国土交通省 税額表（<a href="https://www.mlit.go.jp/jidosha/content/001884517.pdf" target="_blank" rel="noopener">PDF</a>）、財務省 自動車重量税の概要（<a href="https://www.mof.go.jp/tax_policy/summary/consumption/131.pdf" target="_blank" rel="noopener">PDF</a>）。2026年10月30日確認</li>
   <li>自賠責：損害保険料率算出機構 基準料率表（<a href="https://www.giroj.or.jp/publication/cali_table.html" target="_blank" rel="noopener">ページ</a>）。2026年9月14日確認</li>
   <li>自動車税：総務省（<a href="https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/131410.html" target="_blank" rel="noopener">ページ</a>）。13年超は×1.15（軽は12,900円）で、100円未満切り捨て。2026年10月30日確認</li>
+  <li>手放すときに戻るお金：東京都主税局 自動車税のよくある質問（<a href="https://www.tax.metro.tokyo.lg.jp/shitsumon/automobiles/j" target="_blank" rel="noopener">ページ</a>・Q10/Q12/Q30）、名古屋市 軽自動車税のQ&amp;A（<a href="https://www.city.nagoya.jp/zaisei/page/0000075086.html" target="_blank" rel="noopener">ページ</a>）、国税庁・国土交通省・軽自動車検査協会「使用済自動車に係る自動車重量税廃車還付制度について」（<a href="https://www.nta.go.jp/taxes/tetsuzuki/shinsei/jidoshajuryo/pdf/01.pdf" target="_blank" rel="noopener">PDF</a>）。2026年10月31日確認</li>
   <li>検査手数料：国土交通省 中国運輸局の手数料一覧（2021年10月以降）。1,800円で計算</li>
 </ul>
 <div class="author">
