@@ -70,6 +70,7 @@ with sync_playwright() as p:
     pg.check('#cmp'); pg.select_option('#car2', 'aqua')
     check('差が出る', 'アクアのほうが' in pg.inner_text('#diff'), True)
     check('売却の案内が出る', pg.is_visible('#sell'), True)
+    check('カーネクストもA8のリンクで出る', pg.is_visible('#sellCn') and 'a8mat=' in pg.get_attribute('#cnLink', 'href'), True)
     fill('kmpl2', 10)
     check('比べる車が高いと売却の案内は出ない', pg.is_visible('#sell'), False)
 
