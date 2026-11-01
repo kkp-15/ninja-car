@@ -304,6 +304,14 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   <p>たとえばMOTA車買取は、最大20社の買取店がWeb上で入札し、やり取りするのは高額査定の上位最大3社です。概算の査定額は最短3時間後に分かります。</p>
   <p class="sell-link"><a id="sellLink" href="https://autoc-one.jp/ullo/" target="_blank" rel="noopener">MOTA車買取の公式サイト</a></p>
   <p class="note" style="margin:.2rem 0 0">※最多で上位3社からの電話またはメールはあります。※申込内容と実車の状態が異なる場合は減額の可能性があります。（MOTA公式サイトの記載・2026年9月25日確認）</p>
+  <!-- 廃車買取（A8 カーネクスト s00000014380001・素材ID 029）。「売る」判定で13年以上か売値5万円以下のときだけ。
+       文面は飛び先 carnext-haishakaitori.jp/af/ の記載（2026-11-01確認）。タイトル・説明に「怪しい・しつこい・やばい」等は使わない（A8の備考） -->
+  <div id="sellScrap" hidden>
+    <p class="sell-h" style="margin-top:.8rem">値段がつきにくい車なら、廃車買取も</p>
+    <p>13年を超えた車や、売値が数万円しか出ない車は、廃車買取の店も比べてみてください。たとえばカーネクストの廃車買取は、どんな状態の車も0円以上で買い取るとしています。引取り（一部の離島を除く）と廃車の手続きは無料です。</p>
+    <p class="sell-link"><a id="scrapLink" href="https://px.a8.net/svt/ejp?a8mat=4BGAUW+72TOBM+32YG+64JTE" target="_blank" rel="nofollow noopener">廃車買取カーネクスト</a><img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=4BGAUW+72TOBM+32YG+64JTE" alt="">の公式サイト</p>
+    <p class="note" style="margin:.2rem 0 0">※申し込みには電話番号が要り、電話で連絡があります。（カーネクスト公式サイトの記載・2026年11月1日確認）</p>
+  </div>
 </div>
 
 <div class="kkp-ad">
@@ -627,6 +635,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     // 売却の案内：「通して乗るのが自然」のときは出さない
     sell.hidden = (v === 'ok');
     $('sellH').textContent = v === 'wait' ? '今いくらで売れるか調べるなら' : '売る方向で考えるなら';
+    $('sellScrap').hidden = !(v === 'go' && (age >= 13 || (sale !== null && sale <= 50000)));
 
     if (v !== lastVerdict && typeof gtag === 'function') gtag('event', 'shaken_run', { verdict: v, age: age, kind: kind });
     lastVerdict = v;
@@ -674,6 +683,9 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   });
   $('sellLink').addEventListener('click', function(){
     if (typeof gtag === 'function') gtag('event', 'sell_click', { page: 'shaken', verdict: lastVerdict });
+  });
+  $('scrapLink').addEventListener('click', function(){
+    if (typeof gtag === 'function') gtag('event', 'scrap_click', { page: 'shaken', verdict: lastVerdict });
   });
   run();
 })();
