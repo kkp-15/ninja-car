@@ -776,6 +776,13 @@ function compare3y(car, opt, rates, todayStr) {
     });
   }
   init();
+  // 売却欄のクリック（/drive/・/shaken/ と同じイベント名）
+  $('sellLink').addEventListener('click', () => {
+    if (typeof gtag === 'function') gtag('event', 'sell_click', { page: 'top' });
+  });
+  $('cnLink').addEventListener('click', () => {
+    if (typeof gtag === 'function') gtag('event', 'cn_click', { page: 'top' });
+  });
 })();
 </script>
 
