@@ -242,6 +242,20 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 .kkp-rel>a:hover::after,.kkp-rel>a:active::after,.kkp-rel>a:focus-visible::after{transform:translateX(4px)}
 }
 @media screen and (max-width:712px){.kkp-rel{max-width:calc(100vw - 24px)!important;margin-left:auto!important;margin-right:auto!important}}
+/* 本の紹介（Amazonアソシエイト・2026-11-04） */
+.bk{margin-top:26px}
+.bk>h2{margin:0;padding-bottom:4px;border-bottom:2px solid var(--k-sumi);font-size:18px;font-weight:800}
+.bk-pr{margin:8px 0 2px;font-size:12px;line-height:1.6;color:var(--k-text-2)}
+.bk-pr span{display:inline-block;margin-right:6px;padding:0 5px;border:1.5px solid var(--k-text-2);border-radius:3px;font-weight:800}
+.bk-list{margin:0;padding:0;list-style:none}
+.bk-list li{border-bottom:1px solid var(--k-line-soft)}
+.bk-list a{display:flex;flex-direction:column;justify-content:center;min-height:52px;padding:8px 26px 8px 0;position:relative;text-decoration:none;color:var(--k-sumi)}
+.bk-list b{font-size:15px;font-weight:800;line-height:1.45}
+.bk-list span{font-size:13px;line-height:1.5;color:var(--k-text-2)}
+.bk-list em{font-style:normal;font-weight:800;color:var(--k-sumi)}
+.bk-list a::after{content:"→";position:absolute;right:4px;top:50%;transform:translateY(-50%);color:var(--k-orange)}
+.bk-ku{margin:8px 0 0;font-size:13px;line-height:1.7;color:var(--k-text-2)}
+.bk-ku a{font-weight:800;color:var(--k-sumi)}
 </style>
 <!-- kkp-rel-d4:end -->
 </head>
@@ -367,6 +381,15 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
        data-ad-format="rectangle"
        data-full-width-responsive="false"></ins>
 </div>
+
+<!-- 本の紹介（Amazonアソシエイト・2026-11-04。価格は書かない・読み放題は置いた日に商品ページで確認） -->
+<section class="bk" aria-labelledby="bk-h">
+  <h2 id="bk-h">車の買い方の本</h2>
+  <p class="bk-pr"><span>PR</span>Amazonのリンクです。Amazonのアソシエイトとして、web忍者の砦は適格販売により収入を得ています。</p>
+  <ul class="bk-list">
+    <li><a href="https://www.amazon.co.jp/dp/4046072962?tag=kkp15-22" target="_blank" rel="nofollow sponsored noopener" onclick="if(typeof gtag==='function')gtag('event','aff_amazon_book')"><b>損しない「クルマの買い方」大全</b><span>ワンソクTube</span></a></li>
+  </ul>
+</section>
 
 <h2>リセールバリュー（3年後に売れる割合）の計算方法</h2>
 <div class="box">
