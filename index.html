@@ -769,8 +769,9 @@ function compare3y(car, opt, rates, todayStr) {
       S.cars.forEach(c => { S.byId[c.id] = c; });
       fillSelect($('car-a')); fillSelect($('car-b'));
       const q = new URLSearchParams(location.search);
-      const a = S.byId[q.get('a')] ? q.get('a') : 'harrier';
-      const b = S.byId[q.get('b')] ? q.get('b') : 'g-class';
+      // 初期値は「少し背伸び」の組み合わせ（ノア→アルファード・差が月3万円ほど）。URL に車種があればそちらを使う
+      const a = S.byId[q.get('a')] ? q.get('a') : 'noah';
+      const b = S.byId[q.get('b')] ? q.get('b') : 'alphard';
       setCar('a', a); setCar('b', b);
       renderRates();
       render();
