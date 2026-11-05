@@ -165,6 +165,9 @@ summary{cursor:pointer;font-size:.875rem;font-weight:700;color:var(--ink-soft);p
 .result tbody th{text-align:left;font-weight:700;font-size:.875rem;color:var(--ink-soft);width:34%}
 .result td{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .result td small{display:block;font-size:.875rem;color:var(--ink-soft);white-space:normal;line-height:1.4}
+.drop-note{margin:0 0 .5rem;padding:.6rem .8rem 0;border-top:1px solid var(--line-soft);font-size:.875rem;line-height:1.6;color:var(--ink-soft)}
+.drop-note b{color:var(--ink)}
+.drop-note span{display:block;font-size:.9375rem;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
 .result tr.total th{color:var(--ink);font-size:.9375rem}
 .result tr.total td{font-size:1.25rem;font-weight:800;background:var(--cream)}
 .diff{font-weight:800;padding:.7rem .8rem .8rem;font-size:1rem}
@@ -348,6 +351,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
     <tbody id="rows"></tbody>
   </table>
   <div class="diff" id="diff"></div>
+  <p class="drop-note" id="dropNote"></p>
   <p class="excluded-note" id="insNote"></p>
   <div class="breakdown"><details><summary>3年間の内訳を見る</summary><div id="breakdown"></div></details></div>
 </section>
@@ -687,6 +691,9 @@ function compare3y(car, opt, rates, todayStr) {
       ? '2台の月々の実質負担はほぼ同じです'
       : (d > 0 ? '夢枠のほうが 月 ' + yen(d) + ' 多い' : '本命のほうが 月 ' + yen(-d) + ' 多い') +
         '<small>3年間では ' + manYen(Math.abs(rb.total3y - ra.total3y)) + ' の差</small>';
+
+    // 2026-11-05 値下がり額（購入価格−3年後に売れる額）を並べる。新しい数字は作らず、表と同じ値から出す
+    $('dropNote').innerHTML = '<b>値下がり額</b>（購入価格−3年後に売れる額）<span>本命 ' + manYen(A.opt.price - ra.resale) + '／夢枠 ' + manYen(B.opt.price - rb.resale) + '</span>売れる割合が高い車は、高くても月々が安くなることがあります。';
 
     // 入力欄の上の要約（下の表と同じ計算結果から出す）
     $('sumA').innerHTML = yen(ra.perMonth) + negNote(ra.perMonth);
