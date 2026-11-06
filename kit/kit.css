@@ -170,8 +170,9 @@ a.k-card:hover h3,a.k-card:focus-visible h3{text-decoration:underline;text-decor
 [data-k-season="yuki"] .k-season-yuki{display:block}
 [data-k-season="shochikubai"] .k-season-shochikubai{display:block}
 [data-k-season="sakura"] .k-season-sakura{display:block}
-/* 季節の散らしは1つの飾りの入れ物（.k-bg）に1つまで。2つ目以降は出さない */
-.k-bg .k-season~.k-season{display:none!important}
+.k-season-shochikubai{transform:none!important}  /* 門松は立てて置く（紅葉用の傾きを各サイトが付けていても打ち消す） */
+/* 季節の散らしは1つの飾りの入れ物（.k-bg）に季節ごと1つまで（紅葉・雪・門松を並べて置けば、その月の絵だけ出る） */
+.k-bg .k-season-momiji~.k-season-momiji,.k-bg .k-season-yuki~.k-season-yuki,.k-bg .k-season-shochikubai~.k-season-shochikubai,.k-bg .k-season-sakura~.k-season-sakura{display:none!important}
 
 /* ---------- 下に固定する操作帯（スマホの主操作） ---------- */
 .k-fix{position:sticky;bottom:0;z-index:30;display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:var(--k-bw) solid var(--k-sumi);background-color:var(--k-kinari);background-image:conic-gradient(rgba(31,26,23,.04) 25%,transparent 0 50%,rgba(31,26,23,.04) 0 75%,transparent 0);background-size:16px 16px}
@@ -327,8 +328,8 @@ body.k-playing .k-install{display:none!important}
 .k-seg>:hover{background:#fff}
 .k-seg>[aria-pressed="true"],.k-seg>[aria-checked="true"],.k-seg>[aria-selected="true"],.k-seg>.on,.k-seg>label:has(input:checked){background:var(--k-shu);color:#fff}
 .k-seg>label input{position:absolute;opacity:0;pointer-events:none}
-.k-seg-2>*{flex-basis:50%}
-.k-seg-3>*{flex-basis:33.34%}
+.k-seg.k-seg-2>*{flex:1 0 50%}
+.k-seg.k-seg-3>*{flex:1 0 33.34%}
 
 /* ---------- 数を増やす・減らす（k-stepper） ----------
    <div class="k-stepper"><button type="button" aria-label="減らす">−</button><output class="k-num">4</output><span>人</span><button type="button" aria-label="増やす">＋</button></div> */
@@ -706,3 +707,24 @@ body.k-view-ov.k-idle .k-ov{visibility:hidden}   /* 待ち画面の間は中身�
    <span class="k-cat-ico" style="--k-ico:url(kit/img/k-cat-beer.webp)"></span>（大きさは --k-ico-s・既定 44px） */
 .k-cat-ico{--k-ico-s:44px;display:inline-block;flex:none;box-sizing:border-box;width:var(--k-ico-s);height:var(--k-ico-s);border-radius:50%;border:var(--k-bw-s) solid var(--k-sumi);background:var(--k-ico) center/72% auto no-repeat,var(--k-kinari);vertical-align:middle}
 .k-cat-ico-sm{--k-ico-s:32px;border-width:1.5px}
+
+/* ---------- 2026-11-06 マインドマップ・6列の選択・色の目印（npb-magic の推し球団のページから） ---------- */
+/* .k-seg-4 / .k-seg-6: 選ぶボタンを4列・6列に（12球団・曜日・月など、短い名前を一度に全部見せる） */
+.k-seg.k-seg-4>*{flex:0 0 25%}
+.k-seg.k-seg-6>*{flex:0 0 16.67%;padding:4px 2px;font-size:clamp(12px,3.4vw,15px);letter-spacing:0;white-space:nowrap}
+/* .k-mark: ボタンや札の中に置く色の目印（球団色・分類の色）。色は style="--k-mark:#c8102e" */
+.k-mark{display:block;width:72%;max-width:44px;height:5px;margin:3px auto 0;border:1px solid var(--k-sumi);border-radius:2px;background:var(--k-mark,var(--k-orange))}
+.k-mark-dot{display:inline-block;width:10px;height:16px;margin-right:5px;vertical-align:-2px;border:1px solid var(--k-sumi);border-radius:2px;background:var(--k-mark,var(--k-orange))}
+/* .k-map: マインドマップ（真ん中の言葉から枝ごとに関連ページへ）。枝の色は --k-map-c、真ん中の文字色は --k-map-ink */
+.k-map{--k-map-c:var(--k-shu);--k-map-ink:#fff;margin:8px 0 12px}
+.k-map-core{position:relative;display:flex;justify-content:center;padding-bottom:16px}
+.k-map-core>*{display:inline-flex;align-items:center;min-height:44px;padding:4px 26px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r-pill);background:var(--k-map-c);color:var(--k-map-ink);font-family:var(--k-bold);font-weight:400;font-size:18px;letter-spacing:.04em;font-feature-settings:"palt" 1}
+.k-map-core::after{content:"";position:absolute;left:50%;bottom:0;width:var(--k-bw-s);height:16px;margin-left:calc(var(--k-bw-s)/-2);background:var(--k-sumi)}
+.k-map-b{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px;padding-top:14px;border-top:var(--k-bw-s) solid var(--k-sumi)}
+@media (min-width:640px){.k-map-b{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.k-map-br{position:relative;min-width:0;padding:6px 10px 4px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-surface) url(img/d4-washi.webp) 0 0/320px auto}
+.k-map-br::before{content:"";position:absolute;left:50%;top:calc(-14px - var(--k-bw-s));width:var(--k-bw-s);height:14px;margin-left:calc(var(--k-bw-s)/-2);background:var(--k-sumi)}
+.k-map-h{margin:2px 0 2px;padding:0 0 0 8px;border-left:4px solid var(--k-map-c);font-family:var(--k-bold);font-weight:400;font-size:15px;line-height:1.4;font-feature-settings:"palt" 1}
+.k-map-br>a{display:flex;align-items:center;min-height:44px;padding:2px 0;border-bottom:1px dashed var(--k-line-soft);font-size:15px;line-height:1.35;overflow-wrap:anywhere}
+.k-map-br>a:last-child{border-bottom:0}
+.k-map-br>a.k-link::after{width:18px;height:12px}
