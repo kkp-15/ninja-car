@@ -36,8 +36,11 @@
 
 /* ---------- ボタン（主＝木札／副／小／大） ---------- */
 .k-btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--k-bold);font-weight:400;letter-spacing:.04em;line-height:1.2;font-feature-settings:"palt" 1;text-decoration:none;cursor:pointer;transition:transform .08s,box-shadow .08s,filter .08s,background .15s;-webkit-tap-highlight-color:transparent}
-.k-btn-main{position:relative;min-height:56px;padding:0 18px;border-style:solid;border-width:12px 16px;border-image:url(img/d3-wood.webp) 40 50 fill / 12px 16px stretch;background:none;color:#fff;font-size:17px;text-shadow:var(--k-outline);filter:drop-shadow(4px 4px 0 var(--k-sumi));white-space:nowrap}
-.k-btn-main::after{content:"";position:absolute;inset:-12px -16px;pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.65) 50%,transparent 62%) no-repeat;background-size:260% 100%;background-position:120% 0;-webkit-mask:url(img/d3-wood.webp) center/100% 100% no-repeat;mask:url(img/d3-wood.webp) center/100% 100% no-repeat;transition:background-position .7s ease}
+/* 主ボタン: 2026-11-09 ユーザー承認で全サイト「平らなオレンジ＋墨の枠」に統一（木目の板はやめた。10/30の配色調査・ワードウルフ等5サイトの試しを kit に取り込み）。色は --k-btn-main（既定 #f26a1b） */
+:root{--k-btn-main:#f26a1b;--k-navy:#2b3768}
+.k-btn-main{position:relative;min-height:56px;padding:0 22px;border:3px solid var(--k-sumi);border-radius:14px;background:var(--k-btn-main);color:#fff;font-size:17px;text-shadow:var(--k-outline);filter:drop-shadow(4px 4px 0 var(--k-sumi));white-space:nowrap}
+.k-btn-main:hover,.k-btn-main:disabled,.k-btn-main[disabled]{background:var(--k-btn-main)}
+.k-btn-main::after{content:"";position:absolute;inset:0;border-radius:11px;pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.45) 50%,transparent 62%) no-repeat;background-size:260% 100%;background-position:120% 0;transition:background-position .7s ease}
 .k-btn-main:hover::after,.k-btn-main:focus-visible::after{background-position:-20% 0}
 .k-btn-main:active{transform:translate(4px,4px);filter:drop-shadow(0 0 0 var(--k-sumi))}
 .k-btn-big{min-height:72px;font-size:26px;letter-spacing:.12em}
@@ -722,7 +725,7 @@ body.k-view-ov.k-idle .k-ov{visibility:hidden}   /* 待ち画面の間は中身�
 .k-map-core::after{content:"";position:absolute;left:50%;bottom:0;width:var(--k-bw-s);height:16px;margin-left:calc(var(--k-bw-s)/-2);background:var(--k-sumi)}
 .k-map-b{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px;padding-top:14px;border-top:var(--k-bw-s) solid var(--k-sumi)}
 @media (min-width:640px){.k-map-b{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.k-map-br{position:relative;min-width:0;padding:6px 10px 4px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);background:var(--k-surface) url(img/d4-washi.webp) 0 0/320px auto}
+.k-map-br{position:relative;min-width:0;padding:6px 10px 4px;border:var(--k-bw-s) solid var(--k-sumi);border-radius:var(--k-r);color:var(--k-sumi);background:var(--k-surface) url(img/d4-washi.webp) 0 0/320px auto}
 .k-map-br::before{content:"";position:absolute;left:50%;top:calc(-14px - var(--k-bw-s));width:var(--k-bw-s);height:14px;margin-left:calc(var(--k-bw-s)/-2);background:var(--k-sumi)}
 .k-map-h{margin:2px 0 2px;padding:0 0 0 8px;border-left:4px solid var(--k-map-c);font-family:var(--k-bold);font-weight:400;font-size:15px;line-height:1.4;font-feature-settings:"palt" 1}
 .k-map-br>a{display:flex;align-items:center;min-height:44px;padding:2px 0;border-bottom:1px dashed var(--k-line-soft);font-size:15px;line-height:1.35;overflow-wrap:anywhere}
