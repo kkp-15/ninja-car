@@ -38,7 +38,7 @@
 .k-btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--k-bold);font-weight:400;letter-spacing:.04em;line-height:1.2;font-feature-settings:"palt" 1;text-decoration:none;cursor:pointer;transition:transform .08s,box-shadow .08s,filter .08s,background .15s;-webkit-tap-highlight-color:transparent}
 /* 主ボタン: 2026-11-09 ユーザー承認で全サイト「平らなオレンジ＋墨の枠」に統一（木目の板はやめた。10/30の配色調査・ワードウルフ等5サイトの試しを kit に取り込み）。色は --k-btn-main（既定 #f26a1b） */
 :root{--k-btn-main:#f26a1b;--k-navy:#2b3768}
-.k-btn-main{position:relative;min-height:56px;padding:0 22px;border:3px solid var(--k-sumi);border-radius:14px;background:var(--k-btn-main);color:#fff;font-size:17px;text-shadow:var(--k-outline);filter:drop-shadow(4px 4px 0 var(--k-sumi));white-space:nowrap}
+.k-btn-main{position:relative;min-height:56px;padding:0 22px;border:3px solid var(--k-sumi);border-radius:14px;background:var(--k-btn-main);color:#fff;font-size:17px;text-shadow:0 1px 0 var(--k-sumi),1px 0 0 var(--k-sumi),0 -1px 0 var(--k-sumi),-1px 0 0 var(--k-sumi);filter:drop-shadow(4px 4px 0 var(--k-sumi));white-space:nowrap}
 .k-btn-main:hover,.k-btn-main:disabled,.k-btn-main[disabled]{background:var(--k-btn-main)}
 .k-btn-main::after{content:"";position:absolute;inset:0;border-radius:11px;pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.45) 50%,transparent 62%) no-repeat;background-size:260% 100%;background-position:120% 0;transition:background-position .7s ease}
 .k-btn-main:hover::after,.k-btn-main:focus-visible::after{background-position:-20% 0}
@@ -501,7 +501,7 @@ body.k-playing .k-install{display:none!important}
 .k-view-open{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
 .k-view-open>.k-btn{min-height:44px;padding:0 14px;font-size:15px;box-shadow:var(--k-sh-s)}
 .k-view-open>.k-seg{flex:none}
-.k-view-open>.k-seg>button{min-height:44px;padding:4px 10px;font-size:14px}
+.k-view-open>.k-seg>button{min-width:44px;min-height:44px;padding:4px 10px;font-size:14px}
 .k-view-open>p{flex:1 1 260px;margin:0;font-size:14px;line-height:1.5;color:var(--k-text-2)}
 .k-view-open>.k-vo-msg{flex-basis:100%;color:var(--k-shu);font-weight:700}
 .k-view-open .k-vo-color{flex-direction:row;gap:6px}
