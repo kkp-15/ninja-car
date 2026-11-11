@@ -261,6 +261,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 .bk-ku a{font-weight:800;color:var(--k-sumi)}
 </style>
 <!-- kkp-rel-d4:end -->
+<style id="price-in-110">.price-in{margin:.4rem 0 .2rem}.price-in input{width:100%;min-height:44px;font-size:16px}</style>
 </head>
 <body class="k-page">
 <div class="wrap">
@@ -290,6 +291,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
     <div class="big" id="priceval-a"></div>
     <input type="range" id="price-a">
     <div class="ends"><span id="pmin-a"></span><span id="pmax-a"></span></div>
+    <div class="unit price-in"><input type="number" id="pricein-a" min="0" step="1" inputmode="numeric" aria-label="価格を数字で入れる（円）"><span>円</span></div>
 
     <label class="field" for="resale-a">3年後に売れる割合</label>
     <div class="big" id="rval-a"></div>
@@ -314,6 +316,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
     <div class="big" id="priceval-b"></div>
     <input type="range" id="price-b">
     <div class="ends"><span id="pmin-b"></span><span id="pmax-b"></span></div>
+    <div class="unit price-in"><input type="number" id="pricein-b" min="0" step="1" inputmode="numeric" aria-label="価格を数字で入れる（円）"><span>円</span></div>
 
     <label class="field" for="resale-b">3年後に売れる割合</label>
     <div class="big" id="rval-b"></div>
@@ -608,6 +611,7 @@ function compare3y(car, opt, rates, todayStr) {
     const pmax = c.price_yen + Math.ceil(c.price_yen / 10000) * 10000;
     p.min = pmin; p.max = pmax; p.step = 10000;
     if (!keepSliders) p.value = c.price_yen;
+    $('pricein-' + side).value = keepSliders ? p.value : c.price_yen;
     $('pmin-' + side).textContent = manYen(pmin);
     $('pmax-' + side).textContent = manYen(pmax);
 
@@ -643,7 +647,7 @@ function compare3y(car, opt, rates, todayStr) {
     return {
       car: c,
       opt: {
-        price: num($('price-' + side), c.price_yen),
+        price: (parseFloat($('pricein-' + side).value) > 0) ? parseFloat($('pricein-' + side).value) : num($('price-' + side), c.price_yen),
         down: Math.max(0, num($('down'), 0)) * 10000,
         ratePct: Math.min(Math.max(num($('rate'), 0), 0), 20),
         months: parseInt($('months').value, 10),
@@ -787,7 +791,13 @@ function compare3y(car, opt, rates, todayStr) {
           if (typeof gtag === 'function') gtag('event', 'car_change', { side: side, car: e.target.value });
           render();
         });
-        $('price-' + side).addEventListener('input', render);
+        // 110: スライダーと数字の欄を連動（数字の欄は1円単位で見積書の額をそのまま入れられる）
+        $('price-' + side).addEventListener('input', e => { $('pricein-' + side).value = e.target.value; render(); });
+        $('pricein-' + side).addEventListener('input', e => {
+          const v = parseFloat(e.target.value);
+          if (v > 0) $('price-' + side).value = v;
+          render();
+        });
         $('resale-' + side).addEventListener('input', render);
         $('resale-' + side).addEventListener('change', e => {
           if (typeof gtag === 'function') gtag('event', 'resale_slide', { side: side, car: $('car-' + side).value, pct: parseFloat(e.target.value) });
