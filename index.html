@@ -289,6 +289,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 .pick label{display:block;min-width:0}.pick span{display:block;font-size:.875rem;font-weight:800}
 .pick .pa{color:var(--orange-deep)}.pick .pb{color:var(--pink-deep)}
 .pick select{min-height:44px;font-size:16px;padding-right:1.4rem;text-overflow:ellipsis}
+.xlink{margin:.3rem 0 0;font-size:.9375rem}
 .restored{margin:-.3rem 0 .8rem;font-size:.875rem;color:var(--ink-soft)}
 .restored button{min-height:44px;margin-left:.3rem;font:inherit;font-size:.875rem;color:#1a6fc4;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0 .2rem}</style>
 <style id="price-in-110">.price-in{margin:.4rem 0 .2rem}.price-in input{width:100%;min-height:44px;font-size:16px}</style>
@@ -306,6 +307,8 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
   <div class="sum-h"><span>月々の実質負担（ローン込み・売却後）</span><a href="#result">内訳の表へ</a></div>
   <div class="sum-row"><span class="sa"><i>本命</i>月々<b id="sumA">—</b></span><span class="sb"><i>夢枠</i>月々<b id="sumB">—</b></span><span class="sd"><i>差</i>月<b id="sumD">—</b><small id="sumW"></small></span></div>
 </div>
+<!-- 2026-11-23 答えを次の道具へ：本命の月々の実質負担を固定費の砦へ ?car=（円の整数 1〜1,000,000。範囲外・マイナスのときは出さない） -->
+<p class="xlink" id="xKoteiP" hidden><a class="k-link" id="xKotei" href="https://kotei.kkpwebninja.com/">本命の月々を毎月の固定費に足して見る</a></p>
 
 <p class="lead">本命と夢枠の2台を選ぶと、<b>3年乗って売ったときの「月々の実質負担」</b>を比べられます。</p>
 <!-- 2026-11-23 2台をここで選べば上の金額がすぐ変わる（下のカードの車種と連動。夢枠のカードまで下がらなくてよい） -->
@@ -739,6 +742,9 @@ function compare3y(car, opt, rates, todayStr) {
     $('sumB').innerHTML = yen(rb.perMonth) + negNote(rb.perMonth);
     $('sumD').textContent = Math.abs(d) < 1 ? 'ほぼ同じ' : yen(Math.abs(d));
     $('sumW').textContent = Math.abs(d) < 1 ? '' : (d > 0 ? '（夢枠が多い）' : '（本命が多い）');
+    const carM = Math.round(ra.perMonth);
+    $('xKoteiP').hidden = !(carM >= 1 && carM <= 1000000);
+    $('xKotei').href = 'https://kotei.kkpwebninja.com/?car=' + carM;
     $('commonNow').textContent = 'いまの条件：頭金 ' + (A.opt.down / 10000).toLocaleString('ja-JP') + '万円・年' + A.opt.ratePct + '%・' + months + '回・月' + A.opt.kmPerMonth.toLocaleString('ja-JP') + 'km・駐車場 ' + yen(A.opt.parkingMonth);
     $('resaleExample').textContent = '本命（' + A.car.name + '）の例：' + yen(A.opt.price) + ' × ' + A.opt.resalePct.toFixed(1) + '% ＝ ' + manYen(ra.resale) + '。36か月で割った ' + yen(ra.resale / 36) + ' が、月々の負担から引かれます。';
 
@@ -924,6 +930,9 @@ function compare3y(car, opt, rates, todayStr) {
   });
   $('cnLink').addEventListener('click', () => {
     if (typeof gtag === 'function') gtag('event', 'cn_click', { page: 'top' });
+  });
+  $('xKotei').addEventListener('click', () => {
+    if (typeof gtag === 'function') gtag('event', 'xlink_kotei', { from: 'car' });
   });
 })();
 </script>
