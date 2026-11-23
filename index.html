@@ -4,6 +4,29 @@
 <meta charset="UTF-8">
 <meta name="msvalidate.01" content="EF6E7C7B123A3218DAE3B152F5B0764D" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  受け取れるURL引数（2026-11-23）。不正な値・範囲外の値は黙って無視して、ふだんの初期値を使う。
+  引数があればそれを優先し、無ければ前回の入力（localStorage。失敗しても動く）、それも無ければ初期値（ノア→アルファード）。
+  ■ トップ /（localStorage: car_top）
+    a, b        車種ID（data/cars.json の id。例 ?a=yaris&b=harrier）
+    pa, pb      価格（円・10万〜5億）
+    ra, rb      3年後に売れる割合（%・その車のガリバーの幅の中だけ）
+    ia, ib      任意保険（円/月・0〜100万）
+    down        頭金（万円・0〜1万）   rate  ローン金利（年%・0〜20）
+    months      ローン回数（12/24/36/48/60/72/84/96/120）
+    km          月に走る距離（km・0〜10万）   parking  駐車場代（円/月・0〜100万）
+  ■ /shaken/（localStorage: car_shaken）
+    est, sale, opt, sale2  見積額・今の売値・急がない整備・通したあとの売値（万円・0〜1万）
+    yrs   あと何年（1/2/4）   kind  futsu/kei   year  初度登録の年（選べる年だけ）
+    weight 1/1.5/2/2.5/3      cc  1000/1500/2000/2500/3000/3500/4000/4500/6000/99999   eco  1
+  ■ /drive/（localStorage: car_drive）
+    km    片道の距離（km・0〜2万）   trip  1=片道/2=往復   times  回数（1〜400）
+    car   車種ID（data/drive_cars.json・cars.json の id）   kmpl  燃費（1〜100）   price  1L/1kWhの値段（1〜1000）
+    fuel  gasoline_regular/gasoline_premium/diesel/electric
+    toll  高速代（円）   people  人数（1〜50）   nd  1=運転する人は払わない
+    car2, kmpl2, price2, fuel2  比べる車（どれかがあれば「もう1台と比べる」を開く）
+  GA4: compare_run / shaken_run / drive_run に via（url=引数で来た・saved=前回の入力・example=例ボタン・pick=上の車選び・form=入力欄・default=初期値）
+-->
 
 <title>車の維持費シミュレーション｜ローン込みの月々と売却額で2台比較【2026年】</title>
 <meta name="description" content="車の維持費シミュレーション。車種を選ぶと、ローン込みの月々の支払いと維持費、3年後に売れる額まで入れた「月々の実質負担」を2台並べて比べられます。価格と諸元はメーカー公式、税は総務省・財務省、残価率はガリバーの買取実績の幅から計算。無料・登録不要。">
@@ -261,6 +284,13 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 .bk-ku a{font-weight:800;color:var(--k-sumi)}
 </style>
 <!-- kkp-rel-d4:end -->
+<style id="pick-1123">.pick{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.4rem 0 .8rem}
+@media(min-width:720px){.pick{display:none}}
+.pick label{display:block;min-width:0}.pick span{display:block;font-size:.875rem;font-weight:800}
+.pick .pa{color:var(--orange-deep)}.pick .pb{color:var(--pink-deep)}
+.pick select{min-height:44px;font-size:16px;padding-right:1.4rem;text-overflow:ellipsis}
+.restored{margin:-.3rem 0 .8rem;font-size:.875rem;color:var(--ink-soft)}
+.restored button{min-height:44px;margin-left:.3rem;font:inherit;font-size:.875rem;color:#1a6fc4;background:none;border:0;text-decoration:underline;cursor:pointer;padding:0 .2rem}</style>
 <style id="price-in-110">.price-in{margin:.4rem 0 .2rem}.price-in input{width:100%;min-height:44px;font-size:16px}</style>
 </head>
 <body class="k-page">
@@ -278,6 +308,12 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
 </div>
 
 <p class="lead">本命と夢枠の2台を選ぶと、<b>3年乗って売ったときの「月々の実質負担」</b>を比べられます。</p>
+<!-- 2026-11-23 2台をここで選べば上の金額がすぐ変わる（下のカードの車種と連動。夢枠のカードまで下がらなくてよい） -->
+<div class="pick" id="pick">
+  <label><span class="pa">本命</span><select id="pick-a" aria-label="本命の車種"></select></label>
+  <label><span class="pb">夢枠</span><select id="pick-b" aria-label="夢枠の車種"></select></label>
+</div>
+<p class="restored" id="restored" hidden>前回の車と条件で計算しています。<button type="button" id="resetBtn">はじめの例に戻す</button></p>
 
 <div class="cards">
   <section class="card a" aria-label="本命">
@@ -359,13 +395,12 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
   <div class="breakdown"><details><summary>3年間の内訳を見る</summary><div id="breakdown"></div></details></div>
 </section>
 </div><!-- /.tool -->
-<p class="updated">出典：価格・諸元はメーカー公式、税は官公庁、売れる割合はガリバーの買取実績。<br>公開 2026-09-14／更新 <time id="pageUpdated" datetime="2026-11-05">2026-11-05</time>／数字の確認日 <span id="checkedTop"></span></p>
 
 <!-- 今の車の売却（2026-09-25・MOTA公式 https://autoc-one.jp/ullo/ で確認。表現はMOTAのクリエイティブチェックリストVer.5.0に合わせる: R13注釈・R17「入札」・R29頭金充当）。
      A8提携前は公式への通常リンク。提携後は MOTA_A8 に <a>…</a><img> を入れて PR 付きに差し替える -->
 <div class="sell" id="sell">
   <p class="pr-tag">PR・この欄は広告を含みます</p>
-  <p class="sell-h">今の車を売って乗り換えるなら</p>
+  <p class="sell-h" id="sellH">今の車を売って乗り換えるなら</p>
   <p>今の車を売ったお金は、新しい車の頭金に充てられます。上の「細かく直す」で頭金に入れると、月々の実質負担に反映されます。いくらで売れるかは、買取店の査定で確かめるのが確実です。</p>
   <p>たとえばMOTA車買取は、最大20社の買取店がWeb上で入札し、やり取りするのは高額査定の上位最大3社です。概算の査定額は最短3時間後に分かります。</p>
   <p class="sell-link" id="sellLink"><a href="https://autoc-one.jp/ullo/" target="_blank" rel="noopener">MOTA車買取の公式サイト</a></p>
@@ -379,6 +414,7 @@ h2{background:none;border:0;border-bottom:var(--k-bw-s) solid var(--k-sumi);bord
     <p class="note" style="margin:.2rem 0 0">※申し込みには電話番号が要ります。（カーネクスト公式サイトの記載・2026年11月1日確認）</p>
   </div>
 </div>
+<p class="updated">出典：価格・諸元はメーカー公式、税は官公庁、売れる割合はガリバーの買取実績。<br>公開 2026-09-14／更新 <time id="pageUpdated" datetime="2026-11-05">2026-11-05</time>／数字の確認日 <span id="checkedTop"></span></p>
 
 <div class="kkp-ad">
   <div class="kkp-ad-label">広告</div>
@@ -563,7 +599,7 @@ function compare3y(car, opt, rates, todayStr) {
   'use strict';
   const MAKER_ORDER = ['トヨタ','レクサス','ホンダ','スバル','スズキ','メルセデスＡＭＧ'];
   const REQUIRED = ['id','name','maker','grade','powertrain','fuel','price_yen','displacement_cc','wltc_km_l','weight_kg','weight_tax','resale3y_min','resale3y_max','sources'];
-  const S = { cars: [], byId: {}, rates: null, meta: null, last: {} };
+  const S = { cars: [], byId: {}, rates: null, meta: null, last: {}, via: 'default' };
   const $ = id => document.getElementById(id);
   const yen = n => Math.round(n).toLocaleString('ja-JP') + '円';
   const manYen = n => (Math.round(n / 1000) / 10).toLocaleString('ja-JP', {minimumFractionDigits:1, maximumFractionDigits:1}) + '万円';
@@ -601,6 +637,7 @@ function compare3y(car, opt, rates, todayStr) {
   function setCar(side, id, keepSliders){
     const c = S.byId[id]; if (!c) return;
     $('car-' + side).value = id;
+    $('pick-' + side).value = id;
     $('grade-' + side).innerHTML = esc(c.grade) + '<br>' + esc(c.powertrain) + '・' + esc(c.fuel) + '・WLTC ' + c.wltc_km_l + 'km/L・' + c.weight_kg.toLocaleString() + 'kg・' + c.displacement_cc.toLocaleString() + 'cc';
     const hv = $('hv-' + side);
     hv.hidden = !c.notes.length; hv.textContent = c.notes.join(' ');
@@ -725,8 +762,52 @@ function compare3y(car, opt, rates, todayStr) {
       '</tbody></table>' +
       '<p class="note">燃料代＝月の距離÷WLTC燃費×単価。自賠責は購入日が' + (today >= '2026-11-01' ? '2026年11月1日以降の料金' : '2026年10月31日までの料金') + 'で計算しています。</p>';
 
+    $('sellH').textContent = A.car.name + 'や' + B.car.name + 'に乗り換えるなら、今の車の売値から';
+
     try { history.replaceState(null, '', '?a=' + encodeURIComponent(A.car.id) + '&b=' + encodeURIComponent(B.car.id)); } catch (e) {}
+    if (S.via !== 'default') saveInputs();
     scheduleTrack(A.car.id, B.car.id);
+  }
+
+  // ===== URL引数と前回の入力（一覧は <head> 先頭のコメント）。不正な値は無視する =====
+  const STORE_KEY = 'car_top';
+  const KEYS = ['a', 'b', 'pa', 'pb', 'ra', 'rb', 'ia', 'ib', 'down', 'rate', 'months', 'km', 'parking'];
+  const COMMON = { down: [0, 10000], rate: [0, 20], km: [0, 100000], parking: [0, 1000000] };
+  function okNum(v, lo, hi){
+    if (v === null || v === undefined || String(v).trim() === '') return null;
+    const n = Number(v);
+    return isFinite(n) && n >= lo && n <= hi ? n : null;
+  }
+  function loadSaved(){
+    try { const o = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); return o && typeof o === 'object' ? o : null; } catch (e) { return null; }
+  }
+  function saveInputs(){
+    const o = {
+      a: $('car-a').value, b: $('car-b').value,
+      pa: $('pricein-a').value, pb: $('pricein-b').value,
+      ra: $('resale-a').value, rb: $('resale-b').value,
+      ia: $('ins-a').value, ib: $('ins-b').value,
+      down: $('down').value, rate: $('rate').value, months: $('months').value, km: $('km').value, parking: $('parking').value
+    };
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(o)); } catch (e) {}
+  }
+  // get(k) は文字列か null を返す。車種を決めたあとで呼ぶ
+  function applyInputs(get){
+    ['a', 'b'].forEach(side => {
+      const c = S.byId[$('car-' + side).value];
+      const p = okNum(get('p' + side), 100000, 500000000);
+      if (p !== null) { $('pricein-' + side).value = Math.round(p); $('price-' + side).value = Math.round(p); }
+      const r = okNum(get('r' + side), c.resale3y_min, c.resale3y_max);
+      if (r !== null && !$('resale-' + side).disabled) $('resale-' + side).value = Math.round(r * 10) / 10;
+      const i = okNum(get('i' + side), 0, 1000000);
+      if (i !== null) $('ins-' + side).value = Math.round(i);
+    });
+    Object.keys(COMMON).forEach(k => {
+      const v = okNum(get(k), COMMON[k][0], COMMON[k][1]);
+      if (v !== null) $(k).value = v;
+    });
+    const m = get('months');
+    if (m !== null && Array.prototype.some.call($('months').options, o => o.value === String(m))) $('months').value = String(m);
   }
 
   let trackTimer = null, lastTracked = '';
@@ -736,7 +817,7 @@ function compare3y(car, opt, rates, todayStr) {
       const key = a + '|' + b;
       if (key === lastTracked) return;
       lastTracked = key;
-      if (typeof gtag === 'function') gtag('event', 'compare_run', { a: a, b: b });
+      if (typeof gtag === 'function') gtag('event', 'compare_run', { a: a, b: b, via: S.via });
     }, 1500);
   }
 
@@ -776,35 +857,57 @@ function compare3y(car, opt, rates, todayStr) {
         return ok;
       });
       S.cars.forEach(c => { S.byId[c.id] = c; });
-      fillSelect($('car-a')); fillSelect($('car-b'));
+      fillSelect($('car-a')); fillSelect($('car-b')); fillSelect($('pick-a')); fillSelect($('pick-b'));
       const q = new URLSearchParams(location.search);
-      // 初期値は「少し背伸び」の組み合わせ（ノア→アルファード・差が月3万円ほど）。URL に車種があればそちらを使う
-      const a = S.byId[q.get('a')] ? q.get('a') : 'noah';
-      const b = S.byId[q.get('b')] ? q.get('b') : 'alphard';
+      // URL引数 → 前回の入力 → 初期値の順。初期値は「少し背伸び」の組み合わせ（ノア→アルファード・差が月3万円ほど）
+      // 引数にない項目は前回の入力で補う（再読み込みで ?a=&b= だけ残っても条件が消えない）。価格・割合・保険は同じ車のときだけ
+      const fromUrl = KEYS.some(k => q.get(k) !== null);
+      const saved = loadSaved();
+      const fromSaved = k => {
+        if (!saved || saved[k] === undefined || saved[k] === null) return null;
+        const side = /^[pri]([ab])$/.exec(k);
+        if (side && saved[side[1]] !== $('car-' + side[1]).value) return null;
+        return String(saved[k]);
+      };
+      const get = k => (q.get(k) !== null ? q.get(k) : fromSaved(k));
+      const a = S.byId[get('a')] ? get('a') : 'noah';
+      const b = S.byId[get('b')] ? get('b') : 'alphard';
       setCar('a', a); setCar('b', b);
+      applyInputs(get);
+      S.via = fromUrl ? 'url' : saved ? 'saved' : 'default';
+      $('restored').hidden = S.via !== 'saved';
       renderRates();
       render();
 
+      // 利用者が触ったら via を付け替えて再計算（前回の入力として覚える）
+      const byForm = () => { S.via = 'form'; render(); };
       ['a', 'b'].forEach(side => {
-        $('car-' + side).addEventListener('change', e => {
-          setCar(side, e.target.value);
-          if (typeof gtag === 'function') gtag('event', 'car_change', { side: side, car: e.target.value });
-          render();
+        ['car-', 'pick-'].forEach(pre => {
+          $(pre + side).addEventListener('change', e => {
+            setCar(side, e.target.value);
+            if (typeof gtag === 'function') gtag('event', 'car_change', { side: side, car: e.target.value });
+            S.via = pre === 'pick-' ? 'pick' : 'form';
+            render();
+          });
         });
         // 110: スライダーと数字の欄を連動（数字の欄は1円単位で見積書の額をそのまま入れられる）
-        $('price-' + side).addEventListener('input', e => { $('pricein-' + side).value = e.target.value; render(); });
+        $('price-' + side).addEventListener('input', e => { $('pricein-' + side).value = e.target.value; byForm(); });
         $('pricein-' + side).addEventListener('input', e => {
           const v = parseFloat(e.target.value);
           if (v > 0) $('price-' + side).value = v;
-          render();
+          byForm();
         });
-        $('resale-' + side).addEventListener('input', render);
+        $('resale-' + side).addEventListener('input', byForm);
         $('resale-' + side).addEventListener('change', e => {
           if (typeof gtag === 'function') gtag('event', 'resale_slide', { side: side, car: $('car-' + side).value, pct: parseFloat(e.target.value) });
         });
-        $('ins-' + side).addEventListener('input', render);
+        $('ins-' + side).addEventListener('input', byForm);
       });
-      ['down', 'rate', 'months', 'km', 'parking'].forEach(id => $(id).addEventListener('input', render));
+      ['down', 'rate', 'months', 'km', 'parking'].forEach(id => $(id).addEventListener('input', byForm));
+      $('resetBtn').addEventListener('click', () => {
+        try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+        location.replace(location.pathname);
+      });
       $('commonBox').addEventListener('toggle', e => {
         if (e.target.open && typeof gtag === 'function') gtag('event', 'common_open');
       });

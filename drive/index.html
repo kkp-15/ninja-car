@@ -307,11 +307,6 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   <button type="button" class="mapbtn" id="copyBtn" hidden>結果をコピー（LINEなどに貼れる）</button>
 </section>
 
-<div class="next" id="next" hidden>
-  <p id="nextText">燃料代を下げたいなら、燃費のよい車との差を「もう1台と比べる」で見られます。</p>
-  <p><a href="/shaken/">車検を通す？売る？判定</a> — 今の車の車検が近いなら、見積額と売値で判定します。</p>
-  <p><a href="/">車の維持費シミュレーション</a> — 乗りかえ先の月々（ローン・税・保険・ガソリン）を2台で比べます。</p>
-</div>
 <!-- 今の車の売却（2026-09-25・MOTA公式 https://autoc-one.jp/ullo/ で確認。表現はMOTAのクリエイティブチェックリストVer.5.0に合わせる: R13注釈・R17「入札」）。
      トップ（/）・/shaken/ と同じ文面。A8提携前は公式への通常リンク。提携後は <a>…</a><img> に差し替えて PR 表記を付ける。
      2台を比べて、乗りかえ先のほうが燃料代が安いときだけ出す（乗りかえを考えている場面だけ） -->
@@ -332,6 +327,11 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
   </div>
 </div>
 
+<div class="next" id="next" hidden>
+  <p id="nextText">燃料代を下げたいなら、燃費のよい車との差を「もう1台と比べる」で見られます。</p>
+  <p><a href="/shaken/">車検を通す？売る？判定</a> — 今の車の車検が近いなら、見積額と売値で判定します。</p>
+  <p><a href="/">車の維持費シミュレーション</a> — 乗りかえ先の月々（ローン・税・保険・ガソリン）を2台で比べます。</p>
+</div>
 <div class="kkp-ad">
   <div class="kkp-ad-label">広告</div>
   <ins class="adsbygoogle" style="display:block"
@@ -515,6 +515,52 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     return { l: l, fuel: l * price };
   }
 
+  // ===== URL引数と前回の入力（一覧はトップ / の index.html 先頭のコメント）。不正な値は無視する =====
+  var STORE_KEY = 'car_drive', via = 'default', SRC = null;
+  var FUELS = ['gasoline_regular', 'gasoline_premium', 'diesel', 'electric'];
+  var LIM = { km: [0, 20000], times: [1, 400], toll: [0, 1000000], people: [1, 50], kmpl: [1, 100], kmpl2: [1, 100], price: [1, 1000], price2: [1, 1000] };
+  function okNum(k, v){
+    if (v === null || v === undefined || String(v).trim() === '') return null;
+    var n = Number(v);
+    return isFinite(n) && n >= LIM[k][0] && n <= LIM[k][1] ? n : null;
+  }
+  function setNum(k){ var v = okNum(k, SRC(k)); if (v !== null) $(k).value = v; return v !== null; }
+  // 車を選ばない入力（車の一覧を読む前に入れる）
+  function initInputs(){
+    var q = new URLSearchParams(location.search), keys = ['km','trip','times','toll','people','nd','car','kmpl','price','fuel','car2','kmpl2','price2','fuel2'];
+    var saved = null;
+    if (keys.some(function(k){ return q.get(k) !== null; })) { SRC = function(k){ return q.get(k); }; via = 'url'; }
+    else {
+      try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (e) { saved = null; }
+      if (!saved || typeof saved !== 'object') return;
+      SRC = function(k){ return saved[k] === undefined || saved[k] === null ? null : String(saved[k]); }; via = 'saved';
+    }
+    ['km', 'toll', 'times', 'people'].forEach(setNum);
+    var t = SRC('trip'); if (t === '1' || t === '2') { trip = +t; pressSeg($('trip'), trip); }
+    if (SRC('nd') === '1') $('noDriver').checked = true;
+    if (SRC('toll') !== null || SRC('nd') === '1' || +$('times').value > 1 || +$('people').value > 1) $('extra').open = true;
+    if (SRC('car2') !== null || SRC('kmpl2') !== null || SRC('price2') !== null || SRC('fuel2') !== null) { $('cmp').checked = true; $('car2Box').hidden = false; }
+    applyCarSide(1);
+    applyCarSide(2);
+  }
+  // 油の種類・燃費・値段。車の一覧を読んだあとにも呼ぶ（車を選ぶと燃費が入るので、引数の燃費・値段で上書きする）
+  function applyCarSide(n){
+    if (!SRC) return;
+    var sfx = n === 2 ? '2' : '';
+    var id = SRC('car' + sfx);
+    if (id && CARS.some(function(c){ return c.id === id; })) { $('car' + sfx).value = id; pickCar(n); }
+    var f = SRC('fuel' + sfx); if (FUELS.indexOf(f) >= 0) setFuel(n, f);
+    setNum('kmpl' + sfx);
+    if (setNum('price' + sfx)) { if (n === 2) price2Touched = true; else priceTouched = true; }
+  }
+  function saveInputs(){
+    if (via === 'default' || via === 'example' || $('km').value.trim() === '') return;
+    var o = { km: $('km').value, trip: String(trip), times: $('times').value, toll: $('toll').value, people: $('people').value, nd: $('noDriver').checked ? '1' : '',
+      car: $('car').value, kmpl: $('kmpl').value, fuel: fuel, price: priceTouched ? $('price').value : '' };
+    if ($('cmp').checked) { o.car2 = $('car2').value; o.kmpl2 = $('kmpl2').value; o.fuel2 = fuel2; o.price2 = price2Touched ? $('price2').value : ''; }
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(o)); } catch (e) {}
+  }
+
   var lastKey = '', copyText = '';
   function run(){
     var d = val('km'), k1 = val('kmpl'), p1 = val('price');
@@ -594,8 +640,9 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     $('sell').hidden = !switching;
     $('nextText').textContent = switching ? '乗りかえると燃料代はこう変わります。車の値段・税・保険まで含めると、月々の差は下で比べられます。' : '燃料代を下げたいなら、燃費のよい車との差を「もう1台と比べる」で見られます。';
     var key = [trip, times > 1, cmp, people > 1, !!toll].join('-');
-    if (key !== lastKey && typeof gtag === 'function') gtag('event', 'drive_run', { trip: trip, multi: times > 1 ? 1 : 0, compare: b ? 1 : 0, people: people, toll: toll ? 1 : 0, dist: Math.round(dist) });
+    if (key !== lastKey && typeof gtag === 'function') gtag('event', 'drive_run', { trip: trip, multi: times > 1 ? 1 : 0, compare: b ? 1 : 0, people: people, toll: toll ? 1 : 0, dist: Math.round(dist), via: via });
     lastKey = key;
+    saveInputs();
   }
 
   // 早見表
@@ -611,25 +658,27 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     $('srcFuel').textContent = PRICE_AT + '時点（レギュラー' + PRICE.gasoline_regular + '円・ハイオク' + PRICE.gasoline_premium + '円・軽油' + PRICE.diesel + '円）。';
   }
 
+  function byForm(){ via = 'form'; run(); }
   $('trip').addEventListener('click', function(e){
     var b = e.target.closest('button'); if (!b) return;
-    trip = +b.dataset.v; pressSeg(this, trip); run();
+    trip = +b.dataset.v; pressSeg(this, trip); byForm();
   });
-  $('fuel').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) { setFuel(1, b.dataset.v); run(); } });
-  $('fuel2').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) { setFuel(2, b.dataset.v); run(); } });
+  $('fuel').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) { setFuel(1, b.dataset.v); byForm(); } });
+  $('fuel2').addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) { setFuel(2, b.dataset.v); byForm(); } });
   $('price').addEventListener('input', function(){ priceTouched = true; });
   $('price2').addEventListener('input', function(){ price2Touched = true; });
-  $('car').addEventListener('change', function(){ pickCar(1); run(); });
-  $('car2').addEventListener('change', function(){ pickCar(2); run(); });
-  $('cmp').addEventListener('change', function(){ $('car2Box').hidden = !this.checked; run(); });
-  ['km','kmpl','price','toll','people','times','kmpl2','price2'].forEach(function(id){ $(id).addEventListener('input', run); });
-  $('noDriver').addEventListener('change', run);
+  $('car').addEventListener('change', function(){ pickCar(1); byForm(); });
+  $('car2').addEventListener('change', function(){ pickCar(2); byForm(); });
+  $('cmp').addEventListener('change', function(){ $('car2Box').hidden = !this.checked; byForm(); });
+  ['km','kmpl','price','toll','people','times','kmpl2','price2'].forEach(function(id){ $(id).addEventListener('input', byForm); });
+  $('noDriver').addEventListener('change', byForm);
   document.querySelectorAll('.ex button').forEach(function(b){
     b.addEventListener('click', function(){
       $('km').value = b.dataset.km;
       trip = +b.dataset.trip; pressSeg($('trip'), trip);
       $('times').value = b.dataset.times || 1;
       if (b.dataset.times) $('extra').open = true;
+      via = 'example';
       run();
       $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
       if (typeof gtag === 'function') gtag('event', 'drive_example', { km: b.dataset.km });
@@ -656,7 +705,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     if (typeof gtag === 'function') gtag('event', 'sell_click', { page: 'drive' });
   });
 
-  setFuel(1, fuel); setFuel(2, fuel2); hayami(); run();
+  setFuel(1, fuel); setFuel(2, fuel2); hayami(); initInputs(); run();
   Promise.all([
     fetch('/data/public_rates.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
     fetch('/data/cars.json', { cache: 'no-cache' }).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }),
@@ -672,6 +721,7 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     if (cars) {
       CARS = (pop ? pop.cars.map(function(c){ c.popular = true; return c; }) : []).concat(cars.cars || cars);
       carOptions();
+      applyCarSide(1); applyCarSide(2);
       if (cars._meta && cars._meta.checked) { var c = cars._meta.checked.split('-'); $('srcCar').textContent = c[0] + '年' + (+c[1]) + '月' + (+c[2]) + '日確認。'; }
     }
     run();

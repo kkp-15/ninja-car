@@ -553,6 +553,48 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     return now >= JIBA_FROM ? t.now : t.old;
   }
 
+  // ===== URL引数と前回の入力（一覧はトップ / の index.html 先頭のコメント）。不正な値は無視する =====
+  var STORE_KEY = 'car_shaken', via = 'default';
+  var NUMS = ['est', 'sale', 'opt', 'sale2'];
+  function okMan(v){
+    if (v === null || v === undefined || String(v).trim() === '') return null;
+    var n = Number(v);
+    return isFinite(n) && n >= 0 && n <= 10000 ? n : null;
+  }
+  function hasOpt(sel, v){ return Array.prototype.some.call(sel.options, function(o){ return o.value === String(v); }); }
+  function setKind(v){
+    kind = v;
+    $('kind').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.v === v ? 'true' : 'false'); });
+    $('weightWrap').hidden = kind === 'kei';
+    $('ccWrap').hidden = kind === 'kei';
+  }
+  function setYrs(v){
+    yrs = v;
+    $('yrs').querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', String(+x.dataset.v === yrs)); });
+  }
+  function applyInputs(get){
+    NUMS.forEach(function(k){ var v = okMan(get(k)); if (v !== null) $(k).value = v; });
+    var k = get('kind'); if (k === 'futsu' || k === 'kei') setKind(k);
+    var y = get('yrs'); if (y === '1' || y === '2' || y === '4') setYrs(+y);
+    ['year', 'weight', 'cc'].forEach(function(id){ var v = get(id); if (v !== null && hasOpt($(id), v)) $(id).value = String(v); });
+    if (get('eco') === '1') $('eco').checked = true;
+    if (okMan(get('sale2')) !== null) $('later').open = true;
+  }
+  function saveInputs(){
+    if (via === 'default' || via === 'example' || $('est').value.trim() === '') return;
+    var o = { kind: kind, yrs: String(yrs), year: $('year').value, weight: $('weight').value, cc: $('cc').value, eco: $('eco').checked ? '1' : '' };
+    NUMS.forEach(function(k){ o[k] = $(k).value; });
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(o)); } catch (e) {}
+  }
+  (function(){
+    var q = new URLSearchParams(location.search), keys = NUMS.concat(['kind', 'yrs', 'year', 'weight', 'cc', 'eco']);
+    var fromUrl = keys.some(function(k){ return q.get(k) !== null; }), saved = null;
+    if (!fromUrl) { try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); } catch (e) { saved = null; } }
+    if (saved && typeof saved !== 'object') saved = null;
+    if (fromUrl) { applyInputs(function(k){ return q.get(k); }); via = 'url'; }
+    else if (saved) { applyInputs(function(k){ return saved[k] === undefined || saved[k] === null ? null : String(saved[k]); }); via = 'saved'; }
+  })();
+
   var lastVerdict = '';
   function run(){
     var regYear = +$('year').value;
@@ -642,12 +684,13 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
 
     // 売却の案内：「通して乗るのが自然」のときは出さない
     sell.hidden = (v === 'ok');
-    $('sellH').textContent = v === 'wait' ? '今いくらで売れるか調べるなら' : '売る方向で考えるなら';
+    $('sellH').textContent = v === 'go' ? '売るなら、売値は何社かで確かめてから' : v === 'mid' ? '迷うなら、まず今の売値を確かめる' : '今いくらで売れるか調べるなら';
     $('sellScrap').hidden = !(v === 'go' && (age >= 13 || (sale !== null && sale <= 50000)));
     $('sellCn').hidden = !$('sellScrap').hidden;
 
-    if (v !== lastVerdict && typeof gtag === 'function') gtag('event', 'shaken_run', { verdict: v, age: age, kind: kind });
+    if (v !== lastVerdict && typeof gtag === 'function') gtag('event', 'shaken_run', { verdict: v, age: age, kind: kind, via: via });
     lastVerdict = v;
+    saveInputs();
   }
 
   // 早見表
@@ -665,27 +708,24 @@ h2{font-family:var(--k-head);letter-spacing:.04em;color:var(--k-sumi);border-bot
     $('rtJibaK').textContent = yen(JIBA.kei.now);
   })();
 
+  function byForm(){ via = 'form'; run(); }
   $('yrs').addEventListener('click', function(e){
     var b = e.target.closest('button'); if (!b) return;
-    yrs = b.getAttribute('aria-pressed') === 'true' ? 0 : +b.dataset.v;
-    this.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', String(+x.dataset.v === yrs)); });
-    run();
+    setYrs(b.getAttribute('aria-pressed') === 'true' ? 0 : +b.dataset.v);
+    byForm();
   });
   $('kind').addEventListener('click', function(e){
     var b = e.target.closest('button'); if (!b) return;
-    kind = b.dataset.v;
-    this.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-    $('weightWrap').hidden = kind === 'kei';
-    $('ccWrap').hidden = kind === 'kei';
-    run();
+    setKind(b.dataset.v);
+    byForm();
   });
   ['year','weight','cc','eco','est','sale','opt','sale2'].forEach(function(id){
-    $(id).addEventListener('input', run);
-    $(id).addEventListener('change', run);
+    $(id).addEventListener('input', byForm);
+    $(id).addEventListener('change', byForm);
   });
   document.querySelectorAll('.ex button').forEach(function(b){
     b.addEventListener('click', function(){
-      $('est').value = b.dataset.est; $('sale').value = b.dataset.sale; run();
+      $('est').value = b.dataset.est; $('sale').value = b.dataset.sale; via = 'example'; run();
       $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
       if (typeof gtag === 'function') gtag('event', 'shaken_example', { est: b.dataset.est, sale: b.dataset.sale });
     });
