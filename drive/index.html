@@ -19,12 +19,17 @@
 <meta property="og:locale" content="ja_JP">
 <meta property="og:image" content="https://car.kkpwebninja.com/ogp.jpg?d=20261023b">
 <meta name="twitter:card" content="summary_large_image">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L"></script>
 <script>
+  // 本番ドメインだけで計測する（*.pages.dev に来るボットの0秒訪問で数字が崩れていたため）
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-2LM85GJN0L');
+  if (/(^|\.)kkpwebninja\.com$/.test(location.hostname)) {
+    var gs = document.createElement('script'); gs.async = true;
+    gs.src = 'https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L';
+    document.head.appendChild(gs);
+    gtag('js', new Date());
+    gtag('config', 'G-2LM85GJN0L');
+  }
 </script>
 <script async data-overlays="bottom" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1298304917726270" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
