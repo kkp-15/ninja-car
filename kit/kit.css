@@ -36,9 +36,9 @@
 
 /* ---------- ボタン（主＝木札／副／小／大） ---------- */
 .k-btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--k-bold);font-weight:400;letter-spacing:.04em;line-height:1.2;font-feature-settings:"palt" 1;text-decoration:none;cursor:pointer;transition:transform .08s,box-shadow .08s,filter .08s,background .15s;-webkit-tap-highlight-color:transparent}
-/* 主ボタン: 2026-11-09 ユーザー承認で全サイト「平らなオレンジ＋墨の枠」に統一（木目の板はやめた。10/30の配色調査・ワードウルフ等5サイトの試しを kit に取り込み）。色は --k-btn-main（既定 #f26a1b） */
+/* 主ボタン: 2026-11-24 文字を17→19pxに（白×#f26a1b は 3.06:1。WCAG/HIG の大きな太字＝3:1 を満たすため・ユーザー承認A）。2026-11-09 ユーザー承認で全サイト「平らなオレンジ＋墨の枠」に統一（木目の板はやめた。10/30の配色調査・ワードウルフ等5サイトの試しを kit に取り込み）。色は --k-btn-main（既定 #f26a1b） */
 :root{--k-btn-main:#f26a1b;--k-navy:#2b3768}
-.k-btn-main{position:relative;min-height:56px;padding:0 22px;border:3px solid var(--k-sumi);border-radius:14px;background:var(--k-btn-main);color:#fff;font-size:17px;text-shadow:0 1px 0 var(--k-sumi),1px 0 0 var(--k-sumi),0 -1px 0 var(--k-sumi),-1px 0 0 var(--k-sumi);filter:drop-shadow(4px 4px 0 var(--k-sumi));white-space:nowrap}
+.k-btn-main{position:relative;min-height:56px;padding:0 22px;border:3px solid var(--k-sumi);border-radius:14px;background:var(--k-btn-main);color:#fff;font-size:19px;text-shadow:0 1px 0 var(--k-sumi),1px 0 0 var(--k-sumi),0 -1px 0 var(--k-sumi),-1px 0 0 var(--k-sumi);filter:drop-shadow(4px 4px 0 var(--k-sumi));white-space:nowrap}
 .k-btn-main:hover,.k-btn-main:disabled,.k-btn-main[disabled]{background:var(--k-btn-main)}
 .k-btn-main::after{content:"";position:absolute;inset:0;border-radius:11px;pointer-events:none;background:linear-gradient(110deg,transparent 38%,rgba(255,255,255,.45) 50%,transparent 62%) no-repeat;background-size:260% 100%;background-position:120% 0;transition:background-position .7s ease}
 .k-btn-main:hover::after,.k-btn-main:focus-visible::after{background-position:-20% 0}
@@ -731,3 +731,102 @@ body.k-view-ov.k-idle .k-ov{visibility:hidden}   /* 待ち画面の間は中身�
 .k-map-br>a{display:flex;align-items:center;min-height:44px;padding:2px 0;border-bottom:1px dashed var(--k-line-soft);font-size:15px;line-height:1.35;overflow-wrap:anywhere}
 .k-map-br>a:last-child{border-bottom:0}
 .k-map-br>a.k-link::after{width:18px;height:12px}
+
+/* ===== 読み物の挿し絵と会話（2026-11-15）=====
+   絵は img/chara3/（一覧.md）から、使うサイトの img/ へコピーして使う。
+   .k-say  絵＋ひとこと     <div class="k-say"><img src="/img/girl-smile.webp" width="240" height="265" alt=""><p>ひとこと</p></div>
+   .k-ask  読んでいる人の声  <p class="k-ask"><span>読んでいる人</span>問い</p>（すぐ下に .k-say を置くと会話になる）
+   .k-chat 会話だけで要点が分かるまとまり（.k-ask と .k-say を交互に入れる箱）
+   .k-fig  場面の挿し絵      <figure class="k-fig"><img src="/img/scene-kinko.webp" width="760" height="425" alt="何の絵か"></figure> */
+.k-say{display:flex;align-items:flex-end;gap:10px;margin:1rem 0 1.1rem}
+.k-say img{flex:0 0 auto;width:84px;height:auto}
+.k-say p{position:relative;flex:1 1 auto;margin:0 0 10px;padding:.7rem .9rem;border:2px solid var(--k-sumi,#2b2b2b);background:#fff;font-size:16.5px;font-weight:700;line-height:1.6}
+.k-say p::before{content:"";position:absolute;left:-9px;bottom:14px;width:14px;height:14px;background:#fff;border-left:2px solid var(--k-sumi,#2b2b2b);border-bottom:2px solid var(--k-sumi,#2b2b2b);transform:rotate(45deg)}
+.k-ask{position:relative;margin:1rem 0 0 auto;max-width:86%;width:fit-content;padding:.6rem .9rem;border:2px solid #cfc6b8;background:#fff6ea;font-size:16.5px;line-height:1.6}
+.k-ask span{display:block;font-size:13px;color:#5f5f5f;margin-bottom:.1rem}
+.k-ask::after{content:"";position:absolute;right:18px;bottom:-9px;width:14px;height:14px;background:#fff6ea;border-right:2px solid #cfc6b8;border-bottom:2px solid #cfc6b8;transform:rotate(45deg)}
+.k-ask + .k-say{margin-top:.5rem}
+.k-chat{border:2px solid var(--k-sumi,#2b2b2b);background:#fffdf8;padding:.2rem .9rem .6rem;margin:1rem 0 1.2rem}
+.k-fig{margin:.6rem 0 1rem}
+.k-fig img{display:block;width:100%;height:auto;max-width:560px;border:2px solid var(--k-sumi,#2b2b2b)}
+@media(min-width:600px){.k-say img{width:104px}.k-say p{font-size:17px}}
+@media print{.k-say,.k-ask,.k-chat,.k-fig{display:none}}
+
+/* ===== 会話でわかる（砦のブログと同じ形・2026-11-15）=====
+   女の子が聞いて、柴犬の忍者（書き手）が答える。会話だけ読んでも要点が分かるように4〜5組。最後の組は、次にやること（結果・収益のページ）につなぐ。
+   <section class="k-talks"><h2>会話でわかる（1分）</h2>
+     <div class="k-talk q"><img src="/kit/img/k-ava-girl.webp" width="64" height="64" alt="" loading="lazy"><p>問い</p></div>
+     <div class="k-talk a"><img src="/kit/img/k-ava-ninja.webp" width="64" height="64" alt="" loading="lazy"><p>答え</p></div>
+   </section>  （絵は飾りなので alt は空。img のパスは、そのサイトの kit/ の場所に合わせる） */
+.k-talks{margin:1.2rem 0 1.4rem}
+.k-talk{display:flex;align-items:flex-start;gap:12px;margin:1rem 0}
+.k-talk>img{flex:none;width:64px;height:64px;border-radius:50%;display:block}
+.k-talk>p{position:relative;flex:1;min-width:0;margin:0;background:#fff;border:2px solid #e6d7bd;border-radius:14px;padding:.7rem .95rem;font-size:16px;line-height:1.75;color:#2b2b2b;text-align:left}
+.k-talk>p::before{content:"";position:absolute;top:20px;left:-9px;width:14px;height:14px;background:inherit;border-left:2px solid #e6d7bd;border-bottom:2px solid #e6d7bd;transform:rotate(45deg)}
+.k-talk.a{flex-direction:row-reverse}
+.k-talk.a>p{background:#fff6e3;border-color:#efc98a}
+.k-talk.a>p::before{left:auto;right:-9px;border:0;border-right:2px solid #efc98a;border-top:2px solid #efc98a}
+@media(max-width:420px){.k-talk>img{width:52px;height:52px}}
+@media print{.k-talks{display:none}}
+
+/* ===== アプリのような操作感（2026-11-23）=====
+   スマホで「Webページを触っている感じ」を減らす小さな決まり。見た目は変えない。
+   1) 入力欄を押しても画面が勝手に拡大しない（iOS は 16px 未満の入力欄で拡大する）
+   2) ボタンのダブルタップ拡大の待ちをなくし、押した瞬間に反応する
+   3) ボタンを長押ししても文字選択やメニューが出ない
+   4) 同じサイト内のページ移動をふわっと切り替える（対応ブラウザだけ。動きを減らす設定の人には出さない） */
+@media (pointer:coarse){
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),select,textarea{font-size:16px!important}
+}
+a,button,summary,label,select,[role=button],input[type=checkbox],input[type=radio]{touch-action:manipulation}
+button,[role=button],.k-btn{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.18s}
+}
+
+/* ===== 商品カード（アフィリエイト・2026-11-26）=====
+   すでに貼ってあるアフィリのリンクを「楽天の商品画像＋商品名＋1行＋ボタン」のカードにする。手本は砦の /block/ と年末ゲーム記事のマリオ花札。
+   約束: PR の表記を必ず出す／画像は楽天の商品画像（thumbnail.image.rakuten.co.jp・Amazon の画像は直接読まない）／値段は書かない／
+         楽天＝赤い「楽天で見る」、Amazon＝白い「Amazonで探す」（文字だけ）。クリックは kit.js が gtag('event','toride_click') を送る。
+   <aside class="k-aff" data-zone="affiliate_ito_compare">
+     <p class="k-aff-h"><span class="k-aff-pr">PR</span>見出し</p>
+     <div class="k-aff-item">
+       <a class="k-aff-img" href="楽天のリンク" target="_blank" rel="nofollow sponsored noopener" data-store="rakuten" data-item="rainbow"><img src="https://thumbnail.image.rakuten.co.jp/@0_mall/…jpg?_ex=200x200" width="88" height="88" loading="lazy" alt="商品の箱"></a>
+       <div class="k-aff-txt"><b>商品名</b><span class="k-aff-desc">1行の説明</span>
+         <div class="k-aff-btns"><a class="k-aff-rakuten" href="…" …>楽天で見る</a><a class="k-aff-amazon" href="…" …>Amazonで探す</a></div></div>
+     </div>
+   </aside> */
+.k-aff{border:1px solid #d9cbb5;border-radius:6px;padding:8px 10px 10px;margin:14px 0 18px;background:#fffdf8;color:#3d3427;text-align:left}
+.k-aff-h{display:flex;align-items:center;gap:6px;margin:0 0 4px;font-size:14px;font-weight:700;line-height:1.5;color:#4a3f37}
+.k-aff-pr{flex:none;font-size:12px;border:1px solid #8a7d6b;color:#5b5047;padding:0 4px;border-radius:3px;line-height:1.5;font-weight:400;letter-spacing:0}
+.k-aff-lead{margin:0 0 6px;font-size:14px;line-height:1.6;color:#3d3427}
+.k-aff-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px dashed #e4d8c4}
+.k-aff-h+.k-aff-item,.k-aff>.k-aff-item:first-child{border-top:0}
+.k-aff-img{flex:none;display:block;width:88px;height:88px;border-radius:4px;background:#fff;overflow:hidden;line-height:0}
+.k-aff-img img{width:100%;height:100%;object-fit:contain;display:block;margin:0;border:0}
+.k-aff-txt{flex:1;min-width:0;font-size:14px;line-height:1.5;color:#3d3427}
+.k-aff-txt b{display:block;font-size:15px;line-height:1.4;color:#2b231d}
+.k-aff-desc{display:block;font-size:14px;line-height:1.5;color:#5b5047}
+.k-aff-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.k-aff .k-aff-btns>a[href]{flex:1 1 96px;min-width:fit-content;font-family:var(--k-head);min-height:44px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:0 6px;font-size:14px;font-weight:700;line-height:1.2;border:1.5px solid #3d3427;border-radius:6px;color:#3d3427!important;background:#fff!important;text-decoration:none!important;text-decoration-line:none!important;white-space:nowrap;box-shadow:none;text-shadow:none;letter-spacing:0}
+.k-aff .k-aff-btns>a.k-aff-rakuten[href]{background:#bf0000!important;border-color:#bf0000;color:#fff!important}
+.k-aff .k-aff-btns>a[href]::after,.k-aff .k-aff-btns>a[href]::before{content:none}
+.k-aff a.k-aff-img[href]{text-decoration:none!important;border:0}
+.k-aff-note{margin:6px 0 0;font-size:14px;line-height:1.5;color:#5b5047}
+/* 比べる表の中などで1商品だけ置くとき: <div class="k-aff k-aff-solo"><div class="k-aff-item">…<b><span class="k-aff-pr">PR</span>商品名</b>… */
+.k-aff-solo{margin:8px 0 0;padding:4px 10px}
+.k-aff-solo .k-aff-item{border-top:0;padding:6px 0}
+.k-aff-txt b .k-aff-pr{display:inline-block;margin-right:6px;vertical-align:2px;font-size:12px}
+.k-aff-desc a{color:#7a4a12;text-decoration:underline}
+/* 同じ種類の商品が5つ以上並ぶときは横に流す（縦に長くしない）: <div class="k-aff-scroll"><div class="k-aff-item">…</div>…</div> */
+.k-aff-scroll{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:2px 2px 8px;margin:4px 0 0;-webkit-overflow-scrolling:touch}
+.k-aff-scroll .k-aff-item{flex:0 0 136px;flex-direction:column;align-items:stretch;gap:6px;padding:8px;border:1px solid #e4d8c4;border-radius:6px;background:#fff;scroll-snap-align:start}
+.k-aff-scroll .k-aff-img{width:100%;height:100px}
+.k-aff-scroll .k-aff-txt b{font-size:14px}
+.k-aff-scroll .k-aff-desc{font-size:14px;line-height:1.4}
+.k-aff-scroll .k-aff-btns{flex-direction:column}
+.k-aff .k-aff-scroll .k-aff-btns>a[href]{flex:none;min-width:0}
+.k-aff-hint{margin:0;font-size:14px;color:#5b5047}
+@media (max-width:360px){.k-aff-img{width:72px;height:72px}}
+@media print{.k-aff{display:none}}
