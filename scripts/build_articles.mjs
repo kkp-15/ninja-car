@@ -312,6 +312,8 @@ ${faq.map(([q, a]) => `  <details><summary>${esc(q)}</summary><p>${esc(a)}</p></
 
 <p style="text-align:center"><a class="cta" href="${toolUrl}" data-cta="${SLUG}" data-a="${pair[0].id}" data-b="${pair[1].id}">車2台の月々の実質負担を比べる</a></p>
 
+<div style="margin:2rem 0 0"><div class="k-map"><div class="k-map-core"><span>車とお金</span></div><div class="k-map-b"><div class="k-map-br"><p class="k-map-h">車の次の一手</p><a class="k-link" href="/shaken/">車検を通す？売る？判定</a><a class="k-link" href="/drive/">ドライブのガソリン代計算</a><a class="k-link" href="https://ensei.kkpwebninja.com/">遠征費計算ツール</a></div><div class="k-map-br"><p class="k-map-h">毎月の支払い</p><a class="k-link" href="https://kotei.kkpwebninja.com/">固定費の砦</a><a class="k-link" href="https://kkpwebninja.com/hoken-tsumitate/">保険と積立をくらべる</a><a class="k-link" href="https://rentbuy.kkpwebninja.com/">借りる？買う？判定</a></div><div class="k-map-br"><p class="k-map-h">これからのお金</p><a class="k-link" href="https://3warizan.kkpwebninja.com/">お金持ちの3つの割り算</a><a class="k-link" href="https://nenkin-sim.kkpwebninja.com/">年金計算サイト</a><a class="k-link" href="https://kkpwebninja.com/blog/book/okane-no-daigaku-5nen">『お金の大学』を5年実践した感想</a></div><div class="k-map-br"><p class="k-map-h">税金</p><a class="k-link" href="https://kkpwebninja.com/furusato/">ふるさと納税の上限額</a><a class="k-link" href="https://kkpwebninja.com/money/">お金の道具の一覧</a></div></div></div></div>
+
 <!-- WEBNINJA_UNIFIED_FOOTER -->
 <footer style="text-align:center;padding:2rem 1rem 2.5rem;font-size:.875rem;color:#607490;line-height:2;border-top:1px solid #f0e6d2;margin-top:1.6rem;background:#fffcf7;">
   <div style="font-weight:800;color:#8b6b3d;font-size:.875rem;margin-bottom:0.4rem;">web忍者の砦</div>
